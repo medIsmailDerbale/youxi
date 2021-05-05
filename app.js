@@ -5,6 +5,7 @@ const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
 const userRouter = require("./routes/userRoutes");
 const productsRouter = require("./routes/productRoutes");
+const categoriesRouter = require("./routes/categoryRoutes");
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(express.json({ limit: "10kb" }));
 // 2) routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productsRouter);
+app.use("/api/v1/categories", categoriesRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
