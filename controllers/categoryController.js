@@ -13,7 +13,7 @@ const addProduct = catchAsync(async (req, res, next) => {
   if (!category.subCategory)
     return next(
       new AppError(
-        "you cant add a product to a category please tru again with a sub category",
+        "you cant add a product to a category please try again with a sub category",
         400
       )
     );
