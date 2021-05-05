@@ -5,11 +5,10 @@ const catchAsync = require("../utils/catchAsync");
 const User = require("../models/userModel");
 const AppError = require("../utils/appError");
 
-const signToken = (id1) => {
-  return jwt.sign({ _id: id1 }, process.env.JWT_SECRET, {
+const signToken = (id1) =>
+  jwt.sign({ _id: id1 }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
-};
 
 const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
@@ -19,7 +18,7 @@ const createSendToken = (user, statusCode, res) => {
     ),
     httpOnly: true,
   };
-  if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+  // if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
   res.cookie("jwt", token, cookieOptions);
 
@@ -73,14 +72,14 @@ exports.protect = catchAsync(async (req, res, next) => {
   // 3) check if user still exists
   const freshUser = await User.findById(decoded._id);
   if (!freshUser) {
-    return next(new AppError("The use does no longer exists", 401));
+    return next(new AppError("The user does no longer exists", 401));
   }
   // 4) check if user changed password after the token was issued
-  if (freshUser.changedPasswordAfter(decoded.iat)) {
-    return next(
-      new AppError("User recently changed password Please login again", 401)
-    );
-  }
+  // if (freshUser.changedPasswordAfter(decoded.iat)) {
+  //   return next(
+  //     new AppError("User recently changed password Please login again", 401)
+  //   );
+  // }
   //grant access to protected routes
   req.user = freshUser;
   next();
@@ -95,3 +94,13 @@ exports.restrictTo = function (...roles) {
     next();
   };
 };
+
+exports.signup = catchAsync(async (req, res, next) => {
+  const newUser = await User.create({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+    passwordConfirm: req.body.passwordConfirm,
+  });
+  createSendToken(newUser, 201, res);
+});

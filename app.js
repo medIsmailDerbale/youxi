@@ -3,6 +3,8 @@ const morgan = require("morgan");
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
+const userRouter = require("./routes/userRoutes");
+const productsRouter = require("./routes/productRoutes");
 
 const app = express();
 
@@ -15,8 +17,8 @@ app.use(express.json({ limit: "10kb" }));
 // app.use(express.static(`${__dirname}/"static folder name"`));
 
 // 2) routes
-app.use("/api/v1/users", userRoute);
-app.use("/api/v1/products", productsRoute);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/products", productsRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));

@@ -61,6 +61,7 @@ module.exports = (err, req, res, next) => {
   err.status = err.status || "error";
 
   if (process.env.NODE_ENV === "production") {
+    // eslint-disable-next-line node/no-unsupported-features/es-syntax
     let error = { ...err };
 
     if (error._message === "Validation failed")
@@ -74,8 +75,6 @@ module.exports = (err, req, res, next) => {
     if (error.name === "TokenExpiredError")
       error = handleExpiredTokenError(error);
     // send error
-    sendErrorProduction(error, res);
-  } else if (process.env.NODE_ENV === "development") {
     sendErrorDev(err, res);
   }
 };
