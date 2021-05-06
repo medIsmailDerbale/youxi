@@ -7,5 +7,11 @@ const router = express.Router();
 
 
 router.get('/', viewsController.getOverview);
+router.get('/login', viewsController.getLoginForm);
+router.get('/me', viewsController.getAccount);
+
+
+//router.get('/product/:slug', viewsController.getProduct);
+//need to implement  viewsController.getProduct in viewsController
 
 module.exports = router;

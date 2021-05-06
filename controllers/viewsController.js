@@ -12,3 +12,17 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   // 3) Render that template using product data from 1)
   res.status(200).render('overview');
 });
+
+
+exports.getAccount = (req, res) => {
+  res.status(200).render('account', {
+    title: 'Your account'
+  });
+};
+
+
+exports.getLoginForm = (req, res) => {
+  res.status(200).render('login', {
+    title: 'Log into your account'
+  });
+};
