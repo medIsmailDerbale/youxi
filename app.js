@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require("express");
 const morgan = require("morgan");
 
@@ -6,8 +7,13 @@ const globalErrorHandler = require("./controllers/errorController");
 const userRouter = require("./routes/userRoutes");
 const productsRouter = require("./routes/productRoutes");
 const categoriesRouter = require("./routes/categoryRoutes");
+const viewRouter = require('./routes/viewRoutes');
+
 
 const app = express();
+
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
 
 // 1) globale middlewares
 app.use(morgan("dev"));
@@ -18,6 +24,7 @@ app.use(express.json({ limit: "10kb" }));
 // app.use(express.static(`${__dirname}/"static folder name"`));
 
 // 2) routes
+app.use('/', viewRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productsRouter);
 app.use("/api/v1/categories", categoriesRouter);
