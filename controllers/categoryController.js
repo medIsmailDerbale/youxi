@@ -4,40 +4,40 @@ const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const Product = require("../models/productModel");
 
-const addProduct = catchAsync(async (req, res, next) => {
-  let category = await Category.findById(req.params.id);
-  // verify if category exists and if there is product id sent
-  if (!category || !req.body.productId)
-    return next(new AppError("category not found or productId missing"));
-  // verify if this is a subcategory
-  if (!category.subCategory)
-    return next(
-      new AppError(
-        "you cant add a product to a category please try again with a sub category",
-        400
-      )
-    );
+// const addProduct = catchAsync(async (req, res, next) => {
+//   let category = await Category.findById(req.params.id);
+//   // verify if category exists and if there is product id sent
+//   if (!category || !req.body.productId)
+//     return next(new AppError("category not found or productId missing"));
+//   // verify if this is a subcategory
+//   if (!category.subCategory)
+//     return next(
+//       new AppError(
+//         "you cant add a product to a category please try again with a sub category",
+//         400
+//       )
+//     );
 
-  // verify if the entered product id is valid
-  if (!(await Product.findById(req.body.productId)))
-    return next(new AppError("there is no product with this id", 404));
-  // check if the product is already in the sub categorie
-  let exists = false;
-  category.products.map((el) => {
-    if (el.id === req.body.productId) exists = true;
-  });
+//   // verify if the entered product id is valid
+//   if (!(await Product.findById(req.body.productId)))
+//     return next(new AppError("there is no product with this id", 404));
+//   // check if the product is already in the sub categorie
+//   let exists = false;
+//   category.products.map((el) => {
+//     if (el.id === req.body.productId) exists = true;
+//   });
 
-  if (exists) {
-    return next(new AppError("product already exists in category", 400));
-  }
+//   if (exists) {
+//     return next(new AppError("product already exists in category", 400));
+//   }
 
-  category.products.push(req.body.productId);
-  category = await category.save();
-  res.status(200).json({
-    status: "success",
-    data: { category },
-  });
-});
+//   category.products.push(req.body.productId);
+//   category = await category.save();
+//   res.status(200).json({
+//     status: "success",
+//     data: { category },
+//   });
+// });
 
 exports.createCategory = catchAsync(async (req, res, next) => {
   const newCategory = await Category.create(req.body);

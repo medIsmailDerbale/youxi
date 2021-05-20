@@ -1,4 +1,293 @@
 doctype html
-html
-	body
-		h1 product page html
+head
+  // Required meta tags
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  // Bootstrap CSS
+  link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous')
+  link(href='https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap' rel='stylesheet')
+  title= title
+  link(href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap' rel='stylesheet')
+  // fontawesome
+  link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
+  link(rel='stylesheet' href='css/style.css')
+#wrapper
+  .overlay
+  // sidebar
+  nav#sidebar-wrapper.fixed-top.align-top(role='navigation')
+    .simplebar-content(style='padding: 0px;')
+      a.sidebar-brand(href='#')
+        img(src='img/youxi logo.svg')
+        img(src='img/adminpanel.svg')
+      ul.navbar-nav.align-self-stretch
+        li
+          a.nav-link.text-left.active(role='button')
+            i.fas.fa-tachometer-alt
+            |  Dashboard
+        li.has-sub
+          a.nav-link.collapsed.text-left(href='#collapseExample1' role='button' data-toggle='collapse')
+            i.far.fa-user-circle
+            |  Users
+          #collapseExample1.collapse.menu.mega-dropdown
+            .dropmenu(aria-labelledby='navbarDropdown')
+              .container-fluid
+                .row
+                  .col-lg-12.px-2
+                    .submenu-box
+                      ul.list-unstyled.m-0
+                        li
+                          a(href='') user1
+                        li
+                          a(href='') user2
+                        li
+                          a(href='') user3
+        li.has-sub
+          a.nav-link.collapsed.text-left(href='#collapseExample2' role='button' data-toggle='collapse')
+            i.fab.fa-product-hunt
+            |  Products
+          #collapseExample2.collapse.menu.mega-dropdown
+            .dropmenu(aria-labelledby='navbarDropdown')
+              .container-fluid
+                .row
+                  .col-lg-12.px-2
+                    .submenu-box
+                      ul.list-unstyled.m-0
+                        li
+                          a(href='') Product1
+                        li
+                          a(href='') Product2
+                        li
+                          a(href='') Product3
+        li.has-sub
+          a.nav-link.collapsed.text-left(href='#collapseExample3' role='button' data-toggle='collapse')
+            i.fab.fa-delicious
+            |  Categories
+          #collapseExample3.collapse.menu.mega-dropdown
+            .dropmenu(aria-labelledby='navbarDropdown')
+              .container-fluid
+                .row
+                  .col-lg-12.px-2
+                    .submenu-box
+                      ul.list-unstyled.m-0
+                        li
+                          a(href='') Categorie1
+                        li
+                          a(href='') Categorie2
+                        li
+                          a(href='') Categorie3
+  // sidebar-end
+  // Page Content
+  #page-content-wrapper
+    #content
+      .container-fluid.p-0.px-lg-0.px-md-0
+        // Topbar
+        nav.navbar.navbar-expand.navbar-light.my-navbar
+          // Sidebar Toggle (Topbar)
+          #bar.nav-icon1.hamburger.animated.fadeInLeft.is-closed(type='button' data-toggle='offcanvas')
+            span
+            span
+            span
+          ul.navbar-nav.ml-auto
+            // Topbar Search
+            .search-box
+              form
+                input(type='text' placeholder='Search ...')
+                i.fas.fa-search
+            // User Information
+            li.nav-item.dropdown
+              a#userDropdown.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown')
+                span.mserName Name
+                img.img-profile(src='img/youxi logo.svg')
+              // Dropdown - User Information
+              .dropdown-menu(aria-labelledby='userDropdown')
+                a.dropdown-item(href='#')
+                  i.fas.fa-user.fa-sm.fa-fw.mr-2.text-gray-400
+                  |                                         Profile
+                a.dropdown-item(href='#')
+                  i.fas.fa-cogs.fa-sm.fa-fw.mr-2.text-gray-400
+                  |                                         Settings
+                a.dropdown-item(href='#')
+                  i.fas.fa-list.fa-sm.fa-fw.mr-2.text-gray-400
+                  |                                         Activity Log
+                .dropdown-divider
+                a.dropdown-item(href='#' data-toggle='modal' data-target='#logoutModal')
+                  i.fas.fa-sign-out-alt.fa-sm.fa-fw.mr-2.text-gray-400
+                  |                                         Logout
+        // end of topbar
+        // Begin Page Content
+        .container-fluid.px-lg-4.table-container
+          .col-md-12.mt-4
+            .card
+              .card-body
+                // title
+                .row.header-table
+                  .col-2.my-auto.product-st.justify-content-around
+                    | Products
+                  .col-1.my-auto.add-new-st.justify-content-around.btn.d-flex(role='button')
+                    | Add New
+                  .col-7.my-auto.justify-content-start
+                    form
+                      input(type='text' placeholder='Search ...')
+                      i.fas.fa-search.btn
+                  .col-2.my-auto.justify-content-around
+                    i.fas.fa-chevron-up.btn
+                    i.fas.fa-chevron-down.btn
+                // title
+              .table-responsive
+                table.table.v-middle.table-striped.table-borderless.table-hover
+                  thead
+                    tr.bg-light
+                      th.border-top-0
+                      th.border-top-0 Name
+                      th.border-top-0 Sales
+                      th.border-top-0 Status
+                      th.border-top-0 Published
+                      th.border-top-0
+                  tbody
+                    tr
+                      td
+                        .d-flex.align-items-center
+                          .m-r-10
+                            a.btn.btn-circle.btn-st
+                      td Product 1________________
+                      td 12345
+                      td Status
+                      td 21 SEP
+                      td
+                        .dropdown
+                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                            a.dropdown-item(href='#') Delete
+                            a.dropdown-item(href='#') Modify
+                    tr
+                      td
+                        .d-flex.align-items-center
+                          .m-r-10
+                            a.btn.btn-circle.btn-st
+                      td Product 2________________
+                      td 12345
+                      td Status
+                      td 21 SEP
+                      td
+                        .dropdown
+                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                            a.dropdown-item(href='#') Delete
+                            a.dropdown-item(href='#') Modify
+                    tr
+                      td
+                        .d-flex.align-items-center
+                          .m-r-10
+                            a.btn.btn-circle.btn-st
+                      td Product 3________________
+                      td 12345
+                      td Status
+                      td 21 SEP
+                      td
+                        .dropdown
+                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                            a.dropdown-item(href='#') Delete
+                            a.dropdown-item(href='#') Modify
+                    tr
+                      td
+                        .d-flex.align-items-center
+                          .m-r-10
+                            a.btn.btn-circle.btn-st
+                      td Product 4________________
+                      td 12345
+                      td Status
+                      td 21 SEP
+                      td
+                        .dropdown
+                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                            a.dropdown-item(href='#') Delete
+                            a.dropdown-item(href='#') Modify
+                    tr
+                      td
+                        .d-flex.align-items-center
+                          .m-r-10
+                            a.btn.btn-circle.btn-st
+                      td Product 5________________
+                      td 12345
+                      td Status
+                      td 21 SEP
+                      td
+                        .dropdown
+                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                            a.dropdown-item(href='#') Delete
+                            a.dropdown-item(href='#') Modify
+                    tr
+                      td
+                        .d-flex.align-items-center
+                          .m-r-10
+                            a.btn.btn-circle.btn-st
+                      td Product 6________________
+                      td 12345
+                      td Status
+                      td 21 SEP
+                      td
+                        .dropdown
+                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                            a.dropdown-item(href='#') Delete
+                            a.dropdown-item(href='#') Modify
+                    tr
+                      td
+                        .d-flex.align-items-center
+                          .m-r-10
+                            a.btn.btn-circle.btn-st
+                      td Product 7________________
+                      td 12345
+                      td Status
+                      td 21 SEP
+                      td
+                        .dropdown
+                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                            a.dropdown-item(href='#') Delete
+                            a.dropdown-item(href='#') Modify
+                    tr
+                      td
+                        .d-flex.align-items-center
+                          .m-r-10
+                            a.btn.btn-circle.btn-st
+                      td Product 8________________
+                      td 12345
+                      td Status
+                      td 21 SEP
+                      td
+                        .dropdown
+                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                            a.dropdown-item(href='#') Delete
+                            a.dropdown-item(href='#') Modify
+        footer.footer
+          .container-fluid
+            .row.text-muted
+              .col-6.text-left
+                p.mb-0
+                  a.text-muted(href='Product.html')
+                    strong Dashboard Youxi 
+                  |  &amp;copy
+              .col-6.text-right
+                ul.list-inline
+                  li.footer-item
+                    a.text-muted(href='#') Support
+                  li.footer-item
+                    a.text-muted(href='#') Help Center
+                  li.footer-item
+                    a.text-muted(href='#') Privacy
+                  li.footer-item
+                    a.text-muted(href='#') Terms
+  script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossorigin='anonymous')
+  script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossorigin='anonymous')
+  script(src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous')
+  script.
+    $('#bar').click(function () {
+    $(this).toggleClass('open');
+    $('#page-content-wrapper ,#sidebar-wrapper').toggleClass('toggled');
+    });
