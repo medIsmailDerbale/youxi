@@ -1,7 +1,7 @@
 /* eslint-disable */
 // import axios from "axios";
 // import { showAlert } from "./alerts";
-
+/*
 const login = async (email, password) => {
   console.log(email, password);
   try {
@@ -14,6 +14,26 @@ const login = async (email, password) => {
       },
     });
     console.log(res);
+  } catch (err) {
+    console.log(err);
+  }
+};
+*/
+
+const login = async (email, password) => {
+  try {
+    const res = await fetch("http://localhost:8000/api/v1/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+
+    console.log(await res.json());
   } catch (err) {
     console.log(err);
   }

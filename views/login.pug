@@ -1,5 +1,5 @@
 doctype html
-html(lang='fr')
+html(lang='en')
 	head
 		meta(charset='UTF-8')
 		meta(name='viewport' content='width=device-width, initial-scale=1.0')
@@ -7,7 +7,7 @@ html(lang='fr')
 		link(rel='preconnect' href='https://fonts.gstatic.com')
 		link(href='https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap' rel='stylesheet')
 		link(href='https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&display=swap' rel='stylesheet')
-		link(rel='icon' href='img/youxi logo.png')
+		link(rel='icon' href='img/youxi logo.svg')
 		link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.8.2/css/all.css')
 		// Google Fonts
 		link(href='https://fonts.googleapis.com/css2?family=Raleway:wght@100;200&display=swap' rel='stylesheet')
@@ -38,9 +38,9 @@ html(lang='fr')
                                                             font-weight: 500;\
                                                             font-size: 48px;\
                                                             line-height: 71px;\
-                                                            color: #FFFFFF;\
+                                                            color: #fff;\
                                                             \
-                                                            mix-blend-mode: overlay;')
+                                                            mix-blend-mode: overlay !important;')
 					| Account Login
 				form(style='text-align:center;')
 					.input-group.input-group-sm.border.rounded-pill.form-control-lg(style='\
@@ -100,4 +100,3 @@ html(lang='fr')
 		script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.15.0/js/mdb.min.js')
 
 		script(src='/js/login.js')
-		script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js' type='module')

@@ -4,7 +4,13 @@ const bcrypt = require("bcryptjs");
 
 // 1) schema definition
 const userSchema = mongoose.Schema({
-  name: {
+  FirstName: {
+    required: [true, "please enter username"],
+    type: String,
+    trim: true,
+    maxlength: [30, "name shouldn't be more than 30 characters"],
+  },
+  LastName: {
     required: [true, "please enter username"],
     type: String,
     trim: true,
