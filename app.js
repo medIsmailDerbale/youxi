@@ -23,6 +23,10 @@ app.use(cookieParser());
 //static pages
 app.use(express.static(path.join(__dirname, "public")));
 
+// test middlewear
+app.use((req, res, next) => {
+  next();
+});
 // 2) routes
 app.use("/", viewRouter);
 app.use("/api/v1/users", userRouter);

@@ -1,24 +1,5 @@
 /* eslint-disable */
-// import axios from "axios";
-// import { showAlert } from "./alerts";
-/*
-const login = async (email, password) => {
-  console.log(email, password);
-  try {
-    const res = await axios({
-      method: "POST",
-      url: "http://127.0.0.1:8000/api/v1/users/login",
-      data: {
-        email,
-        password,
-      },
-    });
-    console.log(res);
-  } catch (err) {
-    console.log(err);
-  }
-};
-*/
+import { showAlert } from "./alert.js";
 
 const login = async (email, password) => {
   try {
@@ -32,10 +13,16 @@ const login = async (email, password) => {
         password: password,
       }),
     });
-
-    console.log(await res.json());
+    if ((await res.status) === 200) {
+      showAlert("success", "logged in successfully");
+      window.setTimeout(() => {
+        location.assign("/");
+      }, 1500);
+    } else {
+      showAlert("error", "Incorrect Email or Password");
+    }
   } catch (err) {
-    console.log(err);
+    showAlert("error", err);
   }
 };
 
