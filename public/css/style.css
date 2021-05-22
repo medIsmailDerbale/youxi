@@ -410,3 +410,49 @@ footer.footer ul {
 /*---------------------------------
 footer
 ----------------------*/
+/*---------------------------------
+pop up
+----------------------*/
+
+.d {
+  background-color: #282a5b !important;
+  border-radius: 30px !important;
+}
+.txt {
+  color: #f0f7ff !important;
+
+  font-size: 24px !important;
+}
+
+h1.txt {
+  font-weight: bold;
+  font-size: 48px !important;
+}
+
+.inp {
+  background-color: #282a5b !important;
+  color: rgba(240, 247, 255, 0.4) !important;
+
+  font-size: 24px !important;
+}
+
+textarea.inp {
+  border-radius: 27px;
+}
+button.btn1 {
+  width: 207px;
+  border: solid #7a2fff;
+  font-weight: 500;
+  color: #7a2fff !important;
+}
+button.btn2 {
+  background: #7a2fff !important;
+  color: #282a5b !important ;
+}
+h4.txt {
+  font-weight: bold;
+}
+
+/*---------------------------------
+pop up
+----------------------*/

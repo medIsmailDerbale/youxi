@@ -182,22 +182,22 @@ head
                       th.border-top-0 Published
                       th.border-top-0
                   tbody
-                      each product in products
+                    each product in products
                       tr
-                        td
-                          .d-flex.align-items-center
-                            .m-r-10
-                              a.btn.btn-circle.btn-st
-                        td=product.name
-                        td=product.price
-                        td=product.color
-                        td=product.description
-                        td
-                          section
-                            img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                            .dropdown-menu(type='button' aria-labelledby='dropdownMenuButton')
-                              button.dropdown-item.btn(data-bs-toggle='modal' data-bs-target='#exampleModalDelete') Delete
-                              button.dropdown-item.btn(data-bs-toggle='modal' data-bs-target='#exampleModalModify') Modify
+                      td
+                        .d-flex.align-items-center
+                          .m-r-10
+                            a.btn.btn-circle.btn-st
+                      td=product.name
+                      td=product.price
+                      td=product.color
+                      td=product.description
+                      td
+                        section
+                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                          .dropdown-menu(type='button' aria-labelledby='dropdownMenuButton')
+                            button.dropdown-item.btn(data-bs-toggle='modal' data-bs-target='#exampleModalDelete') Delete
+                            button.dropdown-item.btn(data-bs-toggle='modal' data-bs-target='#exampleModalModify') Modify
               // Modal Delete
               #exampleModalDelete.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
                 .modal-dialog.modal-lg
@@ -243,7 +243,7 @@ head
                 p.mb-0
                   a.text-muted(href='Product.html')
                     strong Dashboard Youxi 
-                  |                                         &amp;copy
+                  |                                         &copy;
               .col-6.text-right
                 ul.list-inline
                   li.footer-item
