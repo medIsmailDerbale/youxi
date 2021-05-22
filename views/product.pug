@@ -2,15 +2,18 @@ doctype html
 head
   // Required meta tags
   meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
   meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
   // Bootstrap CSS
   link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous')
   link(href='https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap' rel='stylesheet')
-  title= title
+  title
+    | Youxi
   link(href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap' rel='stylesheet')
   // fontawesome
   link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
   link(rel='stylesheet' href='css/style.css')
+  // Sarah links
 #wrapper
   .overlay
   // sidebar
@@ -21,9 +24,9 @@ head
         img(src='img/adminpanel.svg')
       ul.navbar-nav.align-self-stretch
         li
-          a.nav-link.text-left.active(role='button')
+          a.nav-link.text-left(role='button')
             i.fas.fa-tachometer-alt
-            |  Dashboard
+            |                             Dashboard
         li.has-sub
           a.nav-link.collapsed.text-left(href='#collapseExample1' role='button' data-toggle='collapse')
             i.far.fa-user-circle
@@ -42,7 +45,7 @@ head
                         li
                           a(href='') user3
         li.has-sub
-          a.nav-link.collapsed.text-left(href='#collapseExample2' role='button' data-toggle='collapse')
+          a.nav-link.collapsed.text-left.active(href='#collapseExample2' role='button' data-toggle='collapse')
             i.fab.fa-product-hunt
             |  Products
           #collapseExample2.collapse.menu.mega-dropdown
@@ -76,7 +79,6 @@ head
                         li
                           a(href='') Categorie3
   // sidebar-end
-
   // Page Content
   #page-content-wrapper
     #content
@@ -96,9 +98,10 @@ head
                 i.fas.fa-search
             // User Information
             li.nav-item.dropdown
-              a#userDropdown.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown')
-                span.mserName Name
+              a#userDropdown.nav-link(href='#' role='button' data-toggle='dropdown')
+                span.UserName Name
                 img.img-profile(src='img/youxi logo.svg')
+                i.fas.fa-chevron-down.btn.fas-topbar
               // Dropdown - User Information
               .dropdown-menu(aria-labelledby='userDropdown')
                 a.dropdown-item(href='#')
@@ -124,14 +127,48 @@ head
                 .row.header-table
                   .col-2.my-auto.product-st.justify-content-around
                     | Products
-                  .col-1.my-auto.add-new-st.justify-content-around.btn.d-flex(role='button')
+                  .col-1.my-auto.add-new-st.justify-content-around.btn.d-flex(role='button' data-bs-toggle='modal' data-bs-target='#exampleModal1')
                     | Add New
+                  // Modal Add New
+                  #exampleModal1.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                    .modal-dialog.modal-lg
+                      .modal-content.text-white.d
+                        .container-fluid.px-5.py-3
+                          .modal-header.border-0
+                            h1#exampleModalLabel.modal-title.txt
+                              | ADD
+                              | PRODUCT
+                            button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                          .modal-body
+                            .mb-3.row
+                              label.col-sm-2.txt.col-form-label(for='name') Name*
+                              .col-sm-10
+                                input#name.form-control.form-control-lg.rounded-pill.border-white.text-white.inp(type='text' placeholder='   Product Name')
+                            .mb-3.row
+                              label.txt.col-sm-2.col-form-label(for='Price') Price*
+                              .col-sm-10
+                                input#Price.form-control.form-control-lg.inp.rounded-pill.border-white.text-white(type='text' placeholder='   Product Price')
+                            .mb-3.row
+                              label.txt.col-sm-2.col-form-label(for='Colors') Colors
+                              .col-sm-10
+                                input#Colors.inp.form-control.form-control-lg.rounded-pill.border-white.text-white(type='text' placeholder='   Product Colors')
+                            .mb-3.row
+                              label.txt.col-sm-2.col-form-label.px-2(for='Textarea1')
+                                | Descrption*
+                              .col-sm-10
+                                textarea#Textarea1.inp.form-control.form-control-lg.border-white.text-white(type='text' placeholder='   Product Descrption' rows='3')
+                          .modal-footer.border-0
+                            button.btn.rounded-pill.inp.btn1(type='button' data-bs-dismiss='modal') Cancel
+                            button.btn.rounded-pill.inp.btn1.btn2(type='button')
+                              | Confirm
+                  // Modal Add New END
                   .col-7.my-auto.justify-content-start
                     form
                       input(type='text' placeholder='Search ...')
                       i.fas.fa-search.btn
-                  .col-2.my-auto.justify-content-around
+                  .col-1.my-auto.justify-content-around
                     i.fas.fa-chevron-up.btn
+                  .col-1.my-auto.justify-content-around
                     i.fas.fa-chevron-down.btn
                 // title
               .table-responsive
@@ -140,13 +177,11 @@ head
                     tr.bg-light
                       th.border-top-0
                       th.border-top-0 Name
-                      th.border-top-0 Price
-                      th.border-top-0 Color 
-                      th.border-top-0 Description
+                      th.border-top-0 Sales
+                      th.border-top-0 Status
+                      th.border-top-0 Published
                       th.border-top-0
                   tbody
-                    
-
                     each product in products
                       tr
                       td
@@ -158,13 +193,49 @@ head
                       td=product.color
                       td=product.description
                       td
-                        .dropdown
+                        section
                           img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
-                            a.dropdown-item(href='#') Delete
-                            a.dropdown-item(href='#') Modify
-                    
-                    
+                          .dropdown-menu(type='button' aria-labelledby='dropdownMenuButton')
+                            button.dropdown-item.btn(data-bs-toggle='modal' data-bs-target='#exampleModalDelete') Delete
+                            button.dropdown-item.btn(data-bs-toggle='modal' data-bs-target='#exampleModalModify') Modify
+              // Modal Delete
+              #exampleModalDelete.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                .modal-dialog.modal-lg
+                  .modal-content.text-white.d
+                    .container-fluid.px-5.py-3
+                      .modal-header.border-0
+                        h1#exampleModalLabel.modal-title.txt
+                          | CONFIRM
+                          | DELETE
+                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                      .modal-body
+                        h4.txt
+                          | Are you sure that you
+                          | want to delete this Product
+                      .modal-footer.border-0
+                        button.btn.btn-secondary.rounded-pill.inp.btn1(type='button' data-bs-dismiss='modal') cancel
+                        button.btn.rounded-pill.inp.btn1.btn2(type='button')
+                          | Confirm
+              // Modal Delete END
+              // Modal Modify
+              #exampleModalModify.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                .modal-dialog.modal-lg
+                  .modal-content.text-white.d
+                    .container-fluid.px-5.py-3
+                      .modal-header.border-0
+                        h1#exampleModalLabel.modal-title.txt
+                          | CONFIRM
+                          | MODIFICATION
+                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                      .modal-body
+                        h4.txt
+                          | Are you sure that you
+                          | want to modify this Product
+                      .modal-footer.border-0
+                        button.btn.btn-secondary.rounded-pill.inp.btn1(type='button' data-bs-dismiss='modal') cancel
+                        button.btn.rounded-pill.inp.btn1.btn2(type='button')
+                          | Confirm
+              // Modal Modify END
         footer.footer
           .container-fluid
             .row.text-muted
@@ -172,7 +243,7 @@ head
                 p.mb-0
                   a.text-muted(href='Product.html')
                     strong Dashboard Youxi 
-                  |  &amp;copy
+                  |                                         &amp;copy
               .col-6.text-right
                 ul.list-inline
                   li.footer-item
@@ -187,8 +258,10 @@ head
   script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossorigin='anonymous')
   script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossorigin='anonymous')
   script(src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous')
-  script.
-    $('#bar').click(function () {
-    $(this).toggleClass('open');
-    $('#page-content-wrapper ,#sidebar-wrapper').toggleClass('toggled');
-    });
+  script(src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js' integrity='sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p' crossorigin='anonymous')
+  script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js' integrity='sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT' crossorigin='anonymous')
+script.
+  $('#bar').click(function () {
+  $(this).toggleClass('open');
+  $('#page-content-wrapper ,#sidebar-wrapper').toggleClass('toggled');
+  });
