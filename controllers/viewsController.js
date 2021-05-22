@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const Product = require("../models/productModel");
+const Category = require("../models/categoryModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
@@ -35,5 +36,19 @@ exports.getProducts = catchAsync(async(req, res,next) => {
   res.status(200).render("product", {
     title: "Products",
     products
+  });
+});
+
+exports.getCategories = catchAsync(async(req, res,next) => {
+  //1) get product data from collection
+  const categories = await Category.find();
+
+
+  //2) build template
+
+  //3) Render that template using product data from 1
+  res.status(200).render("category", {
+    title: "Categories",
+    categories
   });
 });

@@ -123,7 +123,7 @@ head
                 // title
                 .row.header-table
                   .col-2.my-auto.product-st.justify-content-around
-                    | Products
+                    | Categories
                   .col-1.my-auto.add-new-st.justify-content-around.btn.d-flex(role='button')
                     | Add New
                   .col-7.my-auto.justify-content-start
@@ -147,16 +147,17 @@ head
                   tbody
                     
 
-                    each product in products
+                    each category in categories
+                      
                       tr
                       td
                         .d-flex.align-items-center
                           .m-r-10
                             a.btn.btn-circle.btn-st
-                      td=product.name
-                      td=product.price
-                      td=product.color
-                      td=product.description
+                      td=category.name
+                      td=category.name
+                      td=category.name
+                      td=category.name
                       td
                         .dropdown
                           img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')

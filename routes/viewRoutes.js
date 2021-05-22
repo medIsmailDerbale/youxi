@@ -16,6 +16,13 @@ router.get(
   viewsController.getProducts
 );
 
+router.get(
+  "/categories",
+  authController.protect,
+  authController.restrictTo("admin"),
+  viewsController.getCategories
+);
+
 //router.get('/product/:slug', viewsController.getProduct);
 //need to implement  viewsController.getProduct in viewsController
 
