@@ -130,7 +130,8 @@ exports.restrictTo = function (...roles) {
 
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
-    name: req.body.name,
+    FirstName: req.body.FirstName,
+    LastName: req.body.LastName,
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
