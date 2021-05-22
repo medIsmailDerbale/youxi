@@ -76,6 +76,7 @@ head
                         li
                           a(href='') Categorie3
   // sidebar-end
+
   // Page Content
   #page-content-wrapper
     #content
@@ -144,13 +145,16 @@ head
                       th.border-top-0 Published
                       th.border-top-0
                   tbody
-                    tr
+                    
+
+                    each product in products
+                      tr
                       td
                         .d-flex.align-items-center
                           .m-r-10
                             a.btn.btn-circle.btn-st
-                      td Product 1________________
-                      td 12345
+                      td=product.name
+                      td=product.price
                       td Status
                       td 21 SEP
                       td
@@ -159,111 +163,8 @@ head
                           .dropdown-menu(aria-labelledby='dropdownMenuButton')
                             a.dropdown-item(href='#') Delete
                             a.dropdown-item(href='#') Modify
-                    tr
-                      td
-                        .d-flex.align-items-center
-                          .m-r-10
-                            a.btn.btn-circle.btn-st
-                      td Product 2________________
-                      td 12345
-                      td Status
-                      td 21 SEP
-                      td
-                        .dropdown
-                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
-                            a.dropdown-item(href='#') Delete
-                            a.dropdown-item(href='#') Modify
-                    tr
-                      td
-                        .d-flex.align-items-center
-                          .m-r-10
-                            a.btn.btn-circle.btn-st
-                      td Product 3________________
-                      td 12345
-                      td Status
-                      td 21 SEP
-                      td
-                        .dropdown
-                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
-                            a.dropdown-item(href='#') Delete
-                            a.dropdown-item(href='#') Modify
-                    tr
-                      td
-                        .d-flex.align-items-center
-                          .m-r-10
-                            a.btn.btn-circle.btn-st
-                      td Product 4________________
-                      td 12345
-                      td Status
-                      td 21 SEP
-                      td
-                        .dropdown
-                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
-                            a.dropdown-item(href='#') Delete
-                            a.dropdown-item(href='#') Modify
-                    tr
-                      td
-                        .d-flex.align-items-center
-                          .m-r-10
-                            a.btn.btn-circle.btn-st
-                      td Product 5________________
-                      td 12345
-                      td Status
-                      td 21 SEP
-                      td
-                        .dropdown
-                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
-                            a.dropdown-item(href='#') Delete
-                            a.dropdown-item(href='#') Modify
-                    tr
-                      td
-                        .d-flex.align-items-center
-                          .m-r-10
-                            a.btn.btn-circle.btn-st
-                      td Product 6________________
-                      td 12345
-                      td Status
-                      td 21 SEP
-                      td
-                        .dropdown
-                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
-                            a.dropdown-item(href='#') Delete
-                            a.dropdown-item(href='#') Modify
-                    tr
-                      td
-                        .d-flex.align-items-center
-                          .m-r-10
-                            a.btn.btn-circle.btn-st
-                      td Product 7________________
-                      td 12345
-                      td Status
-                      td 21 SEP
-                      td
-                        .dropdown
-                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
-                            a.dropdown-item(href='#') Delete
-                            a.dropdown-item(href='#') Modify
-                    tr
-                      td
-                        .d-flex.align-items-center
-                          .m-r-10
-                            a.btn.btn-circle.btn-st
-                      td Product 8________________
-                      td 12345
-                      td Status
-                      td 21 SEP
-                      td
-                        .dropdown
-                          img#dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                          .dropdown-menu(aria-labelledby='dropdownMenuButton')
-                            a.dropdown-item(href='#') Delete
-                            a.dropdown-item(href='#') Modify
+                    
+                    
         footer.footer
           .container-fluid
             .row.text-muted

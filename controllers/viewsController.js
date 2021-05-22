@@ -24,8 +24,16 @@ exports.getLoginForm = (req, res) => {
   });
 };
 
-exports.getProducts = catchAsync((req, res) => {
+exports.getProducts = catchAsync(async(req, res,next) => {
+  //1) get product data from collection
+  const products = await Product.find();
+
+
+  //2) build template
+
+  //3) Render that template using product data from 1
   res.status(200).render("product", {
     title: "Products",
+    products
   });
 });
