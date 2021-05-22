@@ -21,6 +21,10 @@ const productSchema = mongoose.Schema({
     required: [true, "product must have a description"],
     trim: true,
   },
+  addedAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 const Product = mongoose.model("Product", productSchema);
