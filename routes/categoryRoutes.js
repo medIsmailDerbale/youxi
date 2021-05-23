@@ -32,4 +32,12 @@ router
     categoryController.addItem
   );
 
+router
+  .route("/:id/:id2")
+  .delete(
+    authController.protect,
+    authController.restrictTo("admin"),
+    categoryController.deleteItem
+  );
+
 module.exports = router;

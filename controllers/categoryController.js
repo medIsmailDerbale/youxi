@@ -107,15 +107,62 @@ exports.getCategoryById = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.deleteItem = catchAsync(async (req, res, next) => {
+  let category = await Category.findById(req.params.id);
+  // verify the existance of this category
+  if (!category) return next(new AppError("category not found", 404));
+  // if its a subcategory
+  if (category.subCategory) {
+    // verify if productId exists
+    if (!req.params.id2) return next(new AppError("productId missing", 404));
+    // parcouring the products table to find and delete the specified product
+    const index = category.products.indexOf(req.params.id2);
+    if (index < 0)
+      return next(
+        new AppError("there is no product with this id in the category", 404)
+      );
+    category.products.splice(index, 1);
+    category = await category.save();
+    res.status(200).json({
+      status: "success",
+      data: { category },
+    });
+    // if its a category
+  } else {
+    // verify if the categoryId exists
+    if (!req.params.id2)
+      return next(new AppError("category id not found", 404));
+    let index = -1;
+
+    await category.categories.forEach((el, i) => {
+      if (el._id == req.params.id2) {
+        index = i;
+      }
+    });
+    console.log(index);
+    if (index < 0)
+      return next(
+        new AppError("there is no category with this id in the category", 404)
+      );
+    await category.categories.splice(index, 1);
+    category = await category.save();
+    res.status(200).json({
+      status: "success",
+      data: { category },
+    });
+  }
+});
+
 exports.addItem = catchAsync(async (req, res, next) => {
   let category = await Category.findById(req.params.id);
   //verify if category exists
-  if (!category) return next(new AppError("category not found"));
+  if (!category) return next(new AppError("category not found", 404));
 
   // if its a subcategory add product
   if (category.subCategory) {
     //verify existance of productId
-    if (!req.body.productId) return next(new AppError("productId missing"));
+    if (!req.body.productId)
+      return next(new AppError("productId missing", 404));
     //verify if product exists
     if (!(await Product.findById(req.body.productId)))
       return next(new AppError("there is no product with this id", 404));

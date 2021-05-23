@@ -24,6 +24,10 @@ const categorySchema = mongoose.Schema({
       ref: "Product",
     },
   ],
+  addedAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 categorySchema.pre("save", function (next) {

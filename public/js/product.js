@@ -130,7 +130,6 @@ for (let i = 0; i < deleteBtns.length; i++) {
 }
 
 let patchBtns = document.getElementsByClassName("patchBtn");
-console.log(patchBtns.length);
 for (let i = 0; i < patchBtns.length; i++) {
   patchBtns[i].addEventListener("click", () => {
     importData(patchBtns[i].attributes._id.value);
