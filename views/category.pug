@@ -182,10 +182,12 @@ head
                       td=category.name
                       if category.subCategory 
                         td SubCategory 
-                        td=`${category.products.join(',')}`
+                        
                       else 
                         td Category
-                        td=`${category.categories.join(',')}` 
+                      td 
+                          button.showDeleteChilds.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#modalChildrenShowDelete' _id=`${category._id}`) show/delete
+                          button.addToCategory.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#modalChildrenAdd' style='margin-left:10px;' _id=`${category._id}`) AddChild
                       td=category.addedAt.toDateString()
                       td
                         section
@@ -233,6 +235,33 @@ head
                             button#confirmModifyBtn.btn.rounded-pill.inp.btn1.btn2(type='button')
                               | Confirm
               // Modal Modify END
+              // Modal children show Delete
+              #modalChildrenShowDelete.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                .modal-dialog.modal-lg
+                  .modal-content.text-white.d
+                    .container-fluid.px-5.py-3
+                      .modal-header.border-0
+                        h1#exampleModalLabel.modal-title.txt
+                          | Show / Delete
+                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                      .modal-body
+                        table.table.table-striped.table-hover.table-description
+                          tbody#tableShowDeleteBody
+                          
+              // Modal children Add
+              #modalChildrenAdd.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                .modal-dialog.modal-lg
+                  .modal-content.text-white.d
+                    .container-fluid.px-5.py-3
+                      .modal-header.border-0
+                        h1#exampleModalLabel.modal-title.txt
+                          | Add item
+                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                      .modal-body
+                        table.table.table-striped.table-hover.table-description
+                          tbody#addChildTableBody
+                            
+        // footer                            
         footer.footer
           .container-fluid
             .row.text-muted

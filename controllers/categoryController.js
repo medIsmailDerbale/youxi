@@ -116,7 +116,12 @@ exports.deleteItem = catchAsync(async (req, res, next) => {
     // verify if productId exists
     if (!req.params.id2) return next(new AppError("productId missing", 404));
     // parcouring the products table to find and delete the specified product
-    const index = category.products.indexOf(req.params.id2);
+    let index = -1;
+    await category.products.forEach((el, i) => {
+      if (el._id == req.params.id2) {
+        index = i;
+      }
+    });
     if (index < 0)
       return next(
         new AppError("there is no product with this id in the category", 404)
