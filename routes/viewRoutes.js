@@ -16,6 +16,8 @@ router.get(
   viewsController.getProducts
 );
 
+router.get("/signup", viewsController.getSignup);
+
 router.get(
   "/categories",
   authController.protect,
