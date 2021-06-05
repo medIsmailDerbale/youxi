@@ -13,7 +13,7 @@ html(lang='en')
 		// Google Fonts
 		link(href='https://fonts.googleapis.com/css2?family=Raleway:wght@100;200&display=swap' rel='stylesheet')
 		link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk' crossorigin='anonymous')
-    link(rel='stylesheet' href='css/alert.css')
+		link(rel='stylesheet' href='css/alert.css')
 	body(style='\
       background:\
 /* top, transparent black, faked with gradient */ linear-gradient(\
@@ -41,6 +41,7 @@ html(lang='en')
                                                             font-size: 48px;\
                                                             line-height: 71px;\
                                                             color: #fff;\
+                                                            margin-bottom:20px;\
                                                             \
                                                             mix-blend-mode: overlay !important;')
 					| Account Login
@@ -83,6 +84,10 @@ html(lang='en')
               ')
 							span.iconify.text-white(data-icon='carbon:password' data-inline='false' data-width='24px')
 						input#password.form-control.border-0.text-white(type='password' style='box-shadow: none; background: #dbd9d900;font-family: Roboto;font-weight:500;blend-mode' placeholder='password' aria-label='Sizing example input' aria-describedby='inputGroup-sizing-sm' required)
+					a(href='http://127.0.0.1:8000/forgot-password' style='left:5px;\
+                                                                font-family: Oswald;\
+                                                                font-style: normal;\
+					display:flex;') forgot your password ?
 					button.btn.mx-auto.btn-lg.rounded-pill.px-5.text-white(type='submit' style='\
             letter-spacing: 0.04em;\
             background: #4719b8;\
@@ -90,6 +95,14 @@ html(lang='en')
             align: center;\
           ')
 						| LOGIN
+					br
+					p(style='font-family: Oswald;\
+                          margin-top:14px;\
+                          font-style: normal;\
+                          color: #fff;\
+                          ') you don't have an account ? 
+						a(href='http://127.0.0.1:8000/signup') sign up
+
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js") 
 		script(src='https://code.iconify.design/1/1.0.7/iconify.min.js')
 		script(src='https://unpkg.com/vue/dist/vue.js')

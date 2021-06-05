@@ -1,3 +1,5 @@
+const crypto = require("crypto");
+
 const User = require("../models/userModel");
 const Product = require("../models/productModel");
 const Category = require("../models/categoryModel");
@@ -54,5 +56,29 @@ exports.getCategories = catchAsync(async (req, res, next) => {
   res.status(200).render("category", {
     title: "Categories",
     categories,
+  });
+});
+
+exports.getForgotPassword = (req, res) => {
+  res.status(200).render("forgotPassword", {
+    title: "Forgot Password",
+  });
+};
+
+exports.getResetPassword = catchAsync(async (req, res, next) => {
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() },
+  });
+  // 2) if token not expired and there is user,set new password
+  if (!user) {
+    return next(new AppError("token expired or invalid token", 400));
+  }
+  res.status(200).render("resetPassword", {
+    title: "Reset your password",
   });
 });

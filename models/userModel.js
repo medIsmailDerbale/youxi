@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
 // 1) schema definition
 const userSchema = mongoose.Schema({
@@ -97,7 +98,8 @@ userSchema.methods.createPasswordResetToken = function () {
     .digest("hex");
 
   // console.log({ resetToken }, this.passwordResetToken);
-  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+  this.passwordResetExpires =
+    Date.now() + process.env.RESET_TOKEN_TIMER * 60 * 1000;
   return resetToken;
 };
 

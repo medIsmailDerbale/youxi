@@ -1,5 +1,6 @@
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/userModel");
@@ -151,7 +152,7 @@ exports.forgotPassword = async (req, res, next) => {
   // 3) send it to the email
   const resetURL = `${req.protocol}://${req.get(
     "host"
-  )}/api/v1/users/resetPassword/${resetToken}`;
+  )}/reset-password/${resetToken}`;
 
   const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to : ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
 
@@ -192,6 +193,8 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   if (!user) {
     return next(new AppError("token expired or invalid token", 400));
   }
+
+  // 3) update changed passwordAt for user
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
   user.passwordResetToken = undefined;
