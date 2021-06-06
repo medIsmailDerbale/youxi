@@ -15,11 +15,11 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   res.status(200).render("overview");
 });
 
-exports.getAccount = catchAsync((req, res) => {
+exports.getAccount = (req, res) => {
   res.status(200).render("account", {
-    title: "Your account",
+    title: "My account",
   });
-});
+};
 
 exports.getLoginForm = (req, res) => {
   res.status(200).render("login", {

@@ -1,0 +1,155 @@
+#content {
+  margin-top: 20px !important;
+  font-family: "Roboto", sans-serif;
+}
+.card {
+  border: none !important;
+}
+
+.solid {
+  border: 1px solid #000000;
+  width: 20px;
+  margin: -10px;
+}
+.solid1 {
+  border-top: 2px solid #000;
+  width: 20px;
+  margin: 0px;
+}
+.form-content {
+  margin: 20px 0px 20px 5px;
+}
+
+.form-label1 {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1em;
+
+  color: #000000;
+}
+input {
+  border-top: black !important;
+  border-left: black !important;
+  border-right: black !important;
+  outline: none !important;
+}
+
+::placeholder {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1em;
+  color: #4d4d4d;
+}
+
+.vl {
+  border: 1px solid #898989;
+  height: 340px;
+  position: absolute;
+  left: 100%;
+}
+
+.cdiv1 {
+  height: 400px;
+  background: #f0f7ff;
+}
+
+.cdiv2 {
+  font-family: Montserrat;
+  line-height: 44px;
+  font-size: 36px;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.carousel-item {
+  height: 400px !important;
+  background: #f0f7ff !important;
+}
+
+.card1 {
+  background: #fff496 !important;
+}
+
+.card2 {
+  background: #ffbebe !important;
+}
+
+.card-title1 {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 44px;
+  color: #d9d083;
+}
+
+.card-title2 {
+  color: #c79b9b;
+}
+
+.card-text {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #595959;
+}
+
+.article-txt {
+  font-family: Montserrat;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.input-group-text {
+  background: linear-gradient(
+    126.06deg,
+    rgba(255, 255, 255, 0) 2.04%,
+    rgba(255, 255, 255, 0.1) 68.44%
+  ) !important;
+}
+
+form > span {
+  box-shadow: none;
+}
+
+form > div {
+  width: 191px !important;
+  height: 45px !important;
+}
+
+.zoom:hover {
+  -ms-transform: scale(1.1);
+  /* IE 9  */
+  -webkit-transform: scale(1.1);
+  /* Safari 3-8 */
+  transform: scale(1.1);
+  overflow: hidden;
+  transition: transform 1s, filter 1s;
+  filter: blur(2px);
+}
+
+.ico {
+  width: 35px;
+  height: 35px;
+}
+
+footer {
+  background: #f0f7ff;
+}
+
+.userIcon {
+  margin-right: 10px;
+}

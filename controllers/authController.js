@@ -45,7 +45,9 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   // 2) check if user exists
-  const user = await User.findOne({ email }).select("+password");
+  const user = await User.findOne({
+    $and: [{ email }, { active: true }],
+  }).select("+password");
 
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError("incorrect email or password", 401));
@@ -85,6 +87,12 @@ exports.protect = catchAsync(async (req, res, next) => {
       new AppError("User recently changed password Please login again", 401)
     );
   }
+  // 5) check if user is active
+  if (!freshUser.active) {
+    return next(
+      new AppError("User is not active please contact the administrator", 401)
+    );
+  }
   //grant access to protected routes
   req.user = freshUser;
   next();
@@ -112,7 +120,11 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
       );
     }
     //grant access to protected routes
-
+    if (!freshUser.active) {
+      return next(
+        new AppError("User is not active please contact the administrator", 401)
+      );
+    }
     // there is a logged in user
     res.locals.user = freshUser;
     return next();
