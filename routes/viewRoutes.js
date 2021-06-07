@@ -16,6 +16,13 @@ router.get(
   viewsController.getProducts
 );
 
+router.get(
+  "/users",
+  authController.protect,
+  authController.restrictTo("admin"),
+  viewsController.getUsers
+);
+
 router.get("/signup", viewsController.getSignup);
 
 router.get(

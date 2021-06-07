@@ -32,3 +32,4 @@ document.querySelector("form").addEventListener("submit", (e) => {
   const password = document.getElementById("password").value;
   login(email, password);
 });
+
