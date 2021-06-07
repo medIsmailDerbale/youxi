@@ -46,6 +46,19 @@ exports.getProducts = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getUsers = catchAsync(async (req, res, next) => {
+  //1) get product data from collection
+  const users = await User.find();
+
+  //2) build template
+  console.log(users)
+  //3) Render that template using product data from 1
+  res.status(200).render("users", {
+    title: "Users",
+    users,
+  });
+});
+
 exports.getCategories = catchAsync(async (req, res, next) => {
   //1) get product data from collection
   const categories = await Category.find();

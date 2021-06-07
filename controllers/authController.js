@@ -57,6 +57,16 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
+exports.logout = (req, res) => {
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true
+  });
+ // res.status(200).json({ status: 'success' });
+  res.redirect('/');
+};
+
+
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) getting token and check if it's there
   let token;
@@ -99,11 +109,13 @@ exports.protect = catchAsync(async (req, res, next) => {
 });
 
 // only for rendered pages with no errors
-exports.isLoggedIn = catchAsync(async (req, res, next) => {
+exports.isLoggedIn = async (req, res, next) => {
   // 1) getting token and check if it's there
 
   if (req.cookies.jwt) {
     // 2) verification of the token
+    try{
+
     const decoded = await promisify(jwt.verify)(
       req.cookies.jwt,
       process.env.JWT_SECRET
@@ -128,9 +140,12 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
     // there is a logged in user
     res.locals.user = freshUser;
     return next();
+  } catch(err){
+    return next();
+  }
   }
   next();
-});
+};
 
 exports.restrictTo = function (...roles) {
   return (req, res, next) => {

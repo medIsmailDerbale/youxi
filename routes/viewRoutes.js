@@ -19,6 +19,15 @@ router.get(
 );
 
 router.get(
+  "/users",
+  authController.protect,
+  authController.restrictTo("admin"),
+  viewsController.getUsers
+);
+
+router.get("/signup", viewsController.getSignup);
+
+router.get(
   "/categories",
   authController.protect,
   authController.restrictTo("admin"),
