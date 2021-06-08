@@ -58,14 +58,13 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = (req, res) => {
-  res.cookie('jwt', 'loggedout', {
+  res.cookie("jwt", "loggedout", {
     expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true
+    httpOnly: true,
   });
- // res.status(200).json({ status: 'success' });
-  res.redirect('/');
+  // res.status(200).json({ status: 'success' });
+  res.redirect("/");
 };
-
 
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) getting token and check if it's there
@@ -114,35 +113,37 @@ exports.isLoggedIn = async (req, res, next) => {
 
   if (req.cookies.jwt) {
     // 2) verification of the token
-    try{
-
-    const decoded = await promisify(jwt.verify)(
-      req.cookies.jwt,
-      process.env.JWT_SECRET
-    );
-    // 3) check if user still exists
-    const freshUser = await User.findById(decoded._id);
-    if (!freshUser) {
+    try {
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
+      // 3) check if user still exists
+      const freshUser = await User.findById(decoded._id);
+      if (!freshUser) {
+        return next();
+      }
+      //4) check if user changed password after the token was issued
+      if (freshUser.changedPasswordAfter(decoded.iat)) {
+        return next(
+          new AppError("User recently changed password Please login again", 401)
+        );
+      }
+      //grant access to protected routes
+      if (!freshUser.active) {
+        return next(
+          new AppError(
+            "User is not active please contact the administrator",
+            401
+          )
+        );
+      }
+      // there is a logged in user
+      res.locals.user = freshUser;
+      return next();
+    } catch (err) {
       return next();
     }
-    //4) check if user changed password after the token was issued
-    if (freshUser.changedPasswordAfter(decoded.iat)) {
-      return next(
-        new AppError("User recently changed password Please login again", 401)
-      );
-    }
-    //grant access to protected routes
-    if (!freshUser.active) {
-      return next(
-        new AppError("User is not active please contact the administrator", 401)
-      );
-    }
-    // there is a logged in user
-    res.locals.user = freshUser;
-    return next();
-  } catch(err){
-    return next();
-  }
   }
   next();
 };
@@ -233,7 +234,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
-exports.updatePassword = async (req, res, next) => {
+exports.updatePassword = catchAsync(async (req, res, next) => {
   // 1) get user from collection
   const user = await await User.findById(req.user.id).select("+password");
   // 2) check if posted password is correct
@@ -243,9 +244,9 @@ exports.updatePassword = async (req, res, next) => {
   // 3) update the password
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
-  await user.save();
+  if (req.body.password === req.body.passwordConfirm) await user.save();
   // user.findByIdAndUpdate will NOT work as Intended!
 
   // 4) log user in, send JWT
   createSendToken(user, 200, res);
-};
+});
