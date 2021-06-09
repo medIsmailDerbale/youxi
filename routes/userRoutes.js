@@ -8,6 +8,17 @@ router.post("/login", authController.login);
 router.post("/signup", authController.signup);
 router.get("/logout", authController.logout);
 
+router.get("/blockuser",
+    authController.protect,
+    authController.restrictTo("admin")
+
+    );
+router.get("/activeuser",
+    authController.protect,
+    authController.restrictTo("admin")
+
+    );
+
 router
   .route("/")
   .get(userController.getAllUsers)
