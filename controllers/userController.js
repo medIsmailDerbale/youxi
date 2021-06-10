@@ -5,13 +5,29 @@ const factory = require("./handlerFactory");
 
 exports.getUser = factory.getOne(User);
 exports.getAllUsers = factory.getAll(User);
-
-exports.createUser = (req, res) => {
-  res.status(500).json({
-    status: "error",
-    message: "This route is not yet defined!",
-  });
-};
-
 exports.updateUser = factory.updateOne(User);
 exports.deleteUser = factory.deleteOne(User);
+
+exports.blockUser = catchAsync(async (req, res, next) => {
+  let user = await User.findById(req.params.id);
+  // verify if user exists
+  if (!user) return next(new AppError("user doesn't exists", 404));
+  user.active = false;
+  await user.save({ validateBeforeSave: false });
+  res.status(200).json({
+    status: "success",
+    data: { user },
+  });
+});
+
+exports.activateUser = catchAsync(async (req, res, next) => {
+  let user = await User.findById(req.params.id);
+  // verify if user exists
+  if (!user) return next(new AppError("user doesn't exists", 404));
+  user.active = true;
+  await user.save({ validateBeforeSave: false });
+  res.status(200).json({
+    status: "success",
+    data: { user },
+  });
+});

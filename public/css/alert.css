@@ -21,3 +21,7 @@
 .alert--error {
   background-color: #eb4d4b !important;
 }
+
+.alert--warning {
+  background-color: #fd5602 !important;
+}

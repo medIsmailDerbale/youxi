@@ -51,7 +51,6 @@ exports.getUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
 
   //2) build template
-  console.log(users)
   //3) Render that template using product data from 1
   res.status(200).render("users", {
     title: "Users",

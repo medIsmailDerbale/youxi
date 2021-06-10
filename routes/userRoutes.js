@@ -8,21 +8,20 @@ router.post("/login", authController.login);
 router.post("/signup", authController.signup);
 router.get("/logout", authController.logout);
 
-router.get("/blockuser",
-    authController.protect,
-    authController.restrictTo("admin")
+router.patch(
+  "/blockUser/:id",
+  authController.protect,
+  authController.restrictTo("admin"),
+  userController.blockUser
+);
+router.patch(
+  "/activateUser/:id",
+  authController.protect,
+  authController.restrictTo("admin"),
+  userController.activateUser
+);
 
-    );
-router.get("/activeuser",
-    authController.protect,
-    authController.restrictTo("admin")
-
-    );
-
-router
-  .route("/")
-  .get(userController.getAllUsers)
-  .post(userController.createUser);
+router.route("/").get(userController.getAllUsers);
 
 router.patch(
   "/updateMyPassword",

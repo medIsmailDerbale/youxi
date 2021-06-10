@@ -10,7 +10,6 @@ const DeleteItemFromCategory = async (id1, id2) => {
       }
     );
     res = await res.json();
-    console.log(res);
     if ((await res.status) === "success") {
       showAlert("success", "Child deleted successfully");
       window.setTimeout(() => {
