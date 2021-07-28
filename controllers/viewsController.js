@@ -8,11 +8,14 @@ const AppError = require("../utils/appError");
 
 exports.getOverview = catchAsync(async (req, res, next) => {
   // 1) Get products data from collection
-  //const products = await Product.find();
+  const products = await Product.find();
 
   // 2) Build template
   // 3) Render that template using product data from 1)
-  res.status(200).render("overview");
+  res.status(200).render("overview",{
+    title: "Overview",
+    products,
+  });
 });
 
 exports.getAccount = (req, res) => {
@@ -68,6 +71,19 @@ exports.getCategories = catchAsync(async (req, res, next) => {
   res.status(200).render("category", {
     title: "Categories",
     categories,
+  });
+});
+
+exports.getDash = catchAsync(async (req, res, next) => {
+  //1) get product data from collection
+  const products = await Product.find();
+
+  //2) build template
+
+  //3) Render that template using product data from 1
+  res.status(200).render("dashboard", {
+    title: "dashboard",
+    products,
   });
 });
 

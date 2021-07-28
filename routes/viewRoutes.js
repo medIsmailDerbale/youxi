@@ -40,4 +40,6 @@ router.get("/reset-password/:token", viewsController.getResetPassword);
 //router.get('/product/:slug', viewsController.getProduct);
 //need to implement  viewsController.getProduct in viewsController
 
+router.get("/dash", viewsController.getDash);
+
 module.exports = router;
