@@ -49,6 +49,8 @@ exports.getProducts = catchAsync(async (req, res, next) => {
   });
 });
 
+
+
 exports.getUsers = catchAsync(async (req, res, next) => {
   //1) get product data from collection
   const users = await User.find();
