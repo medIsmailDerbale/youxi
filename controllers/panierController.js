@@ -65,3 +65,7 @@ exports.getProduct = async (req, res) => {
     res.redirect("/");
   }
 };
+
+exports.getPanier = () =>{
+  
+}

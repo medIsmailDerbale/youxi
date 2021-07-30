@@ -76,18 +76,7 @@ exports.getCategories = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getDash = catchAsync(async (req, res, next) => {
-  //1) get product data from collection
-  const products = await Product.find();
 
-  //2) build template
-
-  //3) Render that template using product data from 1
-  res.status(200).render("dashboard", {
-    title: "dashboard",
-    products,
-  });
-});
 
 exports.getForgotPassword = (req, res) => {
   res.status(200).render("forgotPassword", {
