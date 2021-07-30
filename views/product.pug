@@ -188,9 +188,7 @@ head
                     each product in products
                       tr
                       td
-                        .d-flex.align-items-center
-                          .m-r-10
-                            a.btn.btn-circle.btn-st
+                        img(src=`${product.imageCover}`, width='75px',height= '75px')
                       td=product.name
                       td=product.price+' Da'
                       td=`${product.colors.join(',')}`

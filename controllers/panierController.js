@@ -1,4 +1,4 @@
-const Product = require("../models/cart");
+const Product = require("../models/productModel");
 const Cart = require("../models/cart");
 
 exports.getProduct = async (req, res) => {
@@ -11,7 +11,7 @@ exports.getProduct = async (req, res) => {
     // get the correct cart, either from the db, session, or an empty cart.
     let user_cart;
     if (req.user) {
-      user_cart = await Cart.findOne({ user: req.user._id });
+      user_cart = await Cart.findOne({ user: req.user.id });
     }
     let cart;
 
@@ -66,6 +66,4 @@ exports.getProduct = async (req, res) => {
   }
 };
 
-exports.getPanier = () =>{
-  
-}
+exports.getPanier = () => {};
