@@ -14,7 +14,7 @@ html
     .container
         .col-md-6.mx-auto
             .card
-              img(src='../img/4.png',alt=product.name).card-img-top
+              img(src=`${product.imageCover}`,alt=product.name).card-img-top
               .card-body
                 h3.card-title=product.name
                 p.card-text=product.description

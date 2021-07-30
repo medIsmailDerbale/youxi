@@ -112,7 +112,7 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
                 span.badge.bg-danger.mt-3.ms-3 SALE
               .card-body
                 div
-                  img(src='img/4.png ' alt=' ')
+                  img(src=`${products[z].imageCover}` alt='')
             a.text-decoration-none.text-dark(href='/api/v1/products/'+products[z].id)
               .article-txt
                 | #{ products[z].name}
@@ -128,7 +128,7 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
                 span.badge.bg-danger.mt-3.ms-3 SALE
               .card-body
                 div
-                  img(src='img/4.png ' alt=' ')
+                  img(src=`${products[z].imageCover}` alt=' ')
             a.text-decoration-none.text-dark(href='/api/v1/products/'+products[z].id)
               .article-txt
                 | #{ products[i].name}
