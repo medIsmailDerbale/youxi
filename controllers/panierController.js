@@ -86,6 +86,7 @@ exports.getPanier = async (req, res) => {
     if (req.cookies.jwt) {
       cart_user = await Cart.findOne({ user: decoded._id });
     }
+
     // if user is signed in and has cart, load user's cart from the db
     if (req.cookies.jwt && cart_user) {
       return res.render("panier", {
@@ -116,12 +117,11 @@ exports.getPanier = async (req, res) => {
 
 async function productsFromCart(cart) {
   let products = []; // array of objects
+
   for (const item of cart.items) {
     let foundProduct = (
       await Product.findById(item.productId).populate("category")
     ).toObject();
-    //foundProduct["qty"] = item.qty;
-    foundProduct["totalPrice"] = item.price;
     products.push(foundProduct);
   }
   return products;
