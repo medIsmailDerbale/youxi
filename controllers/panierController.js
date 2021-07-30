@@ -79,9 +79,63 @@ exports.getProduct = async (req, res) => {
     res.redirect("/");
   } catch (err) {
     console.log(err.message);
-    //res.redirect("/");
+    res.redirect("/");
   }
 };
 
 
-exports.getPanier =  (req, res) => {}
+exports.getPanier = async (req, res) => {
+  try {
+
+    const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+    );
+
+    // find the cart, whether in session or in db based on the user state
+    let cart_user;
+    if (req.cookies.jwt) {
+      cart_user = await Cart.findOne({ user: decoded._id });
+    }
+    // if user is signed in and has cart, load user's cart from the db
+    if (req.cookies.jwt && cart_user) {
+    
+      return res.render("panier", {
+        cart: cart_user,
+        pageName: "Shopping Cart",
+        products: await productsFromCart(cart_user),
+      });
+    }
+    // if there is no cart in session and user is not logged in, cart is empty
+    /*if (!req.session.cart) {
+      return res.render("shop/shopping-cart", {
+        cart: null,
+        pageName: "Shopping Cart",
+        products: null,
+      });
+    }*/
+    // otherwise, load the session's cart
+   /* return res.render("shop/shopping-cart", {
+      cart: req.session.cart,
+      pageName: "Shopping Cart",
+      products: await productsFromCart(req.session.cart),
+    });*/
+
+  } catch (err) {
+    console.log(err.message);
+    res.redirect("/");
+  }
+};
+
+async function productsFromCart(cart) {
+  let products = []; // array of objects
+  for (const item of cart.items) {
+    let foundProduct = (
+      await Product.findById(item.productId).populate("category")
+    ).toObject();
+    //foundProduct["qty"] = item.qty;
+    foundProduct["totalPrice"] = item.price;
+    products.push(foundProduct);
+  }
+  return products;
+};
