@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport",content="width=device-width,initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible",content="ie-edge")
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous")
+    title  #{product.name}
+  body
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.mb-4
+      .container-fluid
+        a.navbar-brand(href='/')= product.name
+
+    .container
+        .col-md-6.mx-auto
+            .card
+              img(src='../img/4.png',alt=product.name).card-img-top
+              .card-body
+                h3.card-title=product.name
+                p.card-text=product.description
+                h5
+                  | Price:
+                  span.badge.bg-danger.mt-3.ms-3 #{product.price + " DA"}
+                  hr
+
+      
+
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js')
+    script(src="https://kit.fontawesome.com/3812759d4e.js" crossorigin="anonymous")

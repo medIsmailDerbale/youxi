@@ -21,7 +21,7 @@ head
   // sidebar
   nav#sidebar-wrapper.fixed-top.align-top(role='navigation')
     .simplebar-content(style='padding: 0px;')
-      a.sidebar-brand(href='/')
+      a.sidebar-brand(href='#')
         img(src='img/youxi logo.svg')
         img(src='img/adminpanel.svg')
       ul.navbar-nav.align-self-stretch
@@ -129,41 +129,7 @@ head
                 .row.header-table
                   .col-2.my-auto.product-st.justify-content-around
                     | Products
-                  .col-1.my-auto.add-new-st.justify-content-around.btn.d-flex(role='button' data-bs-toggle='modal' data-bs-target='#exampleModal1')
-                    | Add New
-                  // Modal Add New
-                  #exampleModal1.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
-                    .modal-dialog.modal-lg
-                      .modal-content.text-white.d
-                        .container-fluid.px-5.py-3
-                          .modal-header.border-0
-                            h1#exampleModalLabel.modal-title.txt
-                              | ADD
-                              | PRODUCT
-                            button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-                          .modal-body
-                            .mb-3.row
-                              label.col-sm-2.txt.col-form-label(for='name') Name*
-                              .col-sm-10
-                                input#name.form-control.form-control-lg.rounded-pill.border-white.text-white.inp(type='text' placeholder='   Product Name')
-                            .mb-3.row
-                              label.txt.col-sm-2.col-form-label(for='Price') Price*
-                              .col-sm-10
-                                input#Price.form-control.form-control-lg.inp.rounded-pill.border-white.text-white(type='number' placeholder='   Product Price')
-                            .mb-3.row
-                              label.txt.col-sm-2.col-form-label(for='Colors') Colors
-                              .col-sm-10
-                                input#Colors.inp.form-control.form-control-lg.rounded-pill.border-white.text-white(type='text' placeholder='   Product Colors')
-                            .mb-3.row
-                              label.txt.col-sm-2.col-form-label.px-2(for='Description')
-                                | Description*
-                              .col-sm-10
-                                textarea#Description.inp.form-control.form-control-lg.border-white.text-white(type='text' placeholder='   Product Descrption' rows='3')
-                          .modal-footer.border-0
-                            button.btn.rounded-pill.inp.btn1(type='button' data-bs-dismiss='modal') Cancel
-                            button#addBtn.btn.rounded-pill.inp.btn1.btn2(type='submit')
-                              | Confirm
-                  // Modal Add New END
+                  
                   .col-7.my-auto.justify-content-start
                     form
                       input(type='text' placeholder='Search ...')
@@ -180,9 +146,8 @@ head
                       th.border-top-0
                       th.border-top-0 Name
                       th.border-top-0 Price
-                      th.border-top-0 colors
-                      th.border-top-0 Published
-                      th.border-top-0 Description
+                      th.border-top-0 Image
+                      th.border-top-0 Qantity
                       th.border-top-0
                   tbody
                     each product in products
@@ -193,7 +158,6 @@ head
                             a.btn.btn-circle.btn-st
                       td=product.name
                       td=product.price+' Da'
-                      td=`${product.colors.join(',')}`
                       td=`${product.addedAt.toDateString()}`
                       td=product.description
                       td

@@ -25,6 +25,10 @@ const productSchema = mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  //imageCover: {
+  //  type: String,
+  //  required: [true, 'A product must have a cover image']
+  //}
 });
 
 const Product = mongoose.model("Product", productSchema);

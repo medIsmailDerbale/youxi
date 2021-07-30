@@ -40,9 +40,8 @@ exports.getProductById = catchAsync(async (req, res, next) => {
     return next(new AppError("invalid product Id"));
   }
 
-  res.status(200).json({
-    status: "success",
-    data: { product },
+  res.status(200).render("oneProduct", {
+    product,
   });
 });
 
