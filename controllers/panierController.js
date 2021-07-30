@@ -1,16 +1,12 @@
 const Product = require("../models/cart");
 const Cart = require("../models/cart");
 
+exports.getProduct = async (req, res) => {
+  const productId = req.params.id;
 
-exports.getProduct  = async (req, res) => {
-
-  const productId = req.params._id;
-
-
-
-    console.log("-----------------------")
-    console.log(productId)
-    console.log("-----------------------")
+  console.log("-----------------------");
+  console.log(productId);
+  console.log("-----------------------");
   try {
     // get the correct cart, either from the db, session, or an empty cart.
     let user_cart;
@@ -18,7 +14,6 @@ exports.getProduct  = async (req, res) => {
       user_cart = await Cart.findOne({ user: req.user._id });
     }
     let cart;
-
 
     /*if (
       (req.user && !user_cart && req.session.cart) ||
@@ -31,9 +26,9 @@ exports.getProduct  = async (req, res) => {
       cart = user_cart;
     }*/
     cart = new Cart({});
-    console.log("-----------------------")
-    console.log(cart)
-    console.log("-----------------------")
+    console.log("-----------------------");
+    console.log(cart);
+    console.log("-----------------------");
 
     // add the product to the cart
     const product = await Product.findById(productId);
@@ -41,22 +36,21 @@ exports.getProduct  = async (req, res) => {
     const itemIndex = cart.items.findIndex((p) => p.productId == productId);
 
     //if (itemIndex > -1) {
-      // if product exists in the cart, update the quantity
+    // if product exists in the cart, update the quantity
     //  cart.items[itemIndex].qty++;
     //  cart.items[itemIndex].price = cart.items[itemIndex].qty * product.price;
     //  cart.totalQty++;
     //  cart.totalCost += product.price;
     //} else {
-      // if product does not exists in cart, find it in the db to retrieve its price and add new item
-      cart.items.push({
-        productId: productId,
-        qty: 1,
-        price: product.price,
-        title: product.name,
-      });
-      cart.totalQty++;
-      cart.totalCost += product.price;
-    
+    // if product does not exists in cart, find it in the db to retrieve its price and add new item
+    cart.items.push({
+      productId: productId,
+      qty: 1,
+      price: product.price,
+      title: product.name,
+    });
+    cart.totalQty++;
+    cart.totalCost += product.price;
 
     // if the user is logged in, store the user's id and save cart to the db
     if (req.user) {
@@ -70,5 +64,4 @@ exports.getProduct  = async (req, res) => {
     console.log(err.message);
     res.redirect("/");
   }
-}
-
+};
