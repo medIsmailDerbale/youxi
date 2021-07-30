@@ -1,12 +1,10 @@
-const Product = require("../models/cart");
+const Product = require("../models/productModel");
 const Cart = require("../models/cart");
 
 exports.getProduct = async (req, res) => {
   const productId = req.params.id;
 
-  console.log("-----------------------");
-  console.log(productId);
-  console.log("-----------------------");
+
   try {
     // get the correct cart, either from the db, session, or an empty cart.
     let user_cart;
@@ -14,7 +12,7 @@ exports.getProduct = async (req, res) => {
       user_cart = await Cart.findOne({ user: req.user._id });
     }
     let cart;
-
+    console.log(req.user);
     /*if (
       (req.user && !user_cart && req.session.cart) ||
       (!req.user && req.session.cart)
@@ -26,9 +24,7 @@ exports.getProduct = async (req, res) => {
       cart = user_cart;
     }*/
     cart = new Cart({});
-    console.log("-----------------------");
-    console.log(cart);
-    console.log("-----------------------");
+
 
     // add the product to the cart
     const product = await Product.findById(productId);
@@ -53,19 +49,21 @@ exports.getProduct = async (req, res) => {
     cart.totalCost += product.price;
 
     // if the user is logged in, store the user's id and save cart to the db
-    if (req.user) {
+    /*if (req.user) {
       cart.user = req.user._id;
       await cart.save();
-    }
-    req.session.cart = cart;
+    }*/
+    await cart.save();
+
+/*    req.session.cart = cart;
     req.flash("success", "Item added to the shopping cart");
-    res.redirect(req.headers.referer);
+    res.redirect(req.headers.referer);*/
+    res.redirect("/");
   } catch (err) {
     console.log(err.message);
     res.redirect("/");
   }
 };
 
-exports.getPanier = () =>{
-  
-}
+
+exports.getPanier =  (req, res) => {}
