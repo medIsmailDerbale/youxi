@@ -38,34 +38,37 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
       button.active(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='0' aria-current='true' aria-label='Slide 1')
       button(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='1' aria-label='Slide 2')
       button(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='2' aria-label='Slide 3')
+    -i = Math.floor(Math.random() * (products.length-1)) +1;
+    -j = Math.floor(Math.random() * (products.length-1)) +1;
+    -z = Math.floor(Math.random() * (products.length-1)) +1;
     .carousel-inner
       .carousel-item.active
         .cdiv1.container.d-block.w-100.d-flex.justify-content-around
           .cdiv2.col-3.offset-2.text-uppercase.mt-2
-            h1.fw-bolder sarah bouheraoua
+            h1.fw-bolder #{ products[i].name}
             .mb-2.mb-md-5
               | di di Lorem ipsum dolor
             button.btn.fw-bolder.bg-white(type='button') VIEW MORE
           .col-5.col-lg-7
-            img.cimg(src='img/1.png' alt='')
+            img.cimg(src=products[i].imageCover, alt='')
       .carousel-item
         .cdiv1.container.d-block.w-100.d-flex.justify-content-around
           .cdiv2.col-3.offset-2.text-uppercase.mt-2
-            h1.fw-bolder sarah bouheraoua
+            h1.fw-bolder #{ products[j].name}
             .mb-2.mb-md-5
               | di di Lorem ipsum dolor
             button.btn.bg-white.fw-bolder(type='button') VIEW MORE
           .col-5.col-lg-7
-            img.cimg(src='img/sourie.png' alt='')
+            img.cimg(src=products[j].imageCover, alt='')
       .carousel-item
         .cdiv1.container.d-block.w-100.d-flex.justify-content-around
           .cdiv2.col-3.offset-2.text-uppercase.mt-2
-            h1.fw-bolder sarah bouheraoua
+            h1.fw-bolder #{ products[z].name}
             .mb-2.mb-md-5
-              | di di Lorem ipsum dolor
+              | #{ products[z].name}
             button.btn.bg-white.fw-bolder(type='button') VIEW MORE
           .col-5.col-lg-7
-            img.cimg(src='img/2.png' alt='')
+            img.cimg(src=products[z].imageCover, alt='')
     button.carousel-control-prev(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide='prev')
       span.carousel-control-prev-icon.text-dark(aria-hidden='true')
       span.visually-hidden Previous
@@ -73,6 +76,8 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
       span.carousel-control-next-icon(aria-hidden='true')
       span.visually-hidden Next
   .row.d-none.d-sm-block.d-md-flex.justify-content-center
+    -i = Math.floor(Math.random() * (products.length-1)) +1;
+    -j = Math.floor(Math.random() * (products.length-1)) +1;
     .col-md-6
       .card.card1.mb-3
         .card-body.row
@@ -84,7 +89,7 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
             .col-7.mb-3
               button.btn.bg-white.fw-bolder(type='button') VIEW MORE
             .col-5
-              img(src='img/sourie.png' alt='')
+              img(src=products[i].imageCover, alt='')
     .col-md-6
       .card.card2.mb-3
         .card-body.row
@@ -96,7 +101,7 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
             .col-7.mb-3
               button.btn.bg-white.fw-bolder(type='button ') VIEW MORE
             .col-5
-              img(src='img/sourie.png ' alt=' ')
+              img(src=products[j].imageCover,alt=' ')
 
   - var length = products.length;
 
@@ -128,7 +133,7 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
                 span.badge.bg-danger.mt-3.ms-3 SALE
               .card-body
                 div
-                  img(src='img/4.png ' alt=' ')
+                  img(src=products[z].imageCover, alt=' ')
             a.text-decoration-none.text-dark(href='/api/v1/products/'+products[z].id)
               .article-txt
                 | #{ products[i].name}
