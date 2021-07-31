@@ -30,7 +30,7 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
     div
       a(href='/me')
         span.userIcon.iconify.text-dark(data-icon='bx:bx-user-circle' data-inline='false' data-width='24px')
-      a(href='')
+      a(href='/api/v1/cart/panier')
         span.iconify.text-dark(data-icon='la:shopping-basket' data-inline='false' data-width='24px')
 .container
   #carouselExampleCaptions.carousel.my-3.carousel-dark.slide(data-bs-ride='carousel')
@@ -82,9 +82,9 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
       .card.card1.mb-3
         .card-body.row
           .col-7
-            h5.card-title.card-title1.fw-bold.text-uppercase.mb-3 Info card title
+            h5.card-title.card-title1.fw-bold.text-uppercase.mb-3 #{ products[i].name}
             p.card-text
-              | Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
+              | #{ products[i].description}
           .row.d-flex.align-items-end.mx-0(style='margin-top: -10%;')
             .col-7.mb-3
               button.btn.bg-white.fw-bolder(type='button') VIEW MORE
@@ -94,9 +94,9 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
       .card.card2.mb-3
         .card-body.row
           .col-7
-            h5.card-title.card-title1.card-title2.fw-bold.text-uppercase.mb-3 Info card title
+            h5.card-title.card-title1.card-title2.fw-bold.text-uppercase.mb-3 #{ products[j].name}
             p.card-text
-              | Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
+              | #{ products[j].description}
           .row.d-flex.align-items-end.mx-0(style='margin-top: -10%; ')
             .col-7.mb-3
               button.btn.bg-white.fw-bolder(type='button ') VIEW MORE

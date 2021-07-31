@@ -13,7 +13,7 @@ head
   link(rel='stylesheet' href='css/alert.css')
   link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x' crossorigin='anonymous')
 nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
-  a.navbar-brand(href='#')
+  a.navbar-brand(href='/')
     img(src='img/youxi logo.svg' alt='')
   button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
     span.navbar-toggler-icon
@@ -29,9 +29,9 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
         span#inputGroup-sizing-sm.input-group-text.border-0
           span.iconify.text-dark(data-icon='bx:bx-search' data-inline='false')
     div
-      a(href='' style='margin-right:10px;')
+      a(href='/me' style='margin-right:10px;')
         span.iconify.text-dark(data-icon='bx:bx-user-circle' data-inline='false' data-width='24px' )
-      a(href='')
+      a(href='/api/v1/cart/panier')
         span.iconify.text-dark(data-icon='la:shopping-basket' data-inline='false' data-width='24px')
 #content
   .container-fluid.px-lg-4
