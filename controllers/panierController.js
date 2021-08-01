@@ -2,6 +2,7 @@ const Product = require("../models/productModel");
 const Cart = require("../models/cart");
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
+const AppError = require("../utils/appError");
 
 exports.getProduct = async (req, res) => {
   const productId = req.params.id;
@@ -81,12 +82,13 @@ exports.getPanier = async (req, res) => {
       process.env.JWT_SECRET
     );
 
+    console.log(await decoded);
     // find the cart, whether in session or in db based on the user state
     let cart_user;
     if (req.cookies.jwt) {
       cart_user = await Cart.findOne({ user: decoded._id });
     }
-
+    console.log(await cart_user);
     // if user is signed in and has cart, load user's cart from the db
     if (req.cookies.jwt && cart_user) {
       return res.render("panier", {
