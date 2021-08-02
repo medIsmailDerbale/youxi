@@ -7,7 +7,6 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeatures");
 
-
 exports.getOverview = catchAsync(async (req, res, next) => {
   // execute query
   const features = new APIFeatures(Product.find(), req.query)
@@ -16,20 +15,19 @@ exports.getOverview = catchAsync(async (req, res, next) => {
     .paginate()
     .limitFields();
 
-  const numProducts = await Product.countDocuments()
-  const pages = Math.ceil(numProducts/16);
+  const numProducts = await Product.countDocuments();
+  const pages = Math.ceil(numProducts / 16);
   current = req.query.page || 1;
 
   const products = await features.query;
   // send response
-res.status(200).render("overview", {
-  title: "Overview",
-  pages,
-  current,
-  products,
+  res.status(200).render("overview", {
+    title: "Overview",
+    pages,
+    current,
+    products,
   });
 });
-
 
 exports.getAccount = (req, res) => {
   res.status(200).render("account", {
@@ -62,8 +60,6 @@ exports.getProducts = catchAsync(async (req, res, next) => {
   });
 });
 
-
-
 exports.getUsers = catchAsync(async (req, res, next) => {
   //1) get product data from collection
   const users = await User.find();
@@ -88,8 +84,6 @@ exports.getCategories = catchAsync(async (req, res, next) => {
     categories,
   });
 });
-
-
 
 exports.getForgotPassword = (req, res) => {
   res.status(200).render("forgotPassword", {
@@ -120,7 +114,7 @@ exports.getProductDetail = catchAsync(async (req, res, next) => {
   if (!product) {
     return next(new AppError("invalid product Id"));
   }
-  res.status.render("oneProduct", {
+  res.status(200).render("oneProduct", {
     product,
   });
 });
