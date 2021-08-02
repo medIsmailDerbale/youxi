@@ -48,7 +48,8 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
             h1.fw-bolder #{ products[i].name}
             .mb-2.mb-md-5
               | di di Lorem ipsum dolor
-            button.btn.fw-bolder.bg-white(type='button') VIEW MORE
+            a(href='/p/'+products[i].id)
+              button.btn.fw-bolder.bg-white(type='button') VIEW MORE
           .col-5.col-lg-7
             img.cimg(src=products[i].imageCover, alt='')
       .carousel-item
@@ -57,7 +58,8 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
             h1.fw-bolder #{ products[j].name}
             .mb-2.mb-md-5
               | di di Lorem ipsum dolor
-            button.btn.bg-white.fw-bolder(type='button') VIEW MORE
+            a(href='/p/'+products[j].id)
+              button.btn.bg-white.fw-bolder(type='button') VIEW MORE
           .col-5.col-lg-7
             img.cimg(src=products[j].imageCover, alt='')
       .carousel-item
@@ -66,7 +68,8 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
             h1.fw-bolder #{ products[z].name}
             .mb-2.mb-md-5
               | #{ products[z].name}
-            button.btn.bg-white.fw-bolder(type='button') VIEW MORE
+            a(href='/p/'+products[z].id)
+              button.btn.bg-white.fw-bolder(type='button') VIEW MORE
           .col-5.col-lg-7
             img.cimg(src=products[z].imageCover, alt='')
     button.carousel-control-prev(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide='prev')
@@ -87,7 +90,8 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
               | #{ products[i].description}
           .row.d-flex.align-items-end.mx-0(style='margin-top: -10%;')
             .col-7.mb-3
-              button.btn.bg-white.fw-bolder(type='button') VIEW MORE
+              a(href='/p/'+products[i].id)
+                button.btn.bg-white.fw-bolder(type='button') VIEW MORE
             .col-5
               img(src=products[i].imageCover, alt='')
     .col-md-6
@@ -99,7 +103,8 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
               | #{ products[j].description}
           .row.d-flex.align-items-end.mx-0(style='margin-top: -10%; ')
             .col-7.mb-3
-              button.btn.bg-white.fw-bolder(type='button ') VIEW MORE
+              a(href='/p/'+products[j].id)
+                button.btn.bg-white.fw-bolder(type='button ') VIEW MORE
             .col-5
               img(src=products[j].imageCover,alt=' ')
 
