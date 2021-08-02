@@ -143,6 +143,32 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
 
 
 
+  
+  nav(aria-label='Page navigation')
+    ul.pagination.justify-content-center
+      ul.pagination
+        if current > 1
+          li.page-item
+            a.page-link(href=`?page=${parseInt(current) - 1}`) Previous
+
+        - for (var i = 1; i <= pages; i++) {
+          if current===i
+            li.page-item.active
+              a.page-link(href=`?page=${i}`)=  i
+          else
+            li.page-item
+              a.page-link(href=`?page=${i}`)=  i
+        - }
+
+
+        if current < pages
+          li.page-item
+            a.page-link(href=`?page=${parseInt(current) + 1}`) Next
+     
+
+
+
+
 footer.footer.mt-5.p-5
   .container.d-flex.justify-content-around
     .col-4
