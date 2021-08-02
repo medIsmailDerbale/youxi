@@ -32,9 +32,9 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
         span.userIcon.iconify.text-dark(data-icon='bx:bx-user-circle' data-inline='false' data-width='24px')
       a(href='/api/v1/cart/panier')
         span.iconify.text-dark(data-icon='la:shopping-basket' data-inline='false' data-width='24px')
+
 .container
-  if current == 1 
-    #carouselExampleCaptions.carousel.my-3.carousel-dark.slide(data-bs-ride='carousel')
+  #carouselExampleCaptions.carousel.my-3.carousel-dark.slide(data-bs-ride='carousel')
     .carousel-indicators
       button.active(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='0' aria-current='true' aria-label='Slide 1')
       button(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='1' aria-label='Slide 2')
@@ -49,8 +49,7 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
             h1.fw-bolder #{ products[i].name}
             .mb-2.mb-md-5
               | di di Lorem ipsum dolor
-            a(href='/p/'+products[i].id)
-              button.btn.fw-bolder.bg-white(type='button') VIEW MORE
+            button.btn.fw-bolder.bg-white(type='button') VIEW MORE
           .col-5.col-lg-7
             img.cimg(src=products[i].imageCover, alt='')
       .carousel-item
@@ -59,8 +58,7 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
             h1.fw-bolder #{ products[j].name}
             .mb-2.mb-md-5
               | di di Lorem ipsum dolor
-            a(href='/p/'+products[j].id)
-              button.btn.bg-white.fw-bolder(type='button') VIEW MORE
+            button.btn.bg-white.fw-bolder(type='button') VIEW MORE
           .col-5.col-lg-7
             img.cimg(src=products[j].imageCover, alt='')
       .carousel-item
@@ -69,8 +67,7 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
             h1.fw-bolder #{ products[z].name}
             .mb-2.mb-md-5
               | #{ products[z].name}
-            a(href='/p/'+products[z].id)
-              button.btn.bg-white.fw-bolder(type='button') VIEW MORE
+            button.btn.bg-white.fw-bolder(type='button') VIEW MORE
           .col-5.col-lg-7
             img.cimg(src=products[z].imageCover, alt='')
     button.carousel-control-prev(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide='prev')
@@ -79,39 +76,34 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
     button.carousel-control-next(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide='next')
       span.carousel-control-next-icon(aria-hidden='true')
       span.visually-hidden Next
-
   .row.d-none.d-sm-block.d-md-flex.justify-content-center
+    -i = Math.floor(Math.random() * (products.length-1)) +1;
+    -j = Math.floor(Math.random() * (products.length-1)) +1;
+    .col-md-6
+      .card.card1.mb-3
+        .card-body.row
+          .col-7
+            h5.card-title.card-title1.fw-bold.text-uppercase.mb-3 #{ products[i].name}
+            p.card-text
+              | #{ products[i].description}
+          .row.d-flex.align-items-end.mx-0(style='margin-top: -10%;')
+            .col-7.mb-3
+              button.btn.bg-white.fw-bolder(type='button') VIEW MORE
+            .col-5
+              img(src=products[i].imageCover, alt='')
+    .col-md-6
+      .card.card2.mb-3
+        .card-body.row
+          .col-7
+            h5.card-title.card-title1.card-title2.fw-bold.text-uppercase.mb-3 #{ products[j].name}
+            p.card-text
+              | #{ products[j].description}
+          .row.d-flex.align-items-end.mx-0(style='margin-top: -10%; ')
+            .col-7.mb-3
+              button.btn.bg-white.fw-bolder(type='button ') VIEW MORE
+            .col-5
+              img(src=products[j].imageCover,alt=' ')
 
-    if current == 1
-      -i = Math.floor(Math.random() * (products.length-1)) +1;
-      -j = Math.floor(Math.random() * (products.length-1)) +1;
-      .col-md-6
-        .card.card1.mb-3
-          .card-body.row
-            .col-7
-              h5.card-title.card-title1.fw-bold.text-uppercase.mb-3 #{ products[i].name}
-              p.card-text
-                | #{ products[i].description}
-            .row.d-flex.align-items-end.mx-0(style='margin-top: -10%;')
-              .col-7.mb-3
-                a(href='/p/'+products[i].id)
-                  button.btn.bg-white.fw-bolder(type='button') VIEW MORE
-              .col-5
-                img(src=products[i].imageCover, alt='')
-      .col-md-6
-        .card.card2.mb-3
-          .card-body.row
-            .col-7
-              h5.card-title.card-title1.card-title2.fw-bold.text-uppercase.mb-3 #{ products[j].name}
-              p.card-text
-                | #{ products[j].description}
-            .row.d-flex.align-items-end.mx-0(style='margin-top: -10%; ')
-              .col-7.mb-3
-                a(href='/p/'+products[j].id)
-                  button.btn.bg-white.fw-bolder(type='button ') VIEW MORE
-              .col-5
-                img(src=products[j].imageCover,alt=' ')
-              
   - var length = products.length;
 
   - var i = (length-(length%4))/4;
@@ -127,7 +119,7 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
               .card-body
                 div
                   img(src=`${products[z].imageCover}` alt='')
-            a.text-decoration-none.text-dark(href='/p/'+products[z].id)
+            a.text-decoration-none.text-dark(href='/api/v1/products/'+products[z].id)
               .article-txt
                 | #{ products[z].name}
                 .d-flex.justify-content-between
