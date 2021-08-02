@@ -5,18 +5,25 @@ const Product = require("../models/productModel");
 const Category = require("../models/categoryModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
+const APIFeatures = require("../utils/apiFeatures");
+
 
 exports.getOverview = catchAsync(async (req, res, next) => {
-  // 1) Get products data from collection
-  const products = await Product.find();
+  // execute query
+  const features = new APIFeatures(Product.find(), req.query)
+    .filter()
+    .sort()
+    .paginate()
+    .limitFields();
 
-  // 2) Build template
-  // 3) Render that template using product data from 1)
-  res.status(200).render("overview",{
-    title: "Overview",
-    products,
+  const products = await features.query;
+  // send response
+res.status(200).render("overview", {
+  title: "Overview",
+  products,
   });
 });
+
 
 exports.getAccount = (req, res) => {
   res.status(200).render("account", {
