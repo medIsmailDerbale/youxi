@@ -24,12 +24,8 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
 
   const products = await features.query;
   // send response
-  res.status(200).json({
-    status: "success",
-    length: products.length,
-    data: {
-      products,
-    },
+res.status(200).render("overview", {
+    products,
   });
 });
 
