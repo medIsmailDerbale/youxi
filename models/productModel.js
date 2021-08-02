@@ -30,6 +30,10 @@ const productSchema = mongoose.Schema({
     required: [true, "A product must have a cover image"],
     default: "/img/product_default.png",
   },
+  quantity: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const Product = mongoose.model("Product", productSchema);

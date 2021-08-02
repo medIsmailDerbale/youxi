@@ -19,7 +19,6 @@ const importData = async (id) => {
       document.getElementById("pName").value = product.name;
       document.getElementById("pPrice").value = product.price;
       document.getElementById("pDescription").value = product.description;
-      document.getElementById("pColors").value = product.colors.join(",");
     } else {
       showAlert("error", "Something went Wrong");
     }

@@ -33,6 +33,14 @@ router
   );
 
 router
+  .route("/get-category-by-product/:id")
+  .get(
+    authController.protect,
+    authController.restrictTo("admin"),
+    categoryController.getCategoryByProduct
+  );
+
+router
   .route("/:id/:id2")
   .delete(
     authController.protect,

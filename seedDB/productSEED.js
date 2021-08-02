@@ -302,9 +302,20 @@ const seedProducts = async function (titlesArr, imgsArr, categStr) {
   }
 };
 
+const addRandomQuanity = async function () {
+  let productList = await Product.find();
+  productList.forEach((el) => {
+    el.quantity = faker.datatype.number({ min: 10, max: 100 });
+    el.save();
+  });
+};
+
 // seedProducts(padsTitles, padsImages, "Pads");
 // seedProducts(audioTitles, audioImages, "Audio");
 // seedProducts(miceTitles, miceImages, "Mice");
 // seedProducts(keyboardTitle, keyboardImages, "Keyboards");
 // seedProducts(monitorsTitles, monitorsImages, "Monitors");
+// setting the quantity of the products to a random value each
+// addRandomQuanity();
+
 console.log("finished");

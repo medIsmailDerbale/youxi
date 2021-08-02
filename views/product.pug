@@ -180,7 +180,7 @@ head
                       th.border-top-0
                       th.border-top-0 Name
                       th.border-top-0 Price
-                      th.border-top-0 colors
+                      th.border-top-0 InStock 
                       th.border-top-0 Published
                       th.border-top-0 Description
                       th.border-top-0
@@ -191,7 +191,7 @@ head
                         img(src=`${product.imageCover}`, width='75px',height= '75px')
                       td=product.name
                       td=product.price+' Da'
-                      td=`${product.colors.join(',')}`
+                      td=product.quantity
                       td=`${product.addedAt.toDateString()}`
                       td=product.description
                       td

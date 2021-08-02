@@ -12,7 +12,7 @@ exports.getOverview = catchAsync(async (req, res, next) => {
 
   // 2) Build template
   // 3) Render that template using product data from 1)
-  res.status(200).render("overview",{
+  res.status(200).render("overview", {
     title: "Overview",
     products,
   });
@@ -49,8 +49,6 @@ exports.getProducts = catchAsync(async (req, res, next) => {
   });
 });
 
-
-
 exports.getUsers = catchAsync(async (req, res, next) => {
   //1) get product data from collection
   const users = await User.find();
@@ -75,8 +73,6 @@ exports.getCategories = catchAsync(async (req, res, next) => {
     categories,
   });
 });
-
-
 
 exports.getForgotPassword = (req, res) => {
   res.status(200).render("forgotPassword", {
