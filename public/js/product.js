@@ -19,6 +19,7 @@ const importData = async (id) => {
       document.getElementById("pName").value = product.name;
       document.getElementById("pPrice").value = product.price;
       document.getElementById("pDescription").value = product.description;
+      document.getElementById("pQuantity").value = product.quantity;
     } else {
       showAlert("error", "Something went Wrong");
     }
@@ -76,7 +77,7 @@ const deleteProduct = async (id) => {
   }
 };
 
-const patchProduct = async (id, name, price, colors, description) => {
+const patchProduct = async (id, name, price, quantity, description) => {
   try {
     const res = await fetch(`http://localhost:8000/api/v1/products/${id}`, {
       method: "PATCH",
@@ -86,7 +87,7 @@ const patchProduct = async (id, name, price, colors, description) => {
       body: JSON.stringify({
         name,
         price,
-        colors,
+        quantity,
         description,
       }),
     });
@@ -107,9 +108,9 @@ document.getElementById("patchBtn").addEventListener("click", (e) => {
   e.preventDefault();
   const name = document.getElementById("pName").value;
   const price = document.getElementById("pPrice").value;
-  const colors = document.getElementById("pColors").value;
+  const quantity = document.getElementById("pQuantity").value;
   const description = document.getElementById("pDescription").value;
-  patchProduct(globaleId, name, price, colors, description);
+  patchProduct(globaleId, name, price, quantity, description);
 });
 
 document.getElementById("addBtn").addEventListener("click", (e) => {

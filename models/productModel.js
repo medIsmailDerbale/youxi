@@ -12,10 +12,10 @@ const productSchema = mongoose.Schema({
     type: Number,
     required: [true, "product must have a price"],
   },
-  colors: [String],
-  dimensions: {
-    type: String,
-  },
+  // colors: [String],
+  // dimensions: {
+  //   type: String,
+  // },
   description: {
     type: String,
     required: [true, "product must have a description"],
