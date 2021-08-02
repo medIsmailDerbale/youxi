@@ -86,31 +86,31 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
       -i = Math.floor(Math.random() * (products.length-1)) +1;
       -j = Math.floor(Math.random() * (products.length-1)) +1;
       .col-md-6
-      .card.card1.mb-3
-        .card-body.row
-          .col-7
-            h5.card-title.card-title1.fw-bold.text-uppercase.mb-3 #{ products[i].name}
-            p.card-text
-              | #{ products[i].description}
-          .row.d-flex.align-items-end.mx-0(style='margin-top: -10%;')
-            .col-7.mb-3
-              a(href='/p/'+products[i].id)
-                button.btn.bg-white.fw-bolder(type='button') VIEW MORE
-            .col-5
-              img(src=products[i].imageCover, alt='')
+        .card.card1.mb-3
+          .card-body.row
+            .col-7
+              h5.card-title.card-title1.fw-bold.text-uppercase.mb-3 #{ products[i].name}
+              p.card-text
+                | #{ products[i].description}
+            .row.d-flex.align-items-end.mx-0(style='margin-top: -10%;')
+              .col-7.mb-3
+                a(href='/p/'+products[i].id)
+                  button.btn.bg-white.fw-bolder(type='button') VIEW MORE
+              .col-5
+                img(src=products[i].imageCover, alt='')
       .col-md-6
-      .card.card2.mb-3
-        .card-body.row
-          .col-7
-            h5.card-title.card-title1.card-title2.fw-bold.text-uppercase.mb-3 #{ products[j].name}
-            p.card-text
-              | #{ products[j].description}
-          .row.d-flex.align-items-end.mx-0(style='margin-top: -10%; ')
-            .col-7.mb-3
-              a(href='/p/'+products[j].id)
-                button.btn.bg-white.fw-bolder(type='button ') VIEW MORE
-            .col-5
-              img(src=products[j].imageCover,alt=' ')
+        .card.card2.mb-3
+          .card-body.row
+            .col-7
+              h5.card-title.card-title1.card-title2.fw-bold.text-uppercase.mb-3 #{ products[j].name}
+              p.card-text
+                | #{ products[j].description}
+            .row.d-flex.align-items-end.mx-0(style='margin-top: -10%; ')
+              .col-7.mb-3
+                a(href='/p/'+products[j].id)
+                  button.btn.bg-white.fw-bolder(type='button ') VIEW MORE
+              .col-5
+                img(src=products[j].imageCover,alt=' ')
               
   - var length = products.length;
 
