@@ -102,3 +102,13 @@ exports.getResetPassword = catchAsync(async (req, res, next) => {
     title: "Reset your password",
   });
 });
+
+exports.getProductDetail = catchAsync(async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+  if (!product) {
+    return next(new AppError("invalid product Id"));
+  }
+  res.status.render("oneProduct", {
+    product,
+  });
+});
