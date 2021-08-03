@@ -5,15 +5,26 @@ const Product = require("../models/productModel");
 const Category = require("../models/categoryModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
+const APIFeatures = require("../utils/apiFeatures");
 
 exports.getOverview = catchAsync(async (req, res, next) => {
-  // 1) Get products data from collection
-  const products = await Product.find();
+  // execute query
+  const features = new APIFeatures(Product.find(), req.query)
+    .filter()
+    .sort()
+    .paginate()
+    .limitFields();
 
-  // 2) Build template
-  // 3) Render that template using product data from 1)
-  res.status(200).render("overview",{
+  const numProducts = await Product.countDocuments();
+  const pages = Math.ceil(numProducts / 16);
+  current = req.query.page || 1;
+
+  const products = await features.query;
+  // send response
+  res.status(200).render("overview", {
     title: "Overview",
+    pages,
+    current,
     products,
   });
 });
@@ -49,8 +60,6 @@ exports.getProducts = catchAsync(async (req, res, next) => {
   });
 });
 
-
-
 exports.getUsers = catchAsync(async (req, res, next) => {
   //1) get product data from collection
   const users = await User.find();
@@ -76,8 +85,6 @@ exports.getCategories = catchAsync(async (req, res, next) => {
   });
 });
 
-
-
 exports.getForgotPassword = (req, res) => {
   res.status(200).render("forgotPassword", {
     title: "Forgot Password",
@@ -99,5 +106,15 @@ exports.getResetPassword = catchAsync(async (req, res, next) => {
   }
   res.status(200).render("resetPassword", {
     title: "Reset your password",
+  });
+});
+
+exports.getProductDetail = catchAsync(async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+  if (!product) {
+    return next(new AppError("invalid product Id"));
+  }
+  res.status(200).render("oneProduct", {
+    product,
   });
 });

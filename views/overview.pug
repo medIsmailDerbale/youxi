@@ -32,77 +32,84 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
         span.userIcon.iconify.text-dark(data-icon='bx:bx-user-circle' data-inline='false' data-width='24px')
       a(href='/api/v1/cart/panier')
         span.iconify.text-dark(data-icon='la:shopping-basket' data-inline='false' data-width='24px')
-.container
-  #carouselExampleCaptions.carousel.my-3.carousel-dark.slide(data-bs-ride='carousel')
-    .carousel-indicators
-      button.active(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='0' aria-current='true' aria-label='Slide 1')
-      button(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='1' aria-label='Slide 2')
-      button(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='2' aria-label='Slide 3')
-    -i = Math.floor(Math.random() * (products.length-1)) +1;
-    -j = Math.floor(Math.random() * (products.length-1)) +1;
-    -z = Math.floor(Math.random() * (products.length-1)) +1;
-    .carousel-inner
-      .carousel-item.active
-        .cdiv1.container.d-block.w-100.d-flex.justify-content-around
-          .cdiv2.col-3.offset-2.text-uppercase.mt-2
-            h1.fw-bolder #{ products[i].name}
-            .mb-2.mb-md-5
-              | di di Lorem ipsum dolor
-            button.btn.fw-bolder.bg-white(type='button') VIEW MORE
-          .col-5.col-lg-7
-            img.cimg(src=products[i].imageCover, alt='')
-      .carousel-item
-        .cdiv1.container.d-block.w-100.d-flex.justify-content-around
-          .cdiv2.col-3.offset-2.text-uppercase.mt-2
-            h1.fw-bolder #{ products[j].name}
-            .mb-2.mb-md-5
-              | di di Lorem ipsum dolor
-            button.btn.bg-white.fw-bolder(type='button') VIEW MORE
-          .col-5.col-lg-7
-            img.cimg(src=products[j].imageCover, alt='')
-      .carousel-item
-        .cdiv1.container.d-block.w-100.d-flex.justify-content-around
-          .cdiv2.col-3.offset-2.text-uppercase.mt-2
-            h1.fw-bolder #{ products[z].name}
-            .mb-2.mb-md-5
-              | #{ products[z].name}
-            button.btn.bg-white.fw-bolder(type='button') VIEW MORE
-          .col-5.col-lg-7
-            img.cimg(src=products[z].imageCover, alt='')
-    button.carousel-control-prev(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide='prev')
-      span.carousel-control-prev-icon.text-dark(aria-hidden='true')
-      span.visually-hidden Previous
-    button.carousel-control-next(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide='next')
-      span.carousel-control-next-icon(aria-hidden='true')
-      span.visually-hidden Next
-  .row.d-none.d-sm-block.d-md-flex.justify-content-center
-    -i = Math.floor(Math.random() * (products.length-1)) +1;
-    -j = Math.floor(Math.random() * (products.length-1)) +1;
-    .col-md-6
-      .card.card1.mb-3
-        .card-body.row
-          .col-7
-            h5.card-title.card-title1.fw-bold.text-uppercase.mb-3 #{ products[i].name}
-            p.card-text
-              | #{ products[i].description}
-          .row.d-flex.align-items-end.mx-0(style='margin-top: -10%;')
-            .col-7.mb-3
-              button.btn.bg-white.fw-bolder(type='button') VIEW MORE
-            .col-5
-              img(src=products[i].imageCover, alt='')
-    .col-md-6
-      .card.card2.mb-3
-        .card-body.row
-          .col-7
-            h5.card-title.card-title1.card-title2.fw-bold.text-uppercase.mb-3 #{ products[j].name}
-            p.card-text
-              | #{ products[j].description}
-          .row.d-flex.align-items-end.mx-0(style='margin-top: -10%; ')
-            .col-7.mb-3
-              button.btn.bg-white.fw-bolder(type='button ') VIEW MORE
-            .col-5
-              img(src=products[j].imageCover,alt=' ')
 
+.container
+  if current ==1
+    #carouselExampleCaptions.carousel.my-3.carousel-dark.slide(data-bs-ride='carousel')
+      .carousel-indicators
+        button.active(type='button' data-bs-target='#carouselExampleCaptions'   data-bs-slide-to='0' aria-current='true' aria-label='Slide 1')
+        button(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='1'   aria-label='Slide 2')
+        button(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='2'   aria-label='Slide 3')
+      -i = Math.floor(Math.random() * (products.length-1)) +1;
+      -j = Math.floor(Math.random() * (products.length-1)) +1;
+      -z = Math.floor(Math.random() * (products.length-1)) +1;
+      .carousel-inner
+        .carousel-item.active
+          .cdiv1.container.d-block.w-100.d-flex.justify-content-around
+            .cdiv2.col-3.offset-2.text-uppercase.mt-2
+              h1.fw-bolder #{ products[i].name}
+              .mb-2.mb-md-5
+                | di di Lorem ipsum dolor
+              a(href='/p/'+products[i].id)
+                button.btn.fw-bolder.bg-white(type='button') VIEW MORE
+            .col-5.col-lg-7
+              img.cimg(src=products[i].imageCover, alt='')
+        .carousel-item
+          .cdiv1.container.d-block.w-100.d-flex.justify-content-around
+            .cdiv2.col-3.offset-2.text-uppercase.mt-2
+              h1.fw-bolder #{ products[j].name}
+              .mb-2.mb-md-5
+                | di di Lorem ipsum dolor
+              a(href='/p/'+products[j].id)
+                button.btn.bg-white.fw-bolder(type='button') VIEW MORE
+            .col-5.col-lg-7
+              img.cimg(src=products[j].imageCover, alt='')
+        .carousel-item
+          .cdiv1.container.d-block.w-100.d-flex.justify-content-around
+            .cdiv2.col-3.offset-2.text-uppercase.mt-2
+              h1.fw-bolder #{ products[z].name}
+              .mb-2.mb-md-5
+                | #{ products[z].name}
+              a(href='/p/'+products[z].id)
+                button.btn.bg-white.fw-bolder(type='button') VIEW MORE
+            .col-5.col-lg-7
+              img.cimg(src=products[z].imageCover, alt='')
+      button.carousel-control-prev(type='button' data-bs-target='#carouselExampleCaptions'   data-bs-slide='prev')
+        span.carousel-control-prev-icon.text-dark(aria-hidden='true')
+        span.visually-hidden Previous
+      button.carousel-control-next(type='button' data-bs-target='#carouselExampleCaptions'   data-bs-slide='next')
+        span.carousel-control-next-icon(aria-hidden='true')
+        span.visually-hidden Next
+    .row.d-none.d-sm-block.d-md-flex.justify-content-center
+      -i = Math.floor(Math.random() * (products.length-1)) +1;
+      -j = Math.floor(Math.random() * (products.length-1)) +1;
+      .col-md-6
+        .card.card1.mb-3
+          .card-body.row
+            .col-7
+              h5.card-title.card-title1.fw-bold.text-uppercase.mb-3 #{ products[i].name}
+              p.card-text
+                | #{ products[i].description}
+            .row.d-flex.align-items-end.mx-0(style='margin-top: -10%;')
+              .col-7.mb-3
+                a(href='/p/'+products[i].id)
+                  button.btn.bg-white.fw-bolder(type='button') VIEW MORE
+              .col-5
+                img(src=products[i].imageCover, alt='')
+      .col-md-6
+        .card.card2.mb-3
+          .card-body.row
+            .col-7
+              h5.card-title.card-title1.card-title2.fw-bold.text-uppercase.mb-3 #{ products[j].  name}
+              p.card-text
+                | #{ products[j].description}
+            .row.d-flex.align-items-end.mx-0(style='margin-top: -10%; ')
+              .col-7.mb-3
+                a(href='/p/'+products[j].id)
+                  button.btn.bg-white.fw-bolder(type='button ') VIEW MORE
+              .col-5
+                img(src=products[j].imageCover,alt=' ')
+  p 
   - var length = products.length;
 
   - var i = (length-(length%4))/4;
@@ -118,7 +125,7 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
               .card-body
                 div
                   img(src=`${products[z].imageCover}` alt='')
-            a.text-decoration-none.text-dark(href='/api/v1/products/'+products[z].id)
+            a.text-decoration-none.text-dark(href='/p/'+products[z].id)
               .article-txt
                 | #{ products[z].name}
                 .d-flex.justify-content-between
@@ -133,14 +140,39 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
                 span.badge.bg-danger.mt-3.ms-3 SALE
               .card-body
                 div
-                  img(src=products[z].imageCover, alt=' ')
-                  img(src=`${products[z].imageCover}` alt=' ')
-            a.text-decoration-none.text-dark(href='/api/v1/products/'+products[z].id)
+                  img(src=products[x].imageCover, alt=' ')
+            a.text-decoration-none.text-dark(href='/p/'+products[x].id)
               .article-txt
-                | #{ products[i].name}
+                | #{ products[x].name}
                 .d-flex.justify-content-between
-                  h4.fw-bold.mt-2  #{ products[i].price + "DA"}
+                  h4.fw-bold.mt-2  #{ products[x].price + "DA"}
                   h4.fw-bold.mt-2.text-decoration-line-through.text-muted
+
+
+
+  
+  nav(aria-label='Page navigation')
+    ul.pagination.justify-content-center
+      ul.pagination
+        if current > 1
+          li.page-item
+            a.page-link(href=`?page=${parseInt(current) - 1}`) Previous
+
+        - for (var i = 1; i <= pages; i++) {
+          if current==i
+            li.page-item.active
+              a.page-link(href=`?page=${i}`)=  i
+          else
+            li.page-item
+              a.page-link(href=`?page=${i}`)=  i
+        - }
+
+
+        if current < pages
+          li.page-item
+            a.page-link(href=`?page=${parseInt(current) + 1}`) Next
+     
+
 
 
 

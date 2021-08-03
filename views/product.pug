@@ -151,9 +151,9 @@ head
                               .col-sm-10
                                 input#Price.form-control.form-control-lg.inp.rounded-pill.border-white.text-white(type='number' placeholder='   Product Price')
                             .mb-3.row
-                              label.txt.col-sm-2.col-form-label(for='Colors') Colors
+                              label.txt.col-sm-2.col-form-label(for='Quantity') Quantity
                               .col-sm-10
-                                input#Colors.inp.form-control.form-control-lg.rounded-pill.border-white.text-white(type='text' placeholder='   Product Colors')
+                                input#Quantity.inp.form-control.form-control-lg.rounded-pill.border-white.text-white(type='text' placeholder='   Product Quantity')
                             .mb-3.row
                               label.txt.col-sm-2.col-form-label.px-2(for='Description')
                                 | Description*
@@ -180,7 +180,7 @@ head
                       th.border-top-0
                       th.border-top-0 Name
                       th.border-top-0 Price
-                      th.border-top-0 colors
+                      th.border-top-0 InStock 
                       th.border-top-0 Published
                       th.border-top-0 Description
                       th.border-top-0
@@ -191,7 +191,7 @@ head
                         img(src=`${product.imageCover}`, width='75px',height= '75px')
                       td=product.name
                       td=product.price+' Da'
-                      td=`${product.colors.join(',')}`
+                      td=product.quantity
                       td=`${product.addedAt.toDateString()}`
                       td=product.description
                       td
@@ -221,9 +221,9 @@ head
                               .col-sm-10
                                 input#pPrice.form-control.form-control-lg.inp.rounded-pill.border-white.text-white(type='number' placeholder='   Product Price')
                             .mb-3.row
-                              label.txt.col-sm-2.col-form-label(for='Colors') Colors
+                              label.txt.col-sm-2.col-form-label(for='Quantity') Quantity
                               .col-sm-10
-                                input#pColors.inp.form-control.form-control-lg.rounded-pill.border-white.text-white(type='text' placeholder='   Product Colors')
+                                input#pQuantity.inp.form-control.form-control-lg.rounded-pill.border-white.text-white(type='text' placeholder='   Product Quantity')
                             .mb-3.row
                               label.txt.col-sm-2.col-form-label.px-2(for='Description')
                                 | Description*

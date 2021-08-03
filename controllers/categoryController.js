@@ -212,3 +212,18 @@ exports.addItem = catchAsync(async (req, res, next) => {
     });
   }
 });
+
+exports.getCategoryByProduct = catchAsync(async (req, res, next) => {
+  let category = await Category.findOne({
+    products: { $elemMatch: { $eq: req.params.id } },
+  });
+  if (category)
+    res.status(200).json({
+      status: "success",
+      data: { category },
+    });
+  else
+    res.status(404).json({
+      status: "failed",
+    });
+});
