@@ -140,12 +140,12 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
                 span.badge.bg-danger.mt-3.ms-3 SALE
               .card-body
                 div
-                  img(src=products[z].imageCover, alt=' ')
-            a.text-decoration-none.text-dark(href='/p/'+products[z].id)
+                  img(src=products[x].imageCover, alt=' ')
+            a.text-decoration-none.text-dark(href='/p/'+products[x].id)
               .article-txt
-                | #{ products[i].name}
+                | #{ products[x].name}
                 .d-flex.justify-content-between
-                  h4.fw-bold.mt-2  #{ products[i].price + "DA"}
+                  h4.fw-bold.mt-2  #{ products[x].price + "DA"}
                   h4.fw-bold.mt-2.text-decoration-line-through.text-muted
 
 
