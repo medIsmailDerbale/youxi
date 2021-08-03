@@ -29,6 +29,63 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.search = catchAsync(async (req, res, next) => {
+
+
+  const message = ".*"+req.query.s+".*";
+
+  //Build query
+  //1) Filtering 
+  const queryObj = {...req.query}
+  const excludedFields = ['page','sort','limit','fields'];
+  excludedFields.forEach(el => delete queryObj[el]);
+
+  //Advanced filtering 
+  //let queryStr = JSON.stringify(queryObj);
+  //queryStr = queryStr.replace(/\b(gte|gt|lte|lt|ne)\b/g,(match) => `$${match}`);
+  let query = Product.find({"name": { $regex: message, $options: 'i'}});
+
+  //Sorting 
+  if (req.query.sort) {
+    const sortedBy = req.query.sort.split(',').join('');
+    query = query.sort(sortedBy);
+    } else {
+      query = query.sort("name");
+  }
+
+  //Fields limiting 
+  if (req.query.fields) {
+    const fields = req.query.fields.split(',').join('');
+    query = query.select(fields);
+    } else {
+      query = query.select('-__v');
+  }
+
+  //Pagination 
+  const page = req.query.page*1 || 1;
+  const limit = req.query.limit || 16;
+  const skip = (page-1)*limit;
+
+
+  const numProducts = await Product.countDocuments({"name": { $regex: message, $options: 'i'}});
+  const pages = Math.ceil(numProducts / 16);
+  const current = req.query.page || 1;
+  query = query.skip(skip).limit(limit);  
+
+
+  //Execute query 
+  products = await query;
+
+  // send response
+  res.status(200).render("search", {
+    title: "Result",
+    pages,
+    current,
+    products,
+    s:req.query.s,
+  });
+});
+
 exports.getAccount = (req, res) => {
   res.status(200).render("account", {
     title: "My account",

@@ -9,6 +9,7 @@ router.use(authController.isLoggedIn);
 router.get("/", viewsController.getOverview);
 router.get("/login", viewsController.getLoginForm);
 router.get("/signup", viewsController.getSignup);
+router.get("/search", viewsController.search);
 router.get("/me", authController.protect, viewsController.getAccount);
 
 router.get(
