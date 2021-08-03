@@ -88,7 +88,6 @@ exports.getPanier = async (req, res) => {
     if (req.cookies.jwt) {
       cart_user = await Cart.findOne({ user: decoded._id });
     }
-    console.log(await cart_user);
     // if user is signed in and has cart, load user's cart from the db
     if (req.cookies.jwt && cart_user) {
       return res.render("panier", {

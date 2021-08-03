@@ -18,9 +18,6 @@ const cartSchema = new mongoose.Schema({
       title: {
         type: String,
       },
-      productCode: {
-        type: String,
-      },
     },
   ],
   totalQty: {
