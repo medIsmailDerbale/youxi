@@ -25,6 +25,11 @@ const orderSchema = mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  status: {
+    type: String,
+    Enum: ["ordered", "processing", "delivered"],
+    default: "ordered",
+  },
   items: [
     {
       productId: {
