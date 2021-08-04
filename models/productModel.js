@@ -33,6 +33,7 @@ const productSchema = mongoose.Schema({
   quantity: {
     type: Number,
     default: 0,
+    min: [0, "can't order more of this product"],
   },
 });
 

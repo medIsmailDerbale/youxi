@@ -1,0 +1,61 @@
+nav#sidebar-wrapper.fixed-top.align-top(role='navigation')
+    .simplebar-content(style='padding: 0px;')
+      a.sidebar-brand(href='#')
+        img(src='img/youxi logo.svg')
+        img(src='img/adminpanel.svg')
+      ul.navbar-nav.align-self-stretch
+        li
+          a.nav-link.text-left(role='button')
+            i.fas.fa-tachometer-alt
+            |                             Dashboard
+        li.has-sub
+          a.nav-link.collapsed.text-left(href='#collapseExample1' role='button' data-toggle='collapse')
+            i.far.fa-user-circle
+            |  Users
+          #collapseExample1.collapse.menu.mega-dropdown
+            .dropmenu(aria-labelledby='navbarDropdown')
+              .container-fluid
+                .row
+                  .col-lg-12.px-2
+                    .submenu-box
+                      ul.list-unstyled.m-0
+                        li
+                          a(href='') user1
+                        li
+                          a(href='') user2
+                        li
+                          a(href='') user3
+        li.has-sub
+          a.nav-link.collapsed.text-left(href='#collapseExample2' role='button' data-toggle='collapse')
+            i.fab.fa-product-hunt
+            |  Categories
+          #collapseExample2.collapse.menu.mega-dropdown
+            .dropmenu(aria-labelledby='navbarDropdown')
+              .container-fluid
+                .row
+                  .col-lg-12.px-2
+                    .submenu-box
+                      ul.list-unstyled.m-0
+                        li
+                          a(href='') Product1
+                        li
+                          a(href='') Product2
+                        li
+                          a(href='') Product3
+        li.has-sub
+          a.nav-link.collapsed.text-left.active(href='#collapseExample3' role='button' data-toggle='collapse')
+            i.fab.fa-delicious
+            |  Categories
+          #collapseExample3.collapse.menu.mega-dropdown
+            .dropmenu(aria-labelledby='navbarDropdown')
+              .container-fluid
+                .row
+                  .col-lg-12.px-2
+                    .submenu-box
+                      ul.list-unstyled.m-0
+                        li
+                          a(href='') Categorie1
+                        li
+                          a(href='') Categorie2
+                        li
+                          a(href='') Categorie3

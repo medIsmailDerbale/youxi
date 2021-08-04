@@ -117,9 +117,9 @@ document.getElementById("addBtn").addEventListener("click", (e) => {
   e.preventDefault();
   const name = document.getElementById("name").value;
   const price = document.getElementById("Price").value;
-  const colors = document.getElementById("Colors").value;
+  const quantity = document.getElementById("Quantity").value;
   const description = document.getElementById("Description").value;
-  addProduct(name, price, colors, description);
+  addProduct(name, price, quantity, description);
 });
 
 let deleteBtns = document.getElementsByClassName("deleteBtn");

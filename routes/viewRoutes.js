@@ -34,6 +34,12 @@ router.get(
   authController.restrictTo("admin"),
   viewsController.getCategories
 );
+router.get(
+  "/orders",
+  authController.protect,
+  authController.restrictTo("admin"),
+  viewsController.getOrdersAdmin
+);
 
 router.get("/forgot-password", viewsController.getForgotPassword);
 router.get("/reset-password/:token", viewsController.getResetPassword);
