@@ -7,6 +7,9 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeatures");
 const Order = require("../models/orderModel");
+const ExpressMongoSanitize = require("express-mongo-sanitize");
+const orderController = require("../controllers/orderController");
+const http = require("http");
 
 exports.getOverview = catchAsync(async (req, res, next) => {
   // execute query
@@ -180,4 +183,27 @@ exports.getOrdersAdmin = catchAsync(async (req, res, next) => {
   res.status(200).render("orders", {
     orders,
   });
+});
+
+exports.getStatsDashboard = catchAsync(async (req, resp, next) => {
+  var options = {
+    host: "localhost",
+    port: 8000,
+    method: "GET",
+    path: "/api/v1/order/order-stats-today",
+    headers: { Cookie: `jwt=${req.cookies.jwt}` },
+  };
+  var data = "";
+  var request = http.request(options, function (res) {
+    res.on("data", function (chunk) {
+      data += chunk;
+    });
+    res.on("end", function () {
+      resp.status(200).render("statsDashboard", { statsDataToday: data });
+    });
+  });
+  request.on("error", function (e) {
+    console.log(e.message);
+  });
+  request.end();
 });

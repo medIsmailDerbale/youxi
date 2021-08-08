@@ -1,29 +1,54 @@
 doctype html
-html
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport",content="width=device-width,initial-scale=1.0")
-    meta(http-equiv="X-UA-Compatible",content="ie-edge")
-    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous")
-    title  #{product.name}
-  body
-    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.mb-4
-      .container-fluid
-        a.navbar-brand(href='/')= product.name
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title #{product.name}
+  script(src='https://code.iconify.design/1/1.0.7/iconify.min.js')
+  link(rel='preconnect' href='https://fonts.gstatic.com')
+  link(href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap' rel='stylesheet')
+  link(rel='preconnect' href='https://fonts.gstatic.com')
+  link(href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap' rel='stylesheet')
+  link(rel='stylesheet' href='/css/firstpage.css')
+  link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x' crossorigin='anonymous')
+// HEADER
+include _header
+body
+  #content
+  .card
+    .container-fliud
+      .wrapper.row
+        .col-md-2
+        .preview.col-md-4
+          img(src=`${product.imageCover}`)
+        .description.col-md-4
+          .row
+            .Product-Name.col-8.my-auto=product.name
+              hr.solid1
+            .col-2.my-auto
+              button.btn.btn-success.disabled.d-none(type='button')
+                | NEW
+            .col-2.my-auto
+              button.btn.btn-danger.disabled.d-none(type='button')
+                | SALE
+          .row.justify-content-start
+            .col-md-3.my-auto.oldprice.d-none 
+            .col-md-3.my-auto.percentageoff.d-none 40% off
+            .col-md-3.my-auto.newprice #{product.price + " DA"}
+          p.product-description=product.description
+          if(product.quantity>0)
+            button.btn.btn-success.disabled(type='button')
+              | In Stock
+          else
+            button.btn.btn-danger.disabled(type='button')
+              | Out of Stock
+          p.unit-left
+            span  Units Left : 
+            span=product.quantity 
+          .modal-footer.border-0.justify-content-md-center
+            button.btn.btn-dark.buttonA(type='button')
+              | Add To Cart
+        .col-md-2
 
-    .container
-        .col-md-6.mx-auto
-            .card
-              img(src=`${product.imageCover}`,alt=product.name).card-img-top
-              .card-body
-                h3.card-title=product.name
-                p.card-text=product.description
-                h5
-                  | Price:
-                  span.badge.bg-danger.mt-3.ms-3 #{product.price + " DA"}
-                  hr
-
-      
-
-    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js')
-    script(src="https://kit.fontawesome.com/3812759d4e.js" crossorigin="anonymous")
+// FOOTER
+include _footer

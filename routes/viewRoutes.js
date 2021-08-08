@@ -45,6 +45,12 @@ router.get("/forgot-password", viewsController.getForgotPassword);
 router.get("/reset-password/:token", viewsController.getResetPassword);
 
 router.get("/p/:id", viewsController.getProductDetail);
+router.get(
+  "/dashboard",
+  authController.protect,
+  authController.restrictTo("admin"),
+  viewsController.getStatsDashboard
+);
 //router.get('/product/:slug', viewsController.getProduct);
 //need to implement  viewsController.getProduct in viewsController
 
