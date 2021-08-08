@@ -63,7 +63,7 @@ head
         // page main body
         <div class="container">
             <div class="row">
-                <div class="col-3">
+                <div class="col-6">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Stats Today</h5>
@@ -127,27 +127,27 @@ script.
   }
   var ctx = document.getElementById("myChart").getContext("2d");
   var myChart = new Chart(ctx, {
-    type: "doughnut",
+    type: 'bar',
     data: {
       labels: statsToday[0],
       datasets: [
         {
-          backgroundColor: [
-            "rgb(255, 99, 132)",
-            "rgb(54, 162, 235)",
-            "rgb(255, 205, 86)",
-          ],
+          label :'Orders',
+          backgroundColor :'#4dc9f6',
           data: statsToday[1],
         },
       ],
     },
-    // options: {
-    //     scales: {
-    //         y: {
-    //             beginAtZero: true
-    //         }
-    //     }
-    // }
+    options: {
+        scales: {
+            y: {
+              ticks: {
+                    precision: 0
+                    },
+                beginAtZero: true,
+            }
+        }
+    }
   });
   
   var ctx2 = document.getElementById("myChart2").getContext("2d");

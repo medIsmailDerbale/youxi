@@ -98,3 +98,20 @@ exports.getOrderStatsAll = catchAsync(async (req, res) => {
     stats,
   });
 });
+
+exports.modifyOrder = catchAsync(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+  if (order) {
+    order.status = req.body.status;
+    order.save();
+    res.status(200).json({
+      status: "success",
+      order,
+    });
+  } else {
+    res.status(404).json({
+      status: "failed",
+      data: null,
+    });
+  }
+});

@@ -1,59 +1,22 @@
 import { showAlert } from "./alert.js";
 let globaleId;
 
-const AddItemToCategory = async (id1, id2) => {
+const patchOrder = async (id, status) => {
   try {
-    let res = await fetch(`http://localhost:8000/api/v1/categories/${id1}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        productId: id2,
-        categoryId: id2,
-      }),
-    });
-    if (await res.ok) {
-      showAlert("success", "Item added successfully");
-      window.setTimeout(() => {
-        location.assign("/categories");
-      }, 1000);
-    } else {
-      res = await res.json();
-      console.log(res);
-      const { message } = res;
-      showAlert("error", message);
-    }
-  } catch (err) {
-    showAlert("error", err);
-  }
-};
-
-const addListeners = (className) => {
-  let btns = document.getElementsByClassName(className);
-  for (let i = 0; i < btns.length; i++) {
-    btns[i].addEventListener("click", () => {
-      AddItemToCategory(globaleId, btns[i].attributes._id.value);
-    });
-  }
-};
-
-const patchOrder = async (id, name) => {
-  try {
-    const res = await fetch(`http://localhost:8000/api/v1/categories/${id}`, {
+    const res = await fetch(`http://localhost:8000/api/v1/order/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name,
+        status,
       }),
     });
     console.log(await res.json());
     if (await res.ok) {
-      showAlert("success", "category updated successfully");
+      showAlert("success", "order updated successfully");
       window.setTimeout(() => {
-        location.assign("/categories");
+        location.assign("/orders");
       }, 1000);
     } else {
       showAlert("error", "Something went Wrong");
@@ -79,7 +42,8 @@ const importData = async (id) => {
       const { order } = dataR;
       const { status } = order;
       console.log(status);
-      document.getElementById("mName").value = order.name;
+      console.log(order.name);
+      document.getElementById("mName").value = status;
     } else {
       showAlert("error", "Something went Wrong");
     }

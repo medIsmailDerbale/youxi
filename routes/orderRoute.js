@@ -28,6 +28,11 @@ router
     authController.protect,
     authController.restrictTo("admin"),
     orderController.getOrderById
+  )
+  .patch(
+    authController.protect,
+    authController.restrictTo("admin"),
+    orderController.modifyOrder
   );
 
 module.exports = router;
