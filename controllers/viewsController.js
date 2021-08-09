@@ -10,6 +10,7 @@ const Order = require("../models/orderModel");
 const ExpressMongoSanitize = require("express-mongo-sanitize");
 const orderController = require("../controllers/orderController");
 const http = require("http");
+const { default: axios } = require("axios");
 
 exports.getOverview = catchAsync(async (req, res, next) => {
   // execute query
@@ -186,24 +187,30 @@ exports.getOrdersAdmin = catchAsync(async (req, res, next) => {
 });
 
 exports.getStatsDashboard = catchAsync(async (req, resp, next) => {
-  var options = {
-    host: "localhost",
-    port: 8000,
-    method: "GET",
-    path: "/api/v1/order/order-stats-today",
-    headers: { Cookie: `jwt=${req.cookies.jwt}` },
-  };
-  var data = "";
-  var request = http.request(options, function (res) {
-    res.on("data", function (chunk) {
-      data += chunk;
+  axios
+    .all([
+      /* 1st req */
+      axios.get("http://localhost:8000/api/v1/order/order-stats-today", {
+        headers: {
+          Cookie: `jwt=${req.cookies.jwt}`,
+        },
+      }),
+      /* 2nd req */
+      axios.get("http://localhost:8000/api/v1/order/order-stats-all", {
+        headers: {
+          Cookie: `jwt=${req.cookies.jwt}`,
+        },
+      }),
+    ])
+    .then(
+      axios.spread(function (res1, res2) {
+        resp.status(200).render("statsDashboard", {
+          statsDataToday: JSON.stringify(res1.data),
+          statsDataAll: JSON.stringify(res2.data),
+        });
+      })
+    )
+    .catch((e) => {
+      console.log(e);
     });
-    res.on("end", function () {
-      resp.status(200).render("statsDashboard", { statsDataToday: data });
-    });
-  });
-  request.on("error", function (e) {
-    console.log(e.message);
-  });
-  request.end();
 });

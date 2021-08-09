@@ -41,7 +41,7 @@ head
             // User Information
             li.nav-item.dropdown
               a#userDropdown.nav-link(href='#' role='button' data-toggle='dropdown')
-                span.UserName Name
+                span.UserName Admin
                 img.img-profile(src='img/youxi logo.svg')
                 i.fas.fa-chevron-down.btn.fas-topbar
               // Dropdown - User Information
@@ -66,18 +66,36 @@ head
                 <div class="col-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Stats Today</h5>
+                            <h5 class="card-title">Orders Status Today</h5>
                             <canvas id="myChart"></canvas>
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Stats</h5>
-                                <canvas id="myChart2"></canvas>
+                            <h5 class="card-title">Order Status All Time</h5>
+                            <canvas id="myChart2"></canvas>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                  <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Profit</h5>
+                          <p class="card-text" id="revenueAllText"></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Pending Profit</h5>
+                          <p class="card-text" id="pendingAllText"></p>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>
@@ -96,16 +114,15 @@ script.
   $('#page-content-wrapper ,#sidebar-wrapper').toggleClass('toggled');
   });
 script. 
+  var allRaw = JSON.parse("#{statsDataAll}".replace(/&quot;/g, '"'));
   var todaysRaw = JSON.parse("#{statsDataToday}".replace(/&quot;/g, '"'));
-  console.log(todaysRaw);
   var {stats} = todaysRaw;
-  console.log(stats);
-  var statsToday = [[],[]];
+  var statsToday = [[],[],[]];
   stats.forEach((el)=>{
       statsToday[0].push(el._id);
       statsToday[1].push(el.number);
-  }
-  );
+      statsToday[2].push(el.revenue);
+  });
   var checker = [["ordered", "processing", "delivered"],[false,false,false]];
   if(statsToday[0].length<3){
       statsToday[0].forEach((el)=>{
@@ -122,6 +139,7 @@ script.
         if(el == false){
             statsToday[0].push(checker[0][i]);
             statsToday[1].push(0);
+            statsToday[2].push(0);
         }
     })  
   }
@@ -150,30 +168,68 @@ script.
     }
   });
   
+  stats = allRaw.stats;
+  console.log(stats); 
+  var statsAll = [[],[],[]];
+  stats.forEach((el)=>{
+      statsAll[0].push(el._id);
+      statsAll[1].push(el.number);
+      statsAll[2].push(el.revenue);
+  });
+
+  if(statsAll[0].length<3){
+      statsAll[0].forEach((el)=>{
+          console.log(el);
+          if(el == checker[0][0]){
+              checker[1][0] = true;
+          }else if(el == checker[0][1]){
+              checker[1][1] = true;
+          }else if(el == checker[0][2]){
+              checker[1][2] = true;
+          }
+      });
+    checker[1].forEach((el,i)=>{
+        if(el == false){
+            statsAll[0].push(checker[0][i]);
+            statsAll[1].push(0);
+            statsAll[2].push(0);
+        }
+    })  
+  }
+
   var ctx2 = document.getElementById("myChart2").getContext("2d");
   var myChart2 = new Chart(ctx2, {
-    type: "doughnut",
-  
+    type: 'bar',
     data: {
-      labels: ["item1", "item2", "item3"],
+      labels: statsAll[0],
       datasets: [
         {
-          backgroundColor: [
-            "rgb(255, 99, 132)",
-            "rgb(54, 162, 235)",
-            "rgb(255, 205, 86)",
-          ],
-          data: [10, 10, 10],
+          label :'Orders',
+          backgroundColor :'rgb(255, 99, 132)',
+          data: statsAll[1],
         },
       ],
     },
-    // options: {
-    //     scales: {
-    //         y: {
-    //             beginAtZero: true
-    //         }
-    //     }
-    // }
+    options: {
+        scales: {
+            y: {
+              ticks: {
+                    precision: 0
+                    },
+                beginAtZero: true,
+            }
+        }
+    }
   });
-  
-  
+  var deliveredIndexAll;
+  var pendingRevenue = 0;
+  statsAll[0].forEach((el,i)=>{
+    if(el== "delivered"){
+      deliveredIndexAll = i;
+    }else{
+      pendingRevenue += statsAll[2][i];
+    }
+  });
+  document.getElementById("revenueAllText").innerHTML = `${statsAll[2][deliveredIndexAll]} Da`;
+  console.log(statsAll[2][0]);
+  document.getElementById("pendingAllText").innerHTML = `${pendingRevenue} Da`;

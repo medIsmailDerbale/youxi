@@ -317,10 +317,17 @@ footer {
 
 /* DropDown CSS*/
 
+.badge {
+  position: relative;
+}
+
+.badge > .icon-button__badge {
+  position: absolute;
+}
+
 .icon-button__badge {
-  position: fixed;
-  top: 50px;
-  right: 145px;
+  bottom: 13px;
+  left: 22px;
   width: 15px;
   height: 15px;
   background: red;
@@ -331,3 +338,25 @@ footer {
   border-radius: 50%;
   font-size: 10px;
 }
+
+/* Badge CSS*/
+
+/* User CSS*/
+
+.UserName {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.1em;
+
+  color: #000000;
+}
+
+/* User CSS*/
