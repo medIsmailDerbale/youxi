@@ -117,12 +117,12 @@ exports.getPanier = async (req, res) => {
 };
 
 async function productsFromCart(cart) {
-  let products = []; // array of objects
+  let products = [];
+  let qty = []; // array of objects
 
   for (const item of cart.items) {
-    let foundProduct = (
-      await Product.findById(item.productId).populate("category")
-    ).toObject();
+    let foundProduct = await Product.findById(item.productId);
+    foundProduct.qty = item.qty;
     products.push(foundProduct);
   }
   return products;

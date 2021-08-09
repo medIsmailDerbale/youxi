@@ -45,9 +45,11 @@ body
           p.unit-left
             span  Units Left : 
             span=product.quantity 
+          
           .modal-footer.border-0.justify-content-md-center
-            button.btn.btn-dark.buttonA(type='button')
-              | Add To Cart
+            a(href=`/api/v1/cart/add-to-cart/${product._id}`)
+              button.btn.btn-dark.buttonA(type='button')
+                | Add To Cart
         .col-md-2
 
 // FOOTER

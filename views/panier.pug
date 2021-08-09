@@ -147,6 +147,7 @@ head
                       th.border-top-0 Name
                       th.border-top-0 Price
                       th.border-top-0 Qantity
+                      th.border-top-0 Description
                       th.border-top-0
                   tbody
                     each product in products
@@ -155,6 +156,7 @@ head
                         img(src=product.imageCover, width="75px",height="75px")
                       td=product.name
                       td=product.price+' DA'
+                      td=product.qty
                       td=product.description
                       td
                         section
