@@ -15,13 +15,13 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
           -var i = 0;
           each categorie in categories
             .dropright
-              a#droprightMenu.dropdown-item(href="/categories/"+categorie.id role='button' data-toggle='dropdown')
+              a#droprightMenu.dropdown-item(href="/categories/"+categorie.id+"?subCategory=false" role='button' data-toggle='dropdown')
                 | #{ categorie.name+" "}
                 i.fas.fa-caret-right
               if categorie.categories.length > 0
                 .dropdown-menu(aria-labelledby='droprightMenu')
                   each subCategorie in categorie.categories
-                    a.dropdown-item(href='#') tab[i].name
+                    a.dropdown-item(href='#') #{ tab[i].name}
                     -i++;
 
     form
