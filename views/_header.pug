@@ -10,21 +10,20 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
         a.nav-link.active.border-bottom.border-dark(aria-current='page' href='/') Home
       li.nav-item.dropdown
         a#dropdownMenu.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown')
-          | Product
+          | Categories
         .dropdown-menu(aria-labelledby='dropdownMenu')
-          .dropright
-            a#droprightMenu.dropdown-item(href='#' role='button' data-toggle='dropdown')
-              | Peripheral
-              i.fas.fa-caret-right
-            .dropdown-menu(aria-labelledby='droprightMenu')
-              a.dropdown-item(href='#') Mouse
-              a.dropdown-item(href='#') Keyboard
-              a.dropdown-item(href='#') Audio
-              a.dropdown-item(href='#') Pads
-          a.dropdown-item(href='#') cases
-          a.dropdown-item(href='#') cases
-          a.dropdown-item(href='#') cases
-          a.dropdown-item(href='#') cases
+          -var i = 0;
+          each categorie in categories
+            .dropright
+              a#droprightMenu.dropdown-item(href="/categories/"+categorie.id role='button' data-toggle='dropdown')
+                | #{ categorie.name+" "}
+                i.fas.fa-caret-right
+              //-if categorie.categories.length > 0
+              //-  .dropdown-menu(aria-labelledby='droprightMenu')
+              //-    each subCategorie in categorie.categories
+              //-      a.dropdown-item(href='#') tab[i].name
+              //-      -i++;
+
     form
       .input-group.form-control-sm.border.rounded-pill.bg-light
         input#searchInput.form-control.border-0.bg-light(type='text' placeholder='search' aria-label="Recipient's username" aria-describedby='basic-addon2')

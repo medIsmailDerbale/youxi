@@ -34,6 +34,9 @@ router.get(
   authController.restrictTo("admin"),
   viewsController.getCategories
 );
+
+router.get("/categories/:id",viewsController.getCategorie)
+
 router.get(
   "/orders",
   authController.protect,

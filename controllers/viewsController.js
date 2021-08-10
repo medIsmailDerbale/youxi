@@ -25,16 +25,49 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   current = req.query.page || 1;
 
   const products = await features.query;
+
+  //create categories 
+  const categories = await Category.find().sort("name").select("-products -addedAt");
+  let tab = [];
+
+  categories.forEach(myFunction);
+  function myFunction(item) {
+    if(item.subCategory === false){
+      item.categories.forEach(secFunction);
+      function secFunction(item){
+        tab.push(item);
+      }
+    }
+  }
+
   // send response
   res.status(200).render("overview", {
     title: "Overview",
     pages,
     current,
     products,
+    tab,
+    categories
   });
 });
 
+
 exports.search = catchAsync(async (req, res, next) => {
+
+    //create categories 
+  const categories = await Category.find().sort("name").select("-products -addedAt");
+  let tab = [];
+
+  categories.forEach(myFunction);
+  function myFunction(item) {
+    if(item.subCategory === false){
+      item.categories.forEach(secFunction);
+      function secFunction(item){
+        tab.push(item);
+      }
+    }
+  }
+
   const message = ".*" + req.query.s + ".*";
 
   //Build query
@@ -86,12 +119,29 @@ exports.search = catchAsync(async (req, res, next) => {
     current,
     products,
     s: req.query.s,
+    tab,
+    categories
   });
 });
 
-exports.getAccount = (req, res) => {
+exports.getAccount = async(req, res) => {
+  const categories = await Category.find().sort("name").select("-products -addedAt");
+  let tab = [];
+
+  categories.forEach(myFunction);
+  function myFunction(item) {
+    if(item.subCategory === false){
+      item.categories.forEach(secFunction);
+      function secFunction(item){
+        tab.push(item);
+      }
+    }
+  }
+
   res.status(200).render("account", {
     title: "My account",
+    tab,
+    categories
   });
 };
 
@@ -145,6 +195,36 @@ exports.getCategories = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getCategorie = catchAsync(async (req, res, next) => {
+
+
+  const categorie = await Category.findById(req.params.id);
+  let products = [];
+    //2) build template
+  
+  if (categorie.subCategory===false){
+    categorie.categories.forEach(myFunction);
+
+      function myFunction(item) {
+        item.products.forEach(secFunction);
+        function secFunction(item){
+          products.push(item);
+        }
+      }
+  }else{
+    categorie.products.forEach(secFunction);
+      function secFunction(item){
+        products.push(item);
+      }
+  }
+  //3) Render that template using product data from 1
+  res.status(200).render("oneCategory", {
+    title: "Categorie",
+    categorie,
+    products,
+  });
+});
+
 exports.getForgotPassword = (req, res) => {
   res.status(200).render("forgotPassword", {
     title: "Forgot Password",
@@ -170,12 +250,28 @@ exports.getResetPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.getProductDetail = catchAsync(async (req, res, next) => {
+  //create categories 
+  const categories = await Category.find().sort("name").select("-products -addedAt");
+  let tab = [];
+
+  categories.forEach(myFunction);
+  function myFunction(item) {
+    if(item.subCategory === false){
+      item.categories.forEach(secFunction);
+      function secFunction(item){
+        tab.push(item);
+      }
+    }
+  }
+
   const product = await Product.findById(req.params.id);
   if (!product) {
     return next(new AppError("invalid product Id"));
   }
   res.status(200).render("oneProduct", {
     product,
+    categories,
+    tab,
   });
 });
 
