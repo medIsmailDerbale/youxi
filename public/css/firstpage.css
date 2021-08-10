@@ -297,7 +297,7 @@ footer {
 .dropright:hover > .dropdown-menu {
   display: block;
   top: 0;
-  left: 102%;
+  left: 100%;
   -moz-box-shadow: 0 4px 2px -2px #ccc;
   -webkit-box-shadow: 0 4px 2px -2px #ccc;
   box-shadow: 0 4px 2px -2px #ccc;
