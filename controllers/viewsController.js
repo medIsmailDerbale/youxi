@@ -27,9 +27,9 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   const products = await features.query;
 
   //create categories 
-  const categories = await Category.find().sort("name").select("-products -addedAt");
+  const categories = await Category.find({subCategory:false}).sort("name").select("-products -addedAt");
   let tab = [];
-
+  console.log(categories);
   categories.forEach(myFunction);
   function myFunction(item) {
     if(item.subCategory === false){
