@@ -310,9 +310,13 @@ footer {
   pointer-events: none;
 }
 
-.dropdown > .dropdown-menu > li > a:hover {
-  background-color: #d0b482 !important;
-  color: red !important;
+.dropdown-menu {
+  min-width: 1rem !important;
+  text-align: center !important;
+}
+
+.dropright {
+  position: relative;
 }
 
 /* DropDown CSS*/
