@@ -92,6 +92,34 @@ exports.getOrderStatsAll = catchAsync(async (req, res) => {
         productQuantity: { $sum: "$cart.totalQty" },
       },
     },
+    {
+      $sort: {
+        _id: 1,
+      },
+    },
+  ]);
+  return res.status(200).json({
+    status: "success",
+    stats,
+  });
+});
+
+exports.sevenLastDays = catchAsync(async (req, res) => {
+  const stats = await Order.aggregate([
+    {
+      $group: {
+        _id: { createdAt: "$createdAt", status: "$status" },
+        number: { $sum: 1 },
+        revenue: { $sum: "$cart.totalCost" },
+        productQuantity: { $sum: "$cart.totalQty" },
+      },
+    },
+    {
+      $sort: {
+        "_id.createdAt": 1,
+        "_id.status": 1,
+      },
+    },
   ]);
   return res.status(200).json({
     status: "success",

@@ -4,6 +4,14 @@ const authController = require("../controllers/authController");
 const router = express.Router();
 
 router
+  .route("/stats-7-days")
+  .get(
+    authController.protect,
+    authController.restrictTo("admin"),
+    orderController.sevenLastDays
+  );
+
+router
   .route("/order-stats-today")
   .get(
     authController.protect,

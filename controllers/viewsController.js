@@ -26,14 +26,17 @@ exports.getOverview = catchAsync(async (req, res, next) => {
 
   const products = await features.query;
 
-  //create categories 
-  const categories = await Category.find({subCategory:false}).sort("name").select("-products -addedAt");
+  //create categories
+  const categories = await Category.find({ subCategory: false })
+    .sort("name")
+    .select("-products -addedAt");
   let tab = [];
+  console.log(categories);
   categories.forEach(myFunction);
   function myFunction(item) {
-    if(item.subCategory === false){
+    if (item.subCategory === false) {
       item.categories.forEach(secFunction);
-      function secFunction(item){
+      function secFunction(item) {
         tab.push(item);
       }
     }
@@ -46,22 +49,22 @@ exports.getOverview = catchAsync(async (req, res, next) => {
     current,
     products,
     tab,
-    categories
+    categories,
   });
 });
 
-
 exports.search = catchAsync(async (req, res, next) => {
-
-    //create categories 
-  const categories = await Category.find({subCategory:false}).sort("name").select("-products -addedAt");
+  //create categories
+  const categories = await Category.find()
+    .sort("name")
+    .select("-products -addedAt");
   let tab = [];
 
   categories.forEach(myFunction);
   function myFunction(item) {
-    if(item.subCategory === false){
+    if (item.subCategory === false) {
       item.categories.forEach(secFunction);
-      function secFunction(item){
+      function secFunction(item) {
         tab.push(item);
       }
     }
@@ -119,19 +122,21 @@ exports.search = catchAsync(async (req, res, next) => {
     products,
     s: req.query.s,
     tab,
-    categories
+    categories,
   });
 });
 
-exports.getAccount = async(req, res) => {
-  const categories = await Category.find({subCategory:false}).sort("name").select("-products -addedAt");
+exports.getAccount = async (req, res) => {
+  const categories = await Category.find()
+    .sort("name")
+    .select("-products -addedAt");
   let tab = [];
 
   categories.forEach(myFunction);
   function myFunction(item) {
-    if(item.subCategory === false){
+    if (item.subCategory === false) {
       item.categories.forEach(secFunction);
-      function secFunction(item){
+      function secFunction(item) {
         tab.push(item);
       }
     }
@@ -140,7 +145,7 @@ exports.getAccount = async(req, res) => {
   res.status(200).render("account", {
     title: "My account",
     tab,
-    categories
+    categories,
   });
 };
 
@@ -195,45 +200,30 @@ exports.getCategories = catchAsync(async (req, res, next) => {
 });
 
 exports.getCategorie = catchAsync(async (req, res, next) => {
-
-
   const categorie = await Category.findById(req.params.id);
   let products = [];
-    //2) build template
-  
-  if (categorie.subCategory===false){
+  //2) build template
+
+  if (categorie.subCategory === false) {
     categorie.categories.forEach(myFunction);
 
-      function myFunction(item) {
-        item.products.forEach(secFunction);
-        function secFunction(item){
-          products.push(item);
-        }
-      }
-  }else{
-    categorie.products.forEach(secFunction);
-      function secFunction(item){
+    function myFunction(item) {
+      item.products.forEach(secFunction);
+      function secFunction(item) {
         products.push(item);
       }
+    }
+  } else {
+    categorie.products.forEach(secFunction);
+    function secFunction(item) {
+      products.push(item);
+    }
   }
-
-  //Pagination
-  const current = req.query.page * 1 || 1;
-  const limit = req.query.limit || 16;
-  const skip = (current - 1) * limit;
-  const numProducts = products.length;
-  const pages = Math.ceil(numProducts / 16);
-  
-  products = products.slice(skip,skip+limit);
-  console.log(products);
-
   //3) Render that template using product data from 1
   res.status(200).render("oneCategory", {
     title: "Categorie",
     categorie,
     products,
-    pages,
-    current,
   });
 });
 
@@ -262,15 +252,17 @@ exports.getResetPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.getProductDetail = catchAsync(async (req, res, next) => {
-  //create categories 
-  const categories = await Category.find({subCategory:false}).sort("name").select("-products -addedAt");
+  //create categories
+  const categories = await Category.find()
+    .sort("name")
+    .select("-products -addedAt");
   let tab = [];
 
   categories.forEach(myFunction);
   function myFunction(item) {
-    if(item.subCategory === false){
+    if (item.subCategory === false) {
       item.categories.forEach(secFunction);
-      function secFunction(item){
+      function secFunction(item) {
         tab.push(item);
       }
     }
@@ -309,12 +301,19 @@ exports.getStatsDashboard = catchAsync(async (req, resp, next) => {
           Cookie: `jwt=${req.cookies.jwt}`,
         },
       }),
+      /* 3rd req */
+      axios.get("http://localhost:8000/api/v1/order/stats-7-days", {
+        headers: {
+          Cookie: `jwt=${req.cookies.jwt}`,
+        },
+      }),
     ])
     .then(
-      axios.spread(function (res1, res2) {
+      axios.spread(function (res1, res2, res3) {
         resp.status(200).render("statsDashboard", {
           statsDataToday: JSON.stringify(res1.data),
           statsDataAll: JSON.stringify(res2.data),
+          stats7Days: JSON.stringify(res3.data),
         });
       })
     )
