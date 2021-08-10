@@ -32,8 +32,8 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
     div
       ul.navbar-nav.mb-2.mb-lg-0.align-items-center
         li.dropdown.user-name
-          a#userDropdown.nav-link(href='#' role='button')
-            span.UserName Welcome,#{userName}
+          a#userDropdown.nav-link(href=url role='button')
+            span.UserName #{userName}
           .dropdown-menu(aria-labelledby='userDropdown')
             a.dropdown-item(href='/me')
               i.fas.fa-cogs.fa-sm.fa-fw.mr-2.text-gray-400
@@ -43,13 +43,23 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
               i.fas.fa-sign-out-alt.fa-sm.fa-fw.mr-2.text-gray-400
               |                 Logout
         
-        svg.userIcon.iconify.text-dark(xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' aria-hidden='true' focusable='false' width='24px' height='24px' preserveaspectratio='xMidYMid meet' viewbox='0 0 24 24' data-icon='bx:bx-user-circle' data-inline='false' data-width='24px' style='transform: rotate(360deg)')
-          path(d='M12 2A10.13 10.13 0 0 0 2 12a10 10 0 0 0 4 7.92V20h.1a9.7 9.7 0 0 0 11.8 0h.1v-.08A10 10 0 0 0 22 12A10.13 10.13 0 0 0 12 2zM8.07 18.93A3 3 0 0 1 11 16.57h2a3 3 0 0 1 2.93 2.36a7.75 7.75 0 0 1-7.86 0zm9.54-1.29A5 5 0 0 0 13 14.57h-2a5 5 0 0 0-4.61 3.07A8 8 0 0 1 4 12a8.1 8.1 0 0 1 8-8a8.1 8.1 0 0 1 8 8a8 8 0 0 1-2.39 5.64z' fill='currentColor')
-          path(d='M12 6a3.91 3.91 0 0 0-4 4a3.91 3.91 0 0 0 4 4a3.91 3.91 0 0 0 4-4a3.91 3.91 0 0 0-4-4zm0 6a1.91 1.91 0 0 1-2-2a1.91 1.91 0 0 1 2-2a1.91 1.91 0 0 1 2 2a1.91 1.91 0 0 1-2 2z' fill='currentColor')
-        a.badge(href='/api/v1/cart/panier')
-          svg.iconify.text-dark(xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' aria-hidden='true' focusable='false' width='24px' height='24px' preserveaspectratio='xMidYMid meet' viewbox='0 0 32 32' data-icon='la:shopping-basket' data-inline='false' data-width='24px' style='transform: rotate(360deg)')
-            path(d='M16 3.094L7.094 12H2v6h1.25l2.781 9.281l.219.719h19.5l.219-.719L28.75 18H30v-6h-5.094zm0 2.844L22.063 12H9.938zM4 14h24v2h-.75l-.219.719L24.25 26H7.75l-2.781-9.281L4.75 16H4zm7 3v7h2v-7zm4 0v7h2v-7zm4 0v7h2v-7z' fill='currentColor')
-          span.icon-button__badge #{cartQty}
+        if userName="login/signup"
+
+          svg.userIcon.iconify.text-dark.d-none(xmlns='http://www.w3.org/2000/svg'   xmlns:xlink='http://www.w3.org/1999/xlink' aria-hidden='true' focusable='false'   width='24px' height='24px' preserveaspectratio='xMidYMid meet' viewbox='0 0 24 24'  data-icon='bx:bx-user-circle' data-inline='false' data-width='24px' style='transform:  rotate(360deg)')
+            path(d='M12 2A10.13 10.13 0 0 0 2 12a10 10 0 0 0 4 7.92V20h.1a9.7 9.7 0 0 0 11.8  0h.1v-.08A10 10 0 0 0 22 12A10.13 10.13 0 0 0 12 2zM8.07 18.93A3 3 0 0 1 11 16.57h2a3 3  0 0 1 2.93 2.36a7.75 7.75 0 0 1-7.86 0zm9.54-1.29A5 5 0 0 0 13 14.57h-2a5 5 0 0 0-4.61   3.07A8 8 0 0 1 4 12a8.1 8.1 0 0 1 8-8a8.1 8.1 0 0 1 8 8a8 8 0 0 1-2.39 5.64z'   fill='currentColor')
+            path(d='M12 6a3.91 3.91 0 0 0-4 4a3.91 3.91 0 0 0 4 4a3.91 3.91 0 0 0 4-4a3.91 3.91 0 0   0-4-4zm0 6a1.91 1.91 0 0 1-2-2a1.91 1.91 0 0 1 2-2a1.91 1.91 0 0 1 2 2a1.91 1.91 0 0  1-2 2z' fill='currentColor')
+          a.badge(href='/api/v1/cart/panier')
+            svg.iconify.text-dark.d-none(xmlns='http://www.w3.org/2000/svg'  xmlns:xlink='http://www.w3.org/1999/xlink' aria-hidden='true' focusable='false'  width='24px' height='24px' preserveaspectratio='xMidYMid meet' viewbox='0 0 32 32'   data-icon='la:shopping-basket' data-inline='false' data-width='24px' style='transform:  rotate(360deg)')
+              path(d='M16 3.094L7.094 12H2v6h1.25l2.781 9.281l.219.719h19.5l.219-.719L28.75   18H30v-6h-5.094zm0 2.844L22.063 12H9.938zM4 14h24v2h-.75l-.219.719L24.25  26H7.75l-2.781-9.281L4.75 16H4zm7 3v7h2v-7zm4 0v7h2v-7zm4 0v7h2v-7z'   fill='currentColor')
+            span.icon-button__badge.d-none #{cartQty}
+        else
+          svg.userIcon.iconify.text-dark(xmlns='http://www.w3.org/2000/svg'   xmlns:xlink='http://www.w3.org/1999/xlink' aria-hidden='true' focusable='false'   width='24px' height='24px' preserveaspectratio='xMidYMid meet' viewbox='0 0 24 24'  data-icon='bx:bx-user-circle' data-inline='false' data-width='24px' style='transform:  rotate(360deg)')
+            path(d='M12 2A10.13 10.13 0 0 0 2 12a10 10 0 0 0 4 7.92V20h.1a9.7 9.7 0 0 0 11.8  0h.1v-.08A10 10 0 0 0 22 12A10.13 10.13 0 0 0 12 2zM8.07 18.93A3 3 0 0 1 11 16.57h2a3 3  0 0 1 2.93 2.36a7.75 7.75 0 0 1-7.86 0zm9.54-1.29A5 5 0 0 0 13 14.57h-2a5 5 0 0 0-4.61   3.07A8 8 0 0 1 4 12a8.1 8.1 0 0 1 8-8a8.1 8.1 0 0 1 8 8a8 8 0 0 1-2.39 5.64z'   fill='currentColor')
+            path(d='M12 6a3.91 3.91 0 0 0-4 4a3.91 3.91 0 0 0 4 4a3.91 3.91 0 0 0 4-4a3.91 3.91 0 0   0-4-4zm0 6a1.91 1.91 0 0 1-2-2a1.91 1.91 0 0 1 2-2a1.91 1.91 0 0 1 2 2a1.91 1.91 0 0  1-2 2z' fill='currentColor')
+          a.badge(href='/api/v1/cart/panier')
+            svg.iconify.text-dark(xmlns='http://www.w3.org/2000/svg'  xmlns:xlink='http://www.w3.org/1999/xlink' aria-hidden='true' focusable='false'  width='24px' height='24px' preserveaspectratio='xMidYMid meet' viewbox='0 0 32 32'   data-icon='la:shopping-basket' data-inline='false' data-width='24px' style='transform:  rotate(360deg)')
+              path(d='M16 3.094L7.094 12H2v6h1.25l2.781 9.281l.219.719h19.5l.219-.719L28.75   18H30v-6h-5.094zm0 2.844L22.063 12H9.938zM4 14h24v2h-.75l-.219.719L24.25  26H7.75l-2.781-9.281L4.75 16H4zm7 3v7h2v-7zm4 0v7h2v-7zm4 0v7h2v-7z'   fill='currentColor')
+            span.icon-button__badge #{cartQty}
 
 p
 .container

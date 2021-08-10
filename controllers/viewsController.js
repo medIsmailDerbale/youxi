@@ -46,20 +46,23 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   //geting the user & panier qnty
   let userName;
   let cartQty;
+  let url;
   if (req.cookies.jwt){
     const decoded = await promisify(jwt.verify)(
         req.cookies.jwt,
         process.env.JWT_SECRET
     );
     const user = await User.findById(decoded._id);
-    userName = user.FirstName
+    userName = "Welcome,"+user.FirstName;
     
     cart_user = await Cart.findOne({ user: decoded._id });
     cartQty = cart_user.totalQty;
-    console.log(cart_user)
+    console.log(cart_user);
+    url="#";
   }else{
-    userName = " "
+    userName = "login/signup";
     cartQty = 0;
+    url="/signup";
   }
 
   // send response
@@ -71,7 +74,8 @@ exports.getOverview = catchAsync(async (req, res, next) => {
     tab,
     categories,
     userName,
-    cartQty
+    cartQty,
+    url
   });
 });
 
@@ -95,20 +99,23 @@ exports.search = catchAsync(async (req, res, next) => {
   //geting the user & panier qnty
   let userName;
   let cartQty;
+  let url;
   if (req.cookies.jwt){
     const decoded = await promisify(jwt.verify)(
         req.cookies.jwt,
         process.env.JWT_SECRET
     );
     const user = await User.findById(decoded._id);
-    userName = user.FirstName
+    userName = "Welcome,"+user.FirstName;
     
     cart_user = await Cart.findOne({ user: decoded._id });
     cartQty = cart_user.totalQty;
-    console.log(cart_user)
+    console.log(cart_user);
+    url="#"
   }else{
-    userName = " "
+    userName = "login/signup";
     cartQty = 0;
+    url="/signup";
   }
 
   const message = ".*" + req.query.s + ".*";
@@ -165,7 +172,8 @@ exports.search = catchAsync(async (req, res, next) => {
     tab,
     categories,
     userName,
-    cartQty
+    cartQty,
+    url
   });
 });
 
@@ -186,20 +194,23 @@ exports.getAccount = async(req, res) => {
   //geting the user & panier qnty
   let userName;
   let cartQty;
+  let url;
   if (req.cookies.jwt){
     const decoded = await promisify(jwt.verify)(
         req.cookies.jwt,
         process.env.JWT_SECRET
     );
     const user = await User.findById(decoded._id);
-    userName = user.FirstName
+    userName = "Welcome,"+user.FirstName;
     
     cart_user = await Cart.findOne({ user: decoded._id });
     cartQty = cart_user.totalQty;
-    console.log(cart_user)
+    console.log(cart_user);
+    url="#";
   }else{
-    userName = " "
+    userName = "login/signup";
     cartQty = 0;
+    url="/signup";
   }
 
   res.status(200).render("account", {
@@ -207,7 +218,8 @@ exports.getAccount = async(req, res) => {
     tab,
     categories,
     userName,
-    cartQty
+    cartQty,
+    url
   });
 };
 
@@ -297,20 +309,23 @@ exports.getCategorie = catchAsync(async (req, res, next) => {
   //geting the user & panier qnty
   let userName;
   let cartQty;
+  let url;
   if (req.cookies.jwt){
     const decoded = await promisify(jwt.verify)(
         req.cookies.jwt,
         process.env.JWT_SECRET
     );
     const user = await User.findById(decoded._id);
-    userName = user.FirstName
+    userName = "Welcome,"+user.FirstName
     
     cart_user = await Cart.findOne({ user: decoded._id });
     cartQty = cart_user.totalQty;
-    console.log(cart_user)
+    console.log(cart_user);
+    url="#"
   }else{
-    userName = " "
+    userName = "login/signup"
     cartQty = 0;
+    url="/signup"
   }
 
   //3) Render that template using product data from 1
@@ -321,7 +336,8 @@ exports.getCategorie = catchAsync(async (req, res, next) => {
     pages,
     current,
     userName,
-    cartQty
+    cartQty,
+    url
   });
 });
 
@@ -372,20 +388,23 @@ exports.getProductDetail = catchAsync(async (req, res, next) => {
   //geting the user & panier qnty
   let userName;
   let cartQty;
+  let url;
   if (req.cookies.jwt){
     const decoded = await promisify(jwt.verify)(
         req.cookies.jwt,
         process.env.JWT_SECRET
     );
     const user = await User.findById(decoded._id);
-    userName = user.FirstName
+    userName = "Welcome,"+user.FirstName;
     
     cart_user = await Cart.findOne({ user: decoded._id });
     cartQty = cart_user.totalQty;
-    console.log(cart_user)
+    console.log(cart_user);
+    url="#";
   }else{
-    userName = " "
+    userName = "login/signup"
     cartQty = 0;
+    url="/signup";
   }
 
   res.status(200).render("oneProduct", {
@@ -393,7 +412,8 @@ exports.getProductDetail = catchAsync(async (req, res, next) => {
     categories,
     tab,
     userName,
-    cartQty
+    cartQty,
+    url
   });
 });
 
