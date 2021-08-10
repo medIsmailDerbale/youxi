@@ -114,6 +114,8 @@ script.
   $('#page-content-wrapper ,#sidebar-wrapper').toggleClass('toggled');
   });
 script. 
+  var sevenDaysRaw = JSON.parse("#{stats7Days}".replace(/&quot;/g, '"'));
+  console.log(sevenDaysRaw);
   var allRaw = JSON.parse("#{statsDataAll}".replace(/&quot;/g, '"'));
   var todaysRaw = JSON.parse("#{statsDataToday}".replace(/&quot;/g, '"'));
   var {stats} = todaysRaw;
