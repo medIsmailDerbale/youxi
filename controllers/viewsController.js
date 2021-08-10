@@ -29,7 +29,6 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   //create categories 
   const categories = await Category.find({subCategory:false}).sort("name").select("-products -addedAt");
   let tab = [];
-  console.log(categories);
   categories.forEach(myFunction);
   function myFunction(item) {
     if(item.subCategory === false){
@@ -55,7 +54,7 @@ exports.getOverview = catchAsync(async (req, res, next) => {
 exports.search = catchAsync(async (req, res, next) => {
 
     //create categories 
-  const categories = await Category.find().sort("name").select("-products -addedAt");
+  const categories = await Category.find({subCategory:false}).sort("name").select("-products -addedAt");
   let tab = [];
 
   categories.forEach(myFunction);
@@ -125,7 +124,7 @@ exports.search = catchAsync(async (req, res, next) => {
 });
 
 exports.getAccount = async(req, res) => {
-  const categories = await Category.find().sort("name").select("-products -addedAt");
+  const categories = await Category.find({subCategory:false}).sort("name").select("-products -addedAt");
   let tab = [];
 
   categories.forEach(myFunction);
@@ -217,11 +216,24 @@ exports.getCategorie = catchAsync(async (req, res, next) => {
         products.push(item);
       }
   }
+
+  //Pagination
+  const current = req.query.page * 1 || 1;
+  const limit = req.query.limit || 16;
+  const skip = (current - 1) * limit;
+  const numProducts = products.length;
+  const pages = Math.ceil(numProducts / 16);
+  
+  products = products.slice(skip,skip+limit);
+  console.log(products);
+
   //3) Render that template using product data from 1
   res.status(200).render("oneCategory", {
     title: "Categorie",
     categorie,
     products,
+    pages,
+    current,
   });
 });
 
@@ -251,7 +263,7 @@ exports.getResetPassword = catchAsync(async (req, res, next) => {
 
 exports.getProductDetail = catchAsync(async (req, res, next) => {
   //create categories 
-  const categories = await Category.find().sort("name").select("-products -addedAt");
+  const categories = await Category.find({subCategory:false}).sort("name").select("-products -addedAt");
   let tab = [];
 
   categories.forEach(myFunction);
