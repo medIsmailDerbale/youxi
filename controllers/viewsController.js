@@ -3,6 +3,7 @@ const crypto = require("crypto");
 const User = require("../models/userModel");
 const Product = require("../models/productModel");
 const Category = require("../models/categoryModel");
+const Cart = require("../models/cart");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeatures");
@@ -11,6 +12,8 @@ const ExpressMongoSanitize = require("express-mongo-sanitize");
 const orderController = require("../controllers/orderController");
 const http = require("http");
 const { default: axios } = require("axios");
+const { promisify } = require("util");
+const jwt = require("jsonwebtoken");
 
 exports.getOverview = catchAsync(async (req, res, next) => {
   // execute query
@@ -39,6 +42,26 @@ exports.getOverview = catchAsync(async (req, res, next) => {
     }
   }
 
+
+  //geting the user & panier qnty
+  let userName;
+  let cartQty;
+  if (req.cookies.jwt){
+    const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+    );
+    const user = await User.findById(decoded._id);
+    userName = user.FirstName
+    
+    cart_user = await Cart.findOne({ user: decoded._id });
+    cartQty = cart_user.totalQty;
+    console.log(cart_user)
+  }else{
+    userName = " "
+    cartQty = 0;
+  }
+
   // send response
   res.status(200).render("overview", {
     title: "Overview",
@@ -46,7 +69,9 @@ exports.getOverview = catchAsync(async (req, res, next) => {
     current,
     products,
     tab,
-    categories
+    categories,
+    userName,
+    cartQty
   });
 });
 
@@ -65,6 +90,25 @@ exports.search = catchAsync(async (req, res, next) => {
         tab.push(item);
       }
     }
+  }
+
+  //geting the user & panier qnty
+  let userName;
+  let cartQty;
+  if (req.cookies.jwt){
+    const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+    );
+    const user = await User.findById(decoded._id);
+    userName = user.FirstName
+    
+    cart_user = await Cart.findOne({ user: decoded._id });
+    cartQty = cart_user.totalQty;
+    console.log(cart_user)
+  }else{
+    userName = " "
+    cartQty = 0;
   }
 
   const message = ".*" + req.query.s + ".*";
@@ -119,7 +163,9 @@ exports.search = catchAsync(async (req, res, next) => {
     products,
     s: req.query.s,
     tab,
-    categories
+    categories,
+    userName,
+    cartQty
   });
 });
 
@@ -137,10 +183,31 @@ exports.getAccount = async(req, res) => {
     }
   }
 
+  //geting the user & panier qnty
+  let userName;
+  let cartQty;
+  if (req.cookies.jwt){
+    const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+    );
+    const user = await User.findById(decoded._id);
+    userName = user.FirstName
+    
+    cart_user = await Cart.findOne({ user: decoded._id });
+    cartQty = cart_user.totalQty;
+    console.log(cart_user)
+  }else{
+    userName = " "
+    cartQty = 0;
+  }
+
   res.status(200).render("account", {
     title: "My account",
     tab,
-    categories
+    categories,
+    userName,
+    cartQty
   });
 };
 
@@ -227,6 +294,25 @@ exports.getCategorie = catchAsync(async (req, res, next) => {
   products = products.slice(skip,skip+limit);
   console.log(products);
 
+  //geting the user & panier qnty
+  let userName;
+  let cartQty;
+  if (req.cookies.jwt){
+    const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+    );
+    const user = await User.findById(decoded._id);
+    userName = user.FirstName
+    
+    cart_user = await Cart.findOne({ user: decoded._id });
+    cartQty = cart_user.totalQty;
+    console.log(cart_user)
+  }else{
+    userName = " "
+    cartQty = 0;
+  }
+
   //3) Render that template using product data from 1
   res.status(200).render("oneCategory", {
     title: "Categorie",
@@ -234,6 +320,8 @@ exports.getCategorie = catchAsync(async (req, res, next) => {
     products,
     pages,
     current,
+    userName,
+    cartQty
   });
 });
 
@@ -280,10 +368,32 @@ exports.getProductDetail = catchAsync(async (req, res, next) => {
   if (!product) {
     return next(new AppError("invalid product Id"));
   }
+
+  //geting the user & panier qnty
+  let userName;
+  let cartQty;
+  if (req.cookies.jwt){
+    const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+    );
+    const user = await User.findById(decoded._id);
+    userName = user.FirstName
+    
+    cart_user = await Cart.findOne({ user: decoded._id });
+    cartQty = cart_user.totalQty;
+    console.log(cart_user)
+  }else{
+    userName = " "
+    cartQty = 0;
+  }
+
   res.status(200).render("oneProduct", {
     product,
     categories,
     tab,
+    userName,
+    cartQty
   });
 });
 
