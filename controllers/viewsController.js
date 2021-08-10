@@ -29,40 +29,41 @@ exports.getOverview = catchAsync(async (req, res, next) => {
 
   const products = await features.query;
 
-  //create categories 
-  const categories = await Category.find({subCategory:false}).sort("name").select("-products -addedAt");
+  //create categories
+  const categories = await Category.find({ subCategory: false })
+    .sort("name")
+    .select("-products -addedAt");
   let tab = [];
   categories.forEach(myFunction);
   function myFunction(item) {
-    if(item.subCategory === false){
+    if (item.subCategory === false) {
       item.categories.forEach(secFunction);
-      function secFunction(item){
+      function secFunction(item) {
         tab.push(item);
       }
     }
   }
 
-
   //geting the user & panier qnty
   let userName;
   let cartQty;
   let url;
-  if (req.cookies.jwt){
+  if (req.cookies.jwt) {
     const decoded = await promisify(jwt.verify)(
-        req.cookies.jwt,
-        process.env.JWT_SECRET
+      req.cookies.jwt,
+      process.env.JWT_SECRET
     );
     const user = await User.findById(decoded._id);
-    userName = "Welcome,"+user.FirstName;
-    
+    userName = "Welcome," + user.FirstName;
+
     cart_user = await Cart.findOne({ user: decoded._id });
     cartQty = cart_user.totalQty;
     console.log(cart_user);
-    url="#";
-  }else{
+    url = "#";
+  } else {
     userName = "login/signup";
     cartQty = 0;
-    url="/signup";
+    url = "/signup";
   }
 
   // send response
@@ -75,22 +76,22 @@ exports.getOverview = catchAsync(async (req, res, next) => {
     categories,
     userName,
     cartQty,
-    url
+    url,
   });
 });
 
-
 exports.search = catchAsync(async (req, res, next) => {
-
-    //create categories 
-  const categories = await Category.find({subCategory:false}).sort("name").select("-products -addedAt");
+  //create categories
+  const categories = await Category.find({ subCategory: false })
+    .sort("name")
+    .select("-products -addedAt");
   let tab = [];
 
   categories.forEach(myFunction);
   function myFunction(item) {
-    if(item.subCategory === false){
+    if (item.subCategory === false) {
       item.categories.forEach(secFunction);
-      function secFunction(item){
+      function secFunction(item) {
         tab.push(item);
       }
     }
@@ -100,22 +101,22 @@ exports.search = catchAsync(async (req, res, next) => {
   let userName;
   let cartQty;
   let url;
-  if (req.cookies.jwt){
+  if (req.cookies.jwt) {
     const decoded = await promisify(jwt.verify)(
-        req.cookies.jwt,
-        process.env.JWT_SECRET
+      req.cookies.jwt,
+      process.env.JWT_SECRET
     );
     const user = await User.findById(decoded._id);
-    userName = "Welcome,"+user.FirstName;
-    
+    userName = "Welcome," + user.FirstName;
+
     cart_user = await Cart.findOne({ user: decoded._id });
     cartQty = cart_user.totalQty;
     console.log(cart_user);
-    url="#"
-  }else{
+    url = "#";
+  } else {
     userName = "login/signup";
     cartQty = 0;
-    url="/signup";
+    url = "/signup";
   }
 
   const message = ".*" + req.query.s + ".*";
@@ -173,19 +174,21 @@ exports.search = catchAsync(async (req, res, next) => {
     categories,
     userName,
     cartQty,
-    url
+    url,
   });
 });
 
-exports.getAccount = async(req, res) => {
-  const categories = await Category.find({subCategory:false}).sort("name").select("-products -addedAt");
+exports.getAccount = async (req, res) => {
+  const categories = await Category.find({ subCategory: false })
+    .sort("name")
+    .select("-products -addedAt");
   let tab = [];
 
   categories.forEach(myFunction);
   function myFunction(item) {
-    if(item.subCategory === false){
+    if (item.subCategory === false) {
       item.categories.forEach(secFunction);
-      function secFunction(item){
+      function secFunction(item) {
         tab.push(item);
       }
     }
@@ -195,22 +198,22 @@ exports.getAccount = async(req, res) => {
   let userName;
   let cartQty;
   let url;
-  if (req.cookies.jwt){
+  if (req.cookies.jwt) {
     const decoded = await promisify(jwt.verify)(
-        req.cookies.jwt,
-        process.env.JWT_SECRET
+      req.cookies.jwt,
+      process.env.JWT_SECRET
     );
     const user = await User.findById(decoded._id);
-    userName = "Welcome,"+user.FirstName;
-    
+    userName = "Welcome," + user.FirstName;
+
     cart_user = await Cart.findOne({ user: decoded._id });
     cartQty = cart_user.totalQty;
     console.log(cart_user);
-    url="#";
-  }else{
+    url = "#";
+  } else {
     userName = "login/signup";
     cartQty = 0;
-    url="/signup";
+    url = "/signup";
   }
 
   res.status(200).render("account", {
@@ -219,7 +222,7 @@ exports.getAccount = async(req, res) => {
     categories,
     userName,
     cartQty,
-    url
+    url,
   });
 };
 
@@ -274,26 +277,24 @@ exports.getCategories = catchAsync(async (req, res, next) => {
 });
 
 exports.getCategorie = catchAsync(async (req, res, next) => {
-
-
   const categorie = await Category.findById(req.params.id);
   let products = [];
-    //2) build template
-  
-  if (categorie.subCategory===false){
+  //2) build template
+
+  if (categorie.subCategory === false) {
     categorie.categories.forEach(myFunction);
 
-      function myFunction(item) {
-        item.products.forEach(secFunction);
-        function secFunction(item){
-          products.push(item);
-        }
-      }
-  }else{
-    categorie.products.forEach(secFunction);
-      function secFunction(item){
+    function myFunction(item) {
+      item.products.forEach(secFunction);
+      function secFunction(item) {
         products.push(item);
       }
+    }
+  } else {
+    categorie.products.forEach(secFunction);
+    function secFunction(item) {
+      products.push(item);
+    }
   }
 
   //Pagination
@@ -302,30 +303,30 @@ exports.getCategorie = catchAsync(async (req, res, next) => {
   const skip = (current - 1) * limit;
   const numProducts = products.length;
   const pages = Math.ceil(numProducts / 16);
-  
-  products = products.slice(skip,skip+limit);
+
+  products = products.slice(skip, skip + limit);
   console.log(products);
 
   //geting the user & panier qnty
   let userName;
   let cartQty;
   let url;
-  if (req.cookies.jwt){
+  if (req.cookies.jwt) {
     const decoded = await promisify(jwt.verify)(
-        req.cookies.jwt,
-        process.env.JWT_SECRET
+      req.cookies.jwt,
+      process.env.JWT_SECRET
     );
     const user = await User.findById(decoded._id);
-    userName = "Welcome,"+user.FirstName
-    
+    userName = "Welcome," + user.FirstName;
+
     cart_user = await Cart.findOne({ user: decoded._id });
     cartQty = cart_user.totalQty;
     console.log(cart_user);
-    url="#"
-  }else{
-    userName = "login/signup"
+    url = "#";
+  } else {
+    userName = "login/signup";
     cartQty = 0;
-    url="/signup"
+    url = "/signup";
   }
 
   //3) Render that template using product data from 1
@@ -337,7 +338,7 @@ exports.getCategorie = catchAsync(async (req, res, next) => {
     current,
     userName,
     cartQty,
-    url
+    url,
   });
 });
 
@@ -366,15 +367,17 @@ exports.getResetPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.getProductDetail = catchAsync(async (req, res, next) => {
-  //create categories 
-  const categories = await Category.find({subCategory:false}).sort("name").select("-products -addedAt");
+  //create categories
+  const categories = await Category.find({ subCategory: false })
+    .sort("name")
+    .select("-products -addedAt");
   let tab = [];
 
   categories.forEach(myFunction);
   function myFunction(item) {
-    if(item.subCategory === false){
+    if (item.subCategory === false) {
       item.categories.forEach(secFunction);
-      function secFunction(item){
+      function secFunction(item) {
         tab.push(item);
       }
     }
@@ -389,22 +392,22 @@ exports.getProductDetail = catchAsync(async (req, res, next) => {
   let userName;
   let cartQty;
   let url;
-  if (req.cookies.jwt){
+  if (req.cookies.jwt) {
     const decoded = await promisify(jwt.verify)(
-        req.cookies.jwt,
-        process.env.JWT_SECRET
+      req.cookies.jwt,
+      process.env.JWT_SECRET
     );
     const user = await User.findById(decoded._id);
-    userName = "Welcome,"+user.FirstName;
-    
+    userName = "Welcome," + user.FirstName;
+
     cart_user = await Cart.findOne({ user: decoded._id });
     cartQty = cart_user.totalQty;
     console.log(cart_user);
-    url="#";
-  }else{
-    userName = "login/signup"
+    url = "#";
+  } else {
+    userName = "login/signup";
     cartQty = 0;
-    url="/signup";
+    url = "/signup";
   }
 
   res.status(200).render("oneProduct", {
@@ -413,7 +416,7 @@ exports.getProductDetail = catchAsync(async (req, res, next) => {
     tab,
     userName,
     cartQty,
-    url
+    url,
   });
 });
 
@@ -439,12 +442,19 @@ exports.getStatsDashboard = catchAsync(async (req, resp, next) => {
           Cookie: `jwt=${req.cookies.jwt}`,
         },
       }),
+      /* 3rd req */
+      axios.get("http://localhost:8000/api/v1/order/stats-7-days", {
+        headers: {
+          Cookie: `jwt=${req.cookies.jwt}`,
+        },
+      }),
     ])
     .then(
-      axios.spread(function (res1, res2) {
+      axios.spread(function (res1, res2, res3) {
         resp.status(200).render("statsDashboard", {
           statsDataToday: JSON.stringify(res1.data),
           statsDataAll: JSON.stringify(res2.data),
+          stats7Days: JSON.stringify(res3.data),
         });
       })
     )

@@ -81,7 +81,7 @@ head
                 </div>
             </div>
             <div class="row">
-                <div class="col-2">
+                <div class="col-3">
                   <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Total Profit</h5>
@@ -96,6 +96,14 @@ head
                           <p class="card-text" id="pendingAllText"></p>
                     </div>
                   </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">7 Days Stats</h5>
+                            <canvas id="myChart3"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -113,9 +121,8 @@ script.
   $(this).toggleClass('open');
   $('#page-content-wrapper ,#sidebar-wrapper').toggleClass('toggled');
   });
-script. 
+script.
   var sevenDaysRaw = JSON.parse("#{stats7Days}".replace(/&quot;/g, '"'));
-  console.log(sevenDaysRaw);
   var allRaw = JSON.parse("#{statsDataAll}".replace(/&quot;/g, '"'));
   var todaysRaw = JSON.parse("#{statsDataToday}".replace(/&quot;/g, '"'));
   var {stats} = todaysRaw;
@@ -128,7 +135,6 @@ script.
   var checker = [["ordered", "processing", "delivered"],[false,false,false]];
   if(statsToday[0].length<3){
       statsToday[0].forEach((el)=>{
-          console.log(el);
           if(el == checker[0][0]){
               checker[1][0] = true;
           }else if(el == checker[0][1]){
@@ -171,7 +177,6 @@ script.
   });
   
   stats = allRaw.stats;
-  console.log(stats); 
   var statsAll = [[],[],[]];
   stats.forEach((el)=>{
       statsAll[0].push(el._id);
@@ -181,7 +186,6 @@ script.
 
   if(statsAll[0].length<3){
       statsAll[0].forEach((el)=>{
-          console.log(el);
           if(el == checker[0][0]){
               checker[1][0] = true;
           }else if(el == checker[0][1]){
@@ -233,5 +237,93 @@ script.
     }
   });
   document.getElementById("revenueAllText").innerHTML = `${statsAll[2][deliveredIndexAll]} Da`;
-  console.log(statsAll[2][0]);
   document.getElementById("pendingAllText").innerHTML = `${pendingRevenue} Da`;
+
+  const date = new Date();
+  date.setDate(date.getDate() +1);
+  let datesTable = [];
+  for(var i =0 ; i<7;i++){
+    datesTable.unshift(new Date(date.setDate(date.getDate() - 1)).toISOString().split("T")[0]);
+  }
+  console.log(datesTable);
+  console.log(sevenDaysRaw);
+  
+  stats = sevenDaysRaw.stats;
+  console.log(stats);
+  let sevenDaysStats = [[],[],[],[]];
+  sevenDaysStats[0] = datesTable;
+  console.log(sevenDaysStats[0]);
+
+  function findWithAttr(array, date, status) {
+    for(var i = 0; i < array.length; i += 1) {
+        if(array[i]._id.createdAt.split("T")[0] === date && array[i]._id.status === status) {
+            return i;
+        }
+    }
+    return -1;
+  }
+  // 1-ordered 2-processing 3-delivered
+
+  sevenDaysStats[0].forEach((el,i)=>{
+    var x = findWithAttr(stats,el,"ordered");
+    if(x===-1){
+      sevenDaysStats[1].push(0);
+    }else{
+      sevenDaysStats[1].push(stats[x].number);
+    }
+  });
+
+  sevenDaysStats[0].forEach((el,i)=>{
+    var x = findWithAttr(stats,el,"processing");
+    if(x===-1){
+      sevenDaysStats[2].push(0);
+    }else{
+      sevenDaysStats[2].push(stats[x].number);
+    }
+  });
+
+  sevenDaysStats[0].forEach((el,i)=>{
+    var x = findWithAttr(stats,el,"delivered");
+    if(x===-1){
+      sevenDaysStats[3].push(0);
+    }else{
+      sevenDaysStats[3].push(stats[x].number);
+    }
+  });
+
+  console.log(sevenDaysStats);
+
+  var ctx3 = document.getElementById("myChart3").getContext("2d");
+  var myChart3 = new Chart(ctx3, {
+    type: 'bar',
+    data: {
+      labels: sevenDaysStats[0],
+      datasets: [
+        {
+          label :'ordered',
+          backgroundColor :'rgb(255, 99, 132)',
+          data: sevenDaysStats[1],
+        },
+        {
+          label :'processing',
+          backgroundColor :'rgb(144, 66, 255)',
+          data: sevenDaysStats[2],
+        },
+        {
+          label :'delivered',
+          backgroundColor :'rgb(75, 12, 98)',
+          data: sevenDaysStats[3],
+        },
+      ],
+    },
+    options: {
+        scales: {
+            y: {
+              ticks: {
+                    precision: 0
+                    },
+                beginAtZero: true,
+            }
+        }
+    }
+  });
