@@ -254,7 +254,6 @@ exports.getProducts = catchAsync(async (req, res, next) => {
   const skip = (current - 1) * limit;
   const numProducts = await Product.countDocuments();
   const pages = Math.ceil(numProducts / limit);
-  console.log(numProducts)
   const products = await Product.find().skip(skip).limit(limit);
 
   //3) Render that template using product data from 1
@@ -451,9 +450,18 @@ exports.getProductDetail = catchAsync(async (req, res, next) => {
 });
 
 exports.getOrdersAdmin = catchAsync(async (req, res, next) => {
-  const orders = await Order.find().populate("user");
+  //pagination
+  const current = req.query.page || 1; 
+  const limit = req.query.limit || 8;
+  const skip = (current - 1) * limit;
+  const numProducts = await Order.countDocuments();
+  const pages = Math.ceil(numProducts / limit);
+
+  const orders = await Order.find().skip(skip).limit(limit).populate("user");
   res.status(200).render("orders", {
     orders,
+    current,
+    pages
   });
 });
 

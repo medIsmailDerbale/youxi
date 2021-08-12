@@ -138,7 +138,29 @@ head
                       .modal-body
                         table.table.table-striped.table-hover.table-description
                           tbody#tableShowDeleteBody
-                            
+          f
+          nav(aria-label='Page navigation')
+            ul.pagination.justify-content-center
+              ul.pagination
+                if current > 1
+                  li.page-item
+                    a.page-link(href=`/orders?page=${parseInt(current) - 1}`) Previous
+        
+                - for (var i = 1; i <= pages; i++) {
+                  if current==i
+                    li.page-item.active
+                      a.page-link(href=`/orders?page=${i}`)=  i
+                  else
+                    li.page-item
+                      a.page-link(href=`/orders?page=${i}`)=  i
+                - }
+        
+        
+                if current < pages
+                  li.page-item
+                    a.page-link(href=`/orders?page=${parseInt(current) + 1}`) Next
+        
+
         // footer                            
         footer.footer
           .container-fluid
