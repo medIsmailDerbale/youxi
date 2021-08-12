@@ -96,6 +96,19 @@ exports.getPanier = catchAsync(async (req, res) => {
         pageName: "Shopping Cart",
         products: await productsFromCart(cart_user),
       });
+    }else if(req.cookies.jwt && !cart_user){
+      cart_user = new Cart({});
+      cart_user.totalQty = 0;
+      cart_user.totalCost = 0;
+      cart_user.items=[];
+      cart_user.user = decoded._id;
+      await cart_user.save();
+      //console.log(carz)
+      return res.render("panier", {
+        cart: cart_user,
+        pageName: "Shopping Cart",
+        products: await productsFromCart(cart_user),
+      });
     }
     // if there is no cart in session and user is not logged in, cart is empty
     /*if (!req.session.cart) {

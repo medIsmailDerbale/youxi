@@ -57,8 +57,11 @@ exports.getOverview = catchAsync(async (req, res, next) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    cartQty = cart_user.totalQty;
-    console.log(cart_user);
+    if(req.cookies.jwt & cart_user){
+      cartQty = cart_user.totalQty;
+    }else if(req.cookies.jwt & !cart_user) {
+      cartQty = 0;
+    }
     url = "#";
   } else {
     userName = "login/signup";
@@ -110,8 +113,11 @@ exports.search = catchAsync(async (req, res, next) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    cartQty = cart_user.totalQty;
-    console.log(cart_user);
+    if(req.cookies.jwt & cart_user){
+      cartQty = cart_user.totalQty;
+    }else if(req.cookies.jwt & !cart_user) {
+      cartQty = 0;
+    }
     url = "#";
   } else {
     userName = "login/signup";
@@ -207,8 +213,11 @@ exports.getAccount = async (req, res) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    cartQty = cart_user.totalQty;
-    console.log(cart_user);
+    if(req.cookies.jwt & cart_user){
+      cartQty = cart_user.totalQty;
+    }else if(req.cookies.jwt & !cart_user) {
+      cartQty = 0;
+    }
     url = "#";
   } else {
     userName = "login/signup";
@@ -320,8 +329,11 @@ exports.getCategorie = catchAsync(async (req, res, next) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    cartQty = cart_user.totalQty;
-    console.log(cart_user);
+    if(req.cookies.jwt & cart_user){
+      cartQty = cart_user.totalQty;
+    }else if(req.cookies.jwt & !cart_user) {
+      cartQty = 0;
+    }
     url = "#";
   } else {
     userName = "login/signup";
@@ -393,7 +405,7 @@ exports.getProductDetail = catchAsync(async (req, res, next) => {
   let cartQty;
   let url;
   if (req.cookies.jwt) {
-    const decoded = await promisify(jwt.verify)(
+      const decoded = await promisify(jwt.verify)(
       req.cookies.jwt,
       process.env.JWT_SECRET
     );
@@ -401,8 +413,11 @@ exports.getProductDetail = catchAsync(async (req, res, next) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    cartQty = cart_user.totalQty;
-    console.log(cart_user);
+    if(req.cookies.jwt & cart_user){
+      cartQty = cart_user.totalQty;
+    }else if(req.cookies.jwt & !cart_user) {
+      cartQty = 0;
+    }
     url = "#";
   } else {
     userName = "login/signup";
