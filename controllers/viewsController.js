@@ -248,15 +248,21 @@ exports.getSignup = (req, res) => {
 };
 
 exports.getProducts = catchAsync(async (req, res, next) => {
-  //1) get product data from collection
-  const products = await Product.find();
-
-  //2) build template
+  //pagination
+  const current = req.query.page || 1; 
+  const limit = req.query.limit || 12;
+  const skip = (current - 1) * limit;
+  const numProducts = await Product.countDocuments();
+  const pages = Math.ceil(numProducts / limit);
+  console.log(numProducts)
+  const products = await Product.find().skip(skip).limit(limit);
 
   //3) Render that template using product data from 1
   res.status(200).render("product", {
     title: "Products",
     products,
+    pages,
+    current
   });
 });
 

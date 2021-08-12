@@ -175,6 +175,28 @@ head
                             button#patchBtn.btn.rounded-pill.inp.btn1.btn2(type='submit')
                               | Confirm
               // Modal Modify END
+
+          nav(aria-label='Page navigation')
+            .pagination.justify-content-center
+              ul.pagination
+                if current > 1
+                  li.page-item
+                    a.page-link(href=`/products?page=${parseInt(current) - 1}`) Previous
+  
+                - for (var i = 1; i <= pages; i++) {
+                  if current==i
+                    li.page-item.active
+                      a.page-link(href=`/products?page=${i}`)=  i
+                  else
+                    li.page-item
+                      a.page-link(href=`/products?page=${i}`)=  i
+                - }
+  
+  
+                if current < pages
+                  li.page-item
+                    a.page-link(href=`/products?page=${parseInt(current) + 1}`) Next   
+
         footer.footer
           .container-fluid
             .row.text-muted
