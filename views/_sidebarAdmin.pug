@@ -44,3 +44,13 @@ mixin sideBarAdmin(selected)
             a.nav-link.text-left(href='/categories' role='button')
               i.fab.fa-delicious
               |  Categories
+
+        li.has-sub
+          if(selected == 4)
+            a.nav-link.text-left.active(href='/orders' role='button')
+              i.fas.fa-shopping-cart
+              |  Orders
+          else
+            a.nav-link.text-left(href='/orders' role='button')
+              i.fas.fa-shopping-cart
+              |  Orders
