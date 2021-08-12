@@ -261,14 +261,23 @@ exports.getProducts = catchAsync(async (req, res, next) => {
 });
 
 exports.getUsers = catchAsync(async (req, res, next) => {
-  //1) get product data from collection
-  const users = await User.find();
+  
+  //pagination
+  const current = req.query.page || 1; 
+  const limit = req.query.limit || 8;
+  const skip = (current - 1) * limit;
+  const numProducts = await User.countDocuments();
+  const pages = Math.ceil(numProducts / limit);
+  
 
-  //2) build template
+  //execute query
+  const users = await User.find().skip(skip).limit(limit);
   //3) Render that template using product data from 1
   res.status(200).render("users", {
     title: "Users",
     users,
+    current,
+    pages
   });
 });
 
