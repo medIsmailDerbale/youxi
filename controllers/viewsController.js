@@ -266,23 +266,35 @@ exports.getProducts = catchAsync(async (req, res, next) => {
 });
 
 exports.getUsers = catchAsync(async (req, res, next) => {
-  
-  //pagination
   const current = req.query.page || 1; 
   const limit = req.query.limit || 8;
   const skip = (current - 1) * limit;
-  const numProducts = await User.countDocuments();
+  let numProducts;
+  let query;
+  let s;
+  //search ..
+  if(req.query.s){
+    const message = ".*" + req.query.s + ".*";
+    query = User.find({ FirstName: { $regex: message, $options: "i" } }); 
+    numProducts = await User.countDocuments({ FirstName: { $regex: message, $options: "i" } }); 
+    s = req.query.s;
+  }else{
+    query = User.find();
+    numProducts = await User.countDocuments();
+    s="";
+  }
+  //pagination
   const pages = Math.ceil(numProducts / limit);
   
-
   //execute query
-  const users = await User.find().skip(skip).limit(limit);
+  const users = await query.skip(skip).limit(limit);
   //3) Render that template using product data from 1
   res.status(200).render("users", {
     title: "Users",
     users,
     current,
-    pages
+    pages,
+    s
   });
 });
 

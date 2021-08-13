@@ -146,21 +146,21 @@ head
               ul.pagination
                 if current > 1
                   li.page-item
-                    a.page-link(href=`/users?page=${parseInt(current) - 1}`) Previous
+                    a.page-link(href=`/users?page=${parseInt(current) - 1}&s=${s}`) Previous
         
                 - for (var i = 1; i <= pages; i++) {
                   if current==i
                     li.page-item.active
-                      a.page-link(href=`/users?page=${i}`)=  i
+                      a.page-link(href=`/users?page=${i}&s=${s}`)=  i
                   else
                     li.page-item
-                      a.page-link(href=`/users?page=${i}`)=  i
+                      a.page-link(href=`/users?page=${i}&s=${s}`)=  i
                 - }
         
         
                 if current < pages
                   li.page-item
-                    a.page-link(href=`/users?page=${parseInt(current) + 1}`) Next
+                    a.page-link(href=`/users?page=${parseInt(current) + 1}&s=${s}`) Next
 
         footer.footer
           .container-fluid
