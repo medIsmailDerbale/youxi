@@ -20,6 +20,13 @@ router.get(
 );
 
 router.get(
+  "/products/search",
+  authController.protect,
+  authController.restrictTo("admin"),
+  viewsController.searchProducts
+);
+
+router.get(
   "/users",
   authController.protect,
   authController.restrictTo("admin"),

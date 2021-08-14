@@ -265,6 +265,30 @@ exports.getProducts = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.searchProducts = catchAsync(async (req, res, next) => {
+
+  const message = ".*" + req.query.s + ".*";
+  let query = Product.find({ name: { $regex: message, $options: "i" } }); 
+  let numProducts = await Product.countDocuments({ name: { $regex: message, $options: "i" } }); 
+  s = req.query.s;
+
+  //pagination
+  const current = req.query.page || 1; 
+  const limit = req.query.limit || 12;
+  const skip = (current - 1) * limit;
+  const pages = Math.ceil(numProducts / limit);
+  const products = await query.skip(skip).limit(limit);
+  console.log(pages)
+  //3) Render that template using product data from 1
+  res.status(200).render("searchProduct", {
+    title: "Products",
+    products,
+    pages,
+    current,
+    s
+  });
+});
+
 exports.getUsers = catchAsync(async (req, res, next) => {
   const current = req.query.page || 1; 
   const limit = req.query.limit || 8;
