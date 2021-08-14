@@ -72,6 +72,21 @@ head
                     | Products
                   .col-1.my-auto.add-new-st.justify-content-around.btn.d-flex(role='button' data-bs-toggle='modal' data-bs-target='#exampleModal1')
                     | Add New
+                  // Modal Delete
+                  #exampleModalDelete.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                    .modal-dialog.modal-lg
+                      .modal-content.text-white.d
+                        .container-fluid.px-5.py-3
+                          .modal-header.border-0
+                            h1#exampleModalLabel.modal-title.txt
+                              | CONFIRM DELETE
+                            button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                          .modal-body
+                            h4.txt Are you sure that you want to delete this Product
+                          .modal-footer.border-0
+                            button.btn.btn-secondary.rounded-pill.inp.btn1(type='button' data-bs-dismiss='modal') cancel
+                            button#confirmDeleteBtn.btn.rounded-pill.inp.btn1.btn2(type='button') Confirm
+                  // Modal Delete END  
                   // Modal Add New
                   #exampleModal1.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
                     .modal-dialog.modal-lg
@@ -147,7 +162,7 @@ head
                         section
                           img.dropdownMenuButton(src='img/DropDown.svg' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
                           .dropdown-menu(type='button' aria-labelledby='dropdownMenuButton')
-                            button.dropdown-item.btn.deleteBtn(data-bs-toggle='modal' _id=`${product._id}`) Delete
+                            button.dropdown-item.btn.deleteBtn(data-bs-toggle='modal' _id=`${product._id}` data-bs-target='#exampleModalDelete') Delete
                             button.dropdown-item.btn.patchBtn(data-bs-toggle='modal' _id=`${product._id}` data-bs-target='#exampleModalModify') Modify
               
               // Modal Modify

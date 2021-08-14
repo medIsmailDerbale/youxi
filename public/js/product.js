@@ -121,13 +121,17 @@ document.getElementById("addBtn").addEventListener("click", (e) => {
   const quantity = document.getElementById("Quantity").value;
   const description = document.getElementById("Description").value;
   const category = document.getElementById("Category").value;
-  addProduct(name, price, quantity, description, category);
+  if (category === "Choose Category...") {
+    showAlert("error", "Please choose a category");
+  } else {
+    addProduct(name, price, quantity, description, category);
+  }
 });
 
 let deleteBtns = document.getElementsByClassName("deleteBtn");
 for (let i = 0; i < deleteBtns.length; i++) {
   deleteBtns[i].addEventListener("click", () => {
-    deleteProduct(deleteBtns[i].attributes._id.value);
+    globaleId = deleteBtns[i].attributes._id.value;
   });
 }
 
@@ -137,3 +141,8 @@ for (let i = 0; i < patchBtns.length; i++) {
     importData(patchBtns[i].attributes._id.value);
   });
 }
+
+document.getElementById("confirmDeleteBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  deleteProduct(globaleId);
+});
