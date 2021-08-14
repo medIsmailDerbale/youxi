@@ -90,6 +90,14 @@ head
                               label.txt.col-sm-2.col-form-label(for='SubCategory' Required) SubCategory
                               .col-sm-10
                                 input#aSubCategory.form-control.form-control-lg.inp.rounded-pill.border-white.text-white(type='checkbox')
+                            #parentCategory.mb-3.row.d-none
+                              label.txt.col-sm-2.col-form-label(for='Quantity') Parent Category    
+                              .col-sm-10
+                                <select class="inp form-control form-control-lg rounded-pill  border-white text-white" id="Category">
+                                  <option selected disabled hidden>Choose Category...</option>
+                                  for category in listCategories 
+                                    <option value="#{category._id}">#{category.name}</option>
+                                </select>
                           .modal-footer.border-0
                             button.btn.rounded-pill.inp.btn1(type='button' data-bs-dismiss='modal') Cancel
                             button#addBtn.btn.rounded-pill.inp.btn1.btn2(type='button')
@@ -110,7 +118,7 @@ head
                     tr.bg-light
                       th.border-top-0 Name
                       th.border-top-0 Type
-                      th.border-top-0 Children 
+                      th.border-top-0 Items 
                       th.border-top-0 Published
                       th.border-top-0
                   tbody
@@ -123,8 +131,7 @@ head
                       else 
                         td Category
                       td 
-                          button.showDeleteChilds.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#modalChildrenShowDelete' _id=`${category._id}`) show/delete
-                          button.addToCategory.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#modalChildrenAdd' style='margin-left:10px;' _id=`${category._id}`) AddChild
+                          button.showDeleteChilds.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#modalChildrenShowDelete' _id=`${category._id}`) show Items
                       td=category.addedAt.toDateString()
                       td
                         section
@@ -179,24 +186,12 @@ head
                     .container-fluid.px-5.py-3
                       .modal-header.border-0
                         h1#exampleModalLabel.modal-title.txt
-                          | Show / Delete
+                          | Show Items
                         button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
                       .modal-body
-                        table.table.table-striped.table-hover.table-description
+                        table#tableShow.table.table-striped.table-hover.table-description
+                          thead
                           tbody#tableShowDeleteBody
-                          
-              // Modal children Add
-              #modalChildrenAdd.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
-                .modal-dialog.modal-lg
-                  .modal-content.text-white.d
-                    .container-fluid.px-5.py-3
-                      .modal-header.border-0
-                        h1#exampleModalLabel.modal-title.txt
-                          | Add item
-                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-                      .modal-body
-                        table.table.table-striped.table-hover.table-description
-                          tbody#addChildTableBody
                             
         // footer                            
         footer.footer

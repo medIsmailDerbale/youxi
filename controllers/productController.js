@@ -6,7 +6,13 @@ const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 
 exports.createProduct = catchAsync(async (req, res, next) => {
+  const categoryId = req.body.category;
+  const cat = await Category.findById(categoryId);
+
+  delete req.body.category;
   const newProduct = await Product.create(req.body);
+  cat.products.push(newProduct);
+  await cat.save();
   res.status(201).json({
     status: "success",
     data: {
@@ -56,14 +62,15 @@ exports.delete = catchAsync(async (req, res, next) => {
     products: { $elemMatch: { $eq: req.params.id } },
   });
 
-  await category.products.forEach((el, i) => {
+  let index;
+  category.products.forEach((el, i) => {
     if (el._id == req.params.id) {
       index = i;
     }
   });
 
   category.products.splice(index, 1);
-  category = await category.save();
+  await category.save();
 
   res.status(204).json({
     status: "success",

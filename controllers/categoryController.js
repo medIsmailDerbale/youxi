@@ -40,7 +40,18 @@ const Product = require("../models/productModel");
 // });
 
 exports.createCategory = catchAsync(async (req, res, next) => {
+  let parentCategoryId;
+  if (req.body.subCategory) {
+    parentCategoryId = req.body.parentCategory;
+    delete req.body.parentCategory;
+  }
   const newCategory = await Category.create(req.body);
+  if (parentCategoryId && req.body.subCategory) {
+    const parent = await Category.findById(parentCategoryId);
+    parent.categories.push(newCategory);
+    await parent.save();
+  }
+
   res.status(201).json({
     status: "success",
     data: {

@@ -57,9 +57,9 @@ exports.getOverview = catchAsync(async (req, res, next) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    if(req.cookies.jwt & cart_user){
+    if (req.cookies.jwt & cart_user) {
       cartQty = cart_user.totalQty;
-    }else if(req.cookies.jwt & !cart_user) {
+    } else if (req.cookies.jwt & !cart_user) {
       cartQty = 0;
     }
     url = "#";
@@ -113,9 +113,9 @@ exports.search = catchAsync(async (req, res, next) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    if(req.cookies.jwt & cart_user){
+    if (req.cookies.jwt & cart_user) {
       cartQty = cart_user.totalQty;
-    }else if(req.cookies.jwt & !cart_user) {
+    } else if (req.cookies.jwt & !cart_user) {
       cartQty = 0;
     }
     url = "#";
@@ -213,9 +213,9 @@ exports.getAccount = async (req, res) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    if(req.cookies.jwt & cart_user){
+    if (req.cookies.jwt & cart_user) {
       cartQty = cart_user.totalQty;
-    }else if(req.cookies.jwt & !cart_user) {
+    } else if (req.cookies.jwt & !cart_user) {
       cartQty = 0;
     }
     url = "#";
@@ -248,8 +248,10 @@ exports.getSignup = (req, res) => {
 };
 
 exports.getProducts = catchAsync(async (req, res, next) => {
+  const categories = await Category.find({ subCategory: true });
+  console.log(categories);
   //pagination
-  const current = req.query.page || 1; 
+  const current = req.query.page || 1;
   const limit = req.query.limit || 12;
   const skip = (current - 1) * limit;
   const numProducts = await Product.countDocuments();
@@ -258,58 +260,62 @@ exports.getProducts = catchAsync(async (req, res, next) => {
 
   //3) Render that template using product data from 1
   res.status(200).render("product", {
+    categories,
     title: "Products",
     products,
     pages,
-    current
+    current,
   });
 });
 
 exports.searchProducts = catchAsync(async (req, res, next) => {
-
   const message = ".*" + req.query.s + ".*";
-  let query = Product.find({ name: { $regex: message, $options: "i" } }); 
-  let numProducts = await Product.countDocuments({ name: { $regex: message, $options: "i" } }); 
+  let query = Product.find({ name: { $regex: message, $options: "i" } });
+  let numProducts = await Product.countDocuments({
+    name: { $regex: message, $options: "i" },
+  });
   s = req.query.s;
 
   //pagination
-  const current = req.query.page || 1; 
+  const current = req.query.page || 1;
   const limit = req.query.limit || 12;
   const skip = (current - 1) * limit;
   const pages = Math.ceil(numProducts / limit);
   const products = await query.skip(skip).limit(limit);
-  console.log(pages)
+  console.log(pages);
   //3) Render that template using product data from 1
   res.status(200).render("searchProduct", {
     title: "Products",
     products,
     pages,
     current,
-    s
+    s,
   });
 });
 
 exports.getUsers = catchAsync(async (req, res, next) => {
-  const current = req.query.page || 1; 
+  const current = req.query.page || 1;
   const limit = req.query.limit || 8;
   const skip = (current - 1) * limit;
   let numProducts;
   let query;
   let s;
   //search ..
-  if(req.query.s){
+  if (req.query.s) {
     const message = ".*" + req.query.s + ".*";
-    query = User.find({ FirstName: { $regex: message, $options: "i" } }); 
-    numProducts = await User.countDocuments({ FirstName: { $regex: message, $options: "i" } }); 
+    query = User.find({ FirstName: { $regex: message, $options: "i" } });
+    numProducts = await User.countDocuments({
+      FirstName: { $regex: message, $options: "i" },
+    });
     s = req.query.s;
-  }else{
+  } else {
     query = User.find();
     numProducts = await User.countDocuments();
-    s="";
+    s = "";
   }
   //pagination
   const pages = Math.ceil(numProducts / limit);
-  
+
   //execute query
   const users = await query.skip(skip).limit(limit);
   //3) Render that template using product data from 1
@@ -318,12 +324,13 @@ exports.getUsers = catchAsync(async (req, res, next) => {
     users,
     current,
     pages,
-    s
+    s,
   });
 });
 
 exports.getCategories = catchAsync(async (req, res, next) => {
   //1) get product data from collection
+  const listCategories = await Category.find({ subCategory: false });
   const categories = await Category.find();
 
   //2) build template
@@ -332,6 +339,7 @@ exports.getCategories = catchAsync(async (req, res, next) => {
   res.status(200).render("category", {
     title: "Categories",
     categories,
+    listCategories,
   });
 });
 
@@ -379,9 +387,9 @@ exports.getCategorie = catchAsync(async (req, res, next) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    if(req.cookies.jwt & cart_user){
+    if (req.cookies.jwt & cart_user) {
       cartQty = cart_user.totalQty;
-    }else if(req.cookies.jwt & !cart_user) {
+    } else if (req.cookies.jwt & !cart_user) {
       cartQty = 0;
     }
     url = "#";
@@ -455,7 +463,7 @@ exports.getProductDetail = catchAsync(async (req, res, next) => {
   let cartQty;
   let url;
   if (req.cookies.jwt) {
-      const decoded = await promisify(jwt.verify)(
+    const decoded = await promisify(jwt.verify)(
       req.cookies.jwt,
       process.env.JWT_SECRET
     );
@@ -463,9 +471,9 @@ exports.getProductDetail = catchAsync(async (req, res, next) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    if(req.cookies.jwt & cart_user){
+    if (req.cookies.jwt & cart_user) {
       cartQty = cart_user.totalQty;
-    }else if(req.cookies.jwt & !cart_user) {
+    } else if (req.cookies.jwt & !cart_user) {
       cartQty = 0;
     }
     url = "#";
@@ -487,7 +495,7 @@ exports.getProductDetail = catchAsync(async (req, res, next) => {
 
 exports.getOrdersAdmin = catchAsync(async (req, res, next) => {
   //pagination
-  const current = req.query.page || 1; 
+  const current = req.query.page || 1;
   const limit = req.query.limit || 8;
   const skip = (current - 1) * limit;
   const numProducts = await Order.countDocuments();
@@ -497,7 +505,7 @@ exports.getOrdersAdmin = catchAsync(async (req, res, next) => {
   res.status(200).render("orders", {
     orders,
     current,
-    pages
+    pages,
   });
 });
 

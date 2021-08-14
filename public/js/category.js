@@ -23,169 +23,6 @@ const DeleteItemFromCategory = async (id1, id2) => {
   }
 };
 
-const AddItemToCategory = async (id1, id2) => {
-  try {
-    let res = await fetch(`http://localhost:8000/api/v1/categories/${id1}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        productId: id2,
-        categoryId: id2,
-      }),
-    });
-    if (await res.ok) {
-      showAlert("success", "Item added successfully");
-      window.setTimeout(() => {
-        location.assign("/categories");
-      }, 1000);
-    } else {
-      res = await res.json();
-      console.log(res);
-      const { message } = res;
-      showAlert("error", message);
-    }
-  } catch (err) {
-    showAlert("error", err);
-  }
-};
-
-const addListeners = (className) => {
-  let btns = document.getElementsByClassName(className);
-  for (let i = 0; i < btns.length; i++) {
-    btns[i].addEventListener("click", () => {
-      AddItemToCategory(globaleId, btns[i].attributes._id.value);
-    });
-  }
-};
-
-const addListeners2 = (className) => {
-  let btns = document.getElementsByClassName(className);
-  for (let i = 0; i < btns.length; i++) {
-    btns[i].addEventListener("click", () => {
-      DeleteItemFromCategory(globaleId, btns[i].attributes._id.value);
-    });
-  }
-};
-
-const importDataToAddChildModel = async (id) => {
-  try {
-    document.getElementById("addChildTableBody").innerHTML = "";
-    globaleId = id;
-    const res = await fetch(`http://localhost:8000/api/v1/categories/${id}`, {
-      method: "GET",
-    });
-    if (await res.ok) {
-      showAlert("success", "Loading");
-      const dataR = await res.json();
-      const { data } = dataR;
-      const { category } = data;
-
-      // if we are dealing with a subcategory
-      if (category.subCategory) {
-        let items = await fetch(`http://localhost:8000/api/v1/products?`, {
-          method: "GET",
-        });
-        items = await items.json();
-        const { data } = items;
-        const { products } = data;
-        items = products;
-        console.log(items);
-
-        for (let i = 0; i < items.length; i++) {
-          let model = `<tr class="text-light">
-        <td>${items[i].name}</td>
-        <td>${items[i].price}</td>
-        <td>${items[i].addedAt}</td>
-        <td>
-          <img
-            id="dropdownMenuButton"
-            src="img/DropDown.svg"
-            type="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          />
-          <div
-            class="dropdown-menu"
-            type="button"
-            aria-labelledby="dropdownMenuButton"
-          >
-            <button _id="${items[i]._id}"
-              class="dropdown-item btn addToCategoryBtn"
-              data-bs-toggle="modal1"
-            >
-              Add To Category
-            </button>
-          </div>
-        </td>
-      </tr>
-      `;
-          document
-            .getElementById("addChildTableBody")
-            .insertAdjacentHTML("beforeend", model);
-        }
-        addListeners("addToCategoryBtn");
-      }
-      // if we are dealing with a category
-      else {
-        document.getElementById("addChildTableBody").innerHTML = "";
-        let items = await fetch(
-          `http://localhost:8000/api/v1/categories?_id[ne]=${id}&subCategory=true`,
-          {
-            method: "GET",
-          }
-        );
-        items = await items.json();
-        const { data } = items;
-        const { categories } = data;
-        items = categories;
-        console.log(items);
-
-        for (let i = 0; i < items.length; i++) {
-          let model = `<tr class="text-light">
-          <td>${items[i].name}</td>
-          <td>${items[i].addedAt}</td>
-          <td>
-            <img
-              id="dropdownMenuButton"
-              src="img/DropDown.svg"
-              type="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            />
-            <div
-              class="dropdown-menu"
-              type="button"
-              aria-labelledby="dropdownMenuButton"
-            >
-              <button _id="${items[i]._id}"
-                class="dropdown-item btn addToCategoryBtn"
-                data-bs-toggle="modal1"
-              >
-                Add To Category
-              </button>
-            </div>
-          </td>
-        </tr>
-        `;
-          document
-            .getElementById("addChildTableBody")
-            .insertAdjacentHTML("beforeend", model);
-        }
-        addListeners("addToCategoryBtn");
-      }
-    } else {
-      showAlert("error", "Something went Wrong");
-    }
-  } catch (err) {
-    showAlert("error", err);
-    console.log(err);
-  }
-};
-
 const patchCategory = async (id, name) => {
   try {
     const res = await fetch(`http://localhost:8000/api/v1/categories/${id}`, {
@@ -258,7 +95,7 @@ const deleteCategory = async (id) => {
   }
 };
 
-const createNewCategory = async (name, subCategory) => {
+const createNewCategory = async (name, subCategory, parentCategory) => {
   try {
     const res = await fetch("http://localhost:8000/api/v1/categories", {
       method: "POST",
@@ -268,8 +105,10 @@ const createNewCategory = async (name, subCategory) => {
       body: JSON.stringify({
         name,
         subCategory,
+        parentCategory,
       }),
     });
+    console.log(await res.json());
     if ((await res.status) === 201) {
       showAlert("success", "Category added successfully");
       window.setTimeout(() => {
@@ -302,84 +141,53 @@ const importDataToShowDeleteChilds = async (id) => {
         if (products.length === 0)
           showAlert("error", "there is no childs in this category");
         document.getElementById("tableShowDeleteBody").innerHTML = "";
+        document.getElementById("tableShow").querySelector("thead").innerHTML =
+          "";
         for (let i = 0; i < products.length; i++) {
           let model = `<tr class="text-light">
         <td>${products[i].name}</td>
-        <td>${products[i].price}</td>
+        <td>${products[i].price} Da</td>
+        <td>${products[i].quantity}</td>
         <td>${products[i].addedAt}</td>
-        <td>
-          <img
-            id="dropdownMenuButton"
-            src="img/DropDown.svg"
-            type="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          />
-          <div
-            class="dropdown-menu"
-            type="button"
-            aria-labelledby="dropdownMenuButton"
-          >
-            <button _id="${products[i]._id}"
-              class="dropdown-item btn deleteChildFromParentBtn"
-              data-bs-toggle="modal1"
-            >
-              Delete
-            </button>
-          </div>
-        </td>
       </tr>
       `;
           document
             .getElementById("tableShowDeleteBody")
             .insertAdjacentHTML("beforeend", model);
         }
-        // add the listeners for the delete buttons AKA "deleteChildFromParentBtn"
-        //...................
-        addListeners2("deleteChildFromParentBtn");
+        document
+          .getElementById("tableShow")
+          .querySelector("thead")
+          .insertAdjacentHTML(
+            "afterbegin",
+            '<tr class="bg-light"><th>Name</th><th>Price</th><th>Available</th><th>Added At</th></tr>'
+          );
       }
       // if we have a category
       else {
         const { categories } = category;
         document.getElementById("tableShowDeleteBody").innerHTML = "";
+        document.getElementById("tableShow").querySelector("thead").innerHTML =
+          "";
         if (categories.length === 0)
           showAlert("error", "there is no childs in this category");
         for (let i = 0; i < categories.length; i++) {
           let model = `<tr class="text-light">
         <td>${categories[i].name}</td>
         <td>${categories[i].addedAt}</td>
-        <td>
-          <img
-            id="dropdownMenuButton"
-            src="img/DropDown.svg"
-            type="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          />
-          <div
-            class="dropdown-menu"
-            type="button"
-            aria-labelledby="dropdownMenuButton"
-          >
-            <button _id="${categories[i]._id}"
-              class="dropdown-item btn deleteChildFromParentBtn"
-              data-bs-toggle="modal1"
-            >
-              Delete 
-            </button>
-          </div>
-        </td>
       </tr>
       `;
           document
             .getElementById("tableShowDeleteBody")
             .insertAdjacentHTML("beforeend", model);
         }
-        // add the listeners for the delete buttons AKA "deleteChildFromParentBtn"
-        // .....................
-        addListeners2("deleteChildFromParentBtn");
+        document
+          .getElementById("tableShow")
+          .querySelector("thead")
+          .insertAdjacentHTML(
+            "afterbegin",
+            '<tr class="bg-light"><th>Name</th><th>Added At</th></tr>'
+          );
       }
     }
     // if the operation wasnt successfull
@@ -436,5 +244,15 @@ document.getElementById("addBtn").addEventListener("click", (e) => {
   e.preventDefault();
   const name = document.getElementById("aName").value;
   const subCategory = document.getElementById("aSubCategory").checked;
-  createNewCategory(name, subCategory);
+  const parentId = document.getElementById("Category").value;
+  createNewCategory(name, subCategory, parentId);
+});
+
+document.getElementById("aSubCategory").addEventListener("change", (e) => {
+  e.preventDefault();
+  if (document.getElementById("aSubCategory").checked) {
+    document.getElementById("parentCategory").classList.remove("d-none");
+  } else {
+    document.getElementById("parentCategory").classList.add("d-none");
+  }
 });

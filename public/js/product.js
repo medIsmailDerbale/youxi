@@ -29,7 +29,7 @@ const importData = async (id) => {
   }
 };
 
-const addProduct = async (name, price, colors, description) => {
+const addProduct = async (name, price, quantity, description, category) => {
   try {
     const res = await fetch("http://localhost:8000/api/v1/products", {
       method: "POST",
@@ -39,8 +39,9 @@ const addProduct = async (name, price, colors, description) => {
       body: JSON.stringify({
         name,
         price,
-        colors,
+        quantity,
         description,
+        category,
       }),
     });
     if ((await res.status) === 201) {
@@ -64,7 +65,7 @@ const deleteProduct = async (id) => {
         "Content-Type": "application/json",
       },
     });
-    if (await res.ok) {
+    if (res.ok) {
       showAlert("success", "Product deleted successfully");
       window.setTimeout(() => {
         location.assign("/products");
@@ -119,7 +120,8 @@ document.getElementById("addBtn").addEventListener("click", (e) => {
   const price = document.getElementById("Price").value;
   const quantity = document.getElementById("Quantity").value;
   const description = document.getElementById("Description").value;
-  addProduct(name, price, quantity, description);
+  const category = document.getElementById("Category").value;
+  addProduct(name, price, quantity, description, category);
 });
 
 let deleteBtns = document.getElementsByClassName("deleteBtn");

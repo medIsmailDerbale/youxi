@@ -96,6 +96,14 @@ head
                               .col-sm-10
                                 input#Quantity.inp.form-control.form-control-lg.rounded-pill.border-white.text-white(type='text' placeholder='   Product Quantity')
                             .mb-3.row
+                              label.txt.col-sm-2.col-form-label(for='Quantity') Category
+                              .col-sm-10
+                                <select class="inp form-control form-control-lg rounded-pill  border-white text-white" id="Category">
+                                  <option selected disabled hidden>Choose Category...</option>
+                                  for category in categories 
+                                    <option value="#{category._id}">#{category.name}</option>
+                                </select>    
+                            .mb-3.row
                               label.txt.col-sm-2.col-form-label.px-2(for='Description')
                                 | Description*
                               .col-sm-10
