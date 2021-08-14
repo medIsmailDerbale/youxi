@@ -57,9 +57,10 @@ exports.getOverview = catchAsync(async (req, res, next) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    if (req.cookies.jwt & cart_user) {
+
+    if (req.cookies.jwt && cart_user) {
       cartQty = cart_user.totalQty;
-    } else if (req.cookies.jwt & !cart_user) {
+    } else if (req.cookies.jwt && !cart_user) {
       cartQty = 0;
     }
     url = "#";
@@ -113,9 +114,9 @@ exports.search = catchAsync(async (req, res, next) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    if (req.cookies.jwt & cart_user) {
+    if (req.cookies.jwt && cart_user) {
       cartQty = cart_user.totalQty;
-    } else if (req.cookies.jwt & !cart_user) {
+    } else if (req.cookies.jwt && !cart_user) {
       cartQty = 0;
     }
     url = "#";
@@ -213,9 +214,9 @@ exports.getAccount = async (req, res) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    if (req.cookies.jwt & cart_user) {
+    if (req.cookies.jwt && cart_user) {
       cartQty = cart_user.totalQty;
-    } else if (req.cookies.jwt & !cart_user) {
+    } else if (req.cookies.jwt && !cart_user) {
       cartQty = 0;
     }
     url = "#";
@@ -249,7 +250,6 @@ exports.getSignup = (req, res) => {
 
 exports.getProducts = catchAsync(async (req, res, next) => {
   const categories = await Category.find({ subCategory: true });
-  console.log(categories);
   //pagination
   const current = req.query.page || 1;
   const limit = req.query.limit || 12;
@@ -282,7 +282,6 @@ exports.searchProducts = catchAsync(async (req, res, next) => {
   const skip = (current - 1) * limit;
   const pages = Math.ceil(numProducts / limit);
   const products = await query.skip(skip).limit(limit);
-  console.log(pages);
   //3) Render that template using product data from 1
   res.status(200).render("searchProduct", {
     title: "Products",
@@ -372,7 +371,6 @@ exports.getCategorie = catchAsync(async (req, res, next) => {
   const pages = Math.ceil(numProducts / 16);
 
   products = products.slice(skip, skip + limit);
-  console.log(products);
 
   //geting the user & panier qnty
   let userName;
@@ -387,9 +385,9 @@ exports.getCategorie = catchAsync(async (req, res, next) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    if (req.cookies.jwt & cart_user) {
+    if (req.cookies.jwt && cart_user) {
       cartQty = cart_user.totalQty;
-    } else if (req.cookies.jwt & !cart_user) {
+    } else if (req.cookies.jwt && !cart_user) {
       cartQty = 0;
     }
     url = "#";
@@ -471,9 +469,9 @@ exports.getProductDetail = catchAsync(async (req, res, next) => {
     userName = "Welcome," + user.FirstName;
 
     cart_user = await Cart.findOne({ user: decoded._id });
-    if (req.cookies.jwt & cart_user) {
+    if (req.cookies.jwt && cart_user) {
       cartQty = cart_user.totalQty;
-    } else if (req.cookies.jwt & !cart_user) {
+    } else if (req.cookies.jwt && !cart_user) {
       cartQty = 0;
     }
     url = "#";
