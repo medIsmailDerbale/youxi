@@ -84,7 +84,7 @@ head
                     tr.bg-light
                       th.border-top-0 User email
                       th.border-top-0 Total cost
-                      th.border-top-0 Total quantity
+                      th.border-top-0 Order Products
                       th.border-top-0 Address
                       th.border-top-0 CreatedAt
                       th.border-top-0 Status
@@ -93,8 +93,9 @@ head
                     each order in orders
                       tr
                       td=order.user.email
-                      td=order.cart.totalCost 
-                      td=order.cart.totalQty
+                      td #{order.cart.totalCost} Da
+                      td 
+                          button.showProducts.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#showOrderProducts' _id=`${order._id}`) show Order Products
                       td=order.address
                       td=order.createdAt.toDateString()
                       td=order.status
@@ -127,18 +128,22 @@ head
                               | Confirm
               // Modal Modify END
               // Modal children show Delete
-              #modalChildrenShowDelete.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+              #showOrderProducts.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
                 .modal-dialog.modal-lg
                   .modal-content.text-white.d
                     .container-fluid.px-5.py-3
                       .modal-header.border-0
                         h1#exampleModalLabel.modal-title.txt
-                          | Show / Delete
+                          | Order Products
                         button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
                       .modal-body
                         table.table.table-striped.table-hover.table-description
+                          thead
+                            tr
+                              th Name
+                              th Quantity
+                              th total Price
                           tbody#tableShowDeleteBody
-          f
           nav(aria-label='Page navigation')
             ul.pagination.justify-content-center
               ul.pagination

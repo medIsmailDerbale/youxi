@@ -256,7 +256,10 @@ exports.getProducts = catchAsync(async (req, res, next) => {
   const skip = (current - 1) * limit;
   const numProducts = await Product.countDocuments();
   const pages = Math.ceil(numProducts / limit);
-  const products = await Product.find().skip(skip).limit(limit);
+  const products = await Product.find()
+    .skip(skip)
+    .limit(limit)
+    .sort("-addedAt");
 
   //3) Render that template using product data from 1
   res.status(200).render("product", {
@@ -499,7 +502,12 @@ exports.getOrdersAdmin = catchAsync(async (req, res, next) => {
   const numProducts = await Order.countDocuments();
   const pages = Math.ceil(numProducts / limit);
 
-  const orders = await Order.find().skip(skip).limit(limit).populate("user");
+  const orders = await Order.find()
+    .skip(skip)
+    .limit(limit)
+    .populate("user")
+    .sort("-status");
+
   res.status(200).render("orders", {
     orders,
     current,

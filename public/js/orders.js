@@ -1,6 +1,14 @@
 import { showAlert } from "./alert.js";
 let globaleId;
 
+const elements = document.getElementsByClassName("showProducts");
+for (let i = 0; i < elements.length; i++) {
+  elements[i].addEventListener("click", (e) => {
+    e.preventDefault();
+    importDataToShowOrderItems(elements[i].attributes._id.value);
+  });
+}
+
 const patchOrder = async (id, status) => {
   try {
     const res = await fetch(`http://localhost:8000/api/v1/order/${id}`, {
@@ -60,97 +68,24 @@ const importDataToShowOrderItems = async (id) => {
       method: "GET",
     });
     res = await res.json();
+    console.log(res);
     if (res.status === "success") {
       showAlert("success", "Loading childs");
-      const { data } = res;
-      const { category } = data;
-      // check if we have a category or sub category
-      if (category.subCategory) {
-        // treating subCategory case
-        const { products } = category;
-        // get the table body for show delete childs
-        if (products.length === 0)
-          showAlert("error", "there is no childs in this category");
-        document.getElementById("tableShowDeleteBody").innerHTML = "";
-        for (let i = 0; i < products.length; i++) {
-          let model = `<tr class="text-light">
-        <td>${products[i].name}</td>
-        <td>${products[i].price}</td>
-        <td>${products[i].addedAt}</td>
-        <td>
-          <img
-            id="dropdownMenuButton"
-            src="img/DropDown.svg"
-            type="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          />
-          <div
-            class="dropdown-menu"
-            type="button"
-            aria-labelledby="dropdownMenuButton"
-          >
-            <button _id="${products[i]._id}"
-              class="dropdown-item btn deleteChildFromParentBtn"
-              data-bs-toggle="modal1"
-            >
-              Delete
-            </button>
-          </div>
-        </td>
-      </tr>
-      `;
-          document
-            .getElementById("tableShowDeleteBody")
-            .insertAdjacentHTML("beforeend", model);
-        }
-        // add the listeners for the delete buttons AKA "deleteChildFromParentBtn"
-        //...................
-        addListeners2("deleteChildFromParentBtn");
+      const items = res.order.items;
+      // get the table body for show delete childs
+      document.getElementById("tableShowDeleteBody").innerHTML = "";
+      for (let i = 0; i < items.length; i++) {
+        let model = `<tr class="text-light">
+                        <td>${items[i].title}</td>
+                        <td>${items[i].qty}</td>
+                        <td>${items[i].price} Da</td>
+                      </tr>`;
+        document
+          .getElementById("tableShowDeleteBody")
+          .insertAdjacentHTML("beforeend", model);
       }
-      // if we have a category
-      else {
-        const { categories } = category;
-        document.getElementById("tableShowDeleteBody").innerHTML = "";
-        if (categories.length === 0)
-          showAlert("error", "there is no childs in this category");
-        for (let i = 0; i < categories.length; i++) {
-          let model = `<tr class="text-light">
-        <td>${categories[i].name}</td>
-        <td>${categories[i].addedAt}</td>
-        <td>
-          <img
-            id="dropdownMenuButton"
-            src="img/DropDown.svg"
-            type="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          />
-          <div
-            class="dropdown-menu"
-            type="button"
-            aria-labelledby="dropdownMenuButton"
-          >
-            <button _id="${categories[i]._id}"
-              class="dropdown-item btn deleteChildFromParentBtn"
-              data-bs-toggle="modal1"
-            >
-              Delete 
-            </button>
-          </div>
-        </td>
-      </tr>
-      `;
-          document
-            .getElementById("tableShowDeleteBody")
-            .insertAdjacentHTML("beforeend", model);
-        }
-        // add the listeners for the delete buttons AKA "deleteChildFromParentBtn"
-        // .....................
-        addListeners2("deleteChildFromParentBtn");
-      }
+      // add the listeners for the delete buttons AKA "deleteChildFromParentBtn"
+      //...................
     }
     // if the operation wasnt successfull
     else {
