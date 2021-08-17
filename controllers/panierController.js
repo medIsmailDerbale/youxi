@@ -91,7 +91,7 @@ exports.getPanier = catchAsync(async (req, res) => {
     }
     // if user is signed in and has cart, load user's cart from the db
     if (req.cookies.jwt && cart_user) {
-      return res.render("panier", {
+      return res.render("panier2", {
         cart: cart_user,
         pageName: "Shopping Cart",
         products: await productsFromCart(cart_user),
@@ -104,7 +104,7 @@ exports.getPanier = catchAsync(async (req, res) => {
       cart_user.user = decoded._id;
       await cart_user.save();
       //console.log(carz)
-      return res.render("panier", {
+      return res.render("panier2", {
         cart: cart_user,
         pageName: "Shopping Cart",
         products: await productsFromCart(cart_user),
