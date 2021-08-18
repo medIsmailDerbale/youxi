@@ -1,5 +1,7 @@
 const Product = require("../models/productModel");
+const User = require("../models/userModel");
 const Cart = require("../models/cart");
+const Category = require("../models/categoryModel");
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const catchAsync = require("../utils/catchAsync");
@@ -21,23 +23,12 @@ exports.getProduct = catchAsync(async (req, res) => {
     }
     let cart;
 
-    /*if (
-      (req.user && !user_cart && req.session.cart) ||
-      (!req.user && req.session.cart)
-    ) {
-      cart = await new Cart(req.session.cart);
-    } else if (!req.user || !user_cart) {
-      cart = new Cart({});
-    } else {
-      cart = user_cart;
-    }*/
     if (req.cookies.jwt && !user_cart) {
       cart = new Cart({});
     } else if (req.cookies.jwt && user_cart) {
       cart = user_cart;
     } else {
     }
-
     // add the product to the cart
     const product = await Product.findById(productId);
 
@@ -77,56 +68,81 @@ exports.getProduct = catchAsync(async (req, res) => {
 });
 
 exports.getPanier = catchAsync(async (req, res) => {
-  try {
+  const categories = await Category.find({ subCategory: false })
+    .sort("name")
+    .select("-products -addedAt");
+  let tab = [];
+
+  categories.forEach(myFunction);
+  function myFunction(item) {
+    if (item.subCategory === false) {
+      item.categories.forEach(secFunction);
+      function secFunction(item) {
+        tab.push(item);
+      }
+    }
+  }
+  //geting the user & panier qnty
+  let userName;
+  let cartQty;
+  let url;
+  if (req.cookies.jwt) {
     const decoded = await promisify(jwt.verify)(
       req.cookies.jwt,
       process.env.JWT_SECRET
     );
+    const user = await User.findById(decoded._id);
+    userName = "Welcome," + user.FirstName;
+    url = "#";
+  } else {
+    userName = "login/signup";
+    cartQty = 0;
+    url = "/signup";
+  }
 
-    console.log(await decoded);
-    // find the cart, whether in session or in db based on the user state
-    let cart_user;
-    if (req.cookies.jwt) {
-      cart_user = await Cart.findOne({ user: decoded._id });
-    }
-    // if user is signed in and has cart, load user's cart from the db
+  const decoded = await promisify(jwt.verify)(
+    req.cookies.jwt,
+    process.env.JWT_SECRET
+  );
+
+  // find the cart, whether in session or in db based on the user state
+  let cart_user;
+  if (req.cookies.jwt) {
+    cart_user = await Cart.findOne({ user: decoded._id });
     if (req.cookies.jwt && cart_user) {
-      return res.render("panier2", {
-        cart: cart_user,
-        pageName: "Shopping Cart",
-        products: await productsFromCart(cart_user),
-      });
-    }else if(req.cookies.jwt && !cart_user){
-      cart_user = new Cart({});
-      cart_user.totalQty = 0;
-      cart_user.totalCost = 0;
-      cart_user.items=[];
-      cart_user.user = decoded._id;
-      await cart_user.save();
-      //console.log(carz)
-      return res.render("panier2", {
-        cart: cart_user,
-        pageName: "Shopping Cart",
-        products: await productsFromCart(cart_user),
-      });
+      cartQty = cart_user.totalQty;
+    } else if (req.cookies.jwt && !cart_user) {
+      cartQty = 0;
     }
-    // if there is no cart in session and user is not logged in, cart is empty
-    /*if (!req.session.cart) {
-      return res.render("shop/shopping-cart", {
-        cart: null,
-        pageName: "Shopping Cart",
-        products: null,
-      });
-    }*/
-    // otherwise, load the session's cart
-    /* return res.render("shop/shopping-cart", {
-      cart: req.session.cart,
+  }
+  // if user is signed in and has cart, load user's cart from the db
+  if (req.cookies.jwt && cart_user) {
+    return res.status(200).render("panier2", {
+      userName,
+      url,
+      cartQty,
+      categories: tab,
+      cart: cart_user,
       pageName: "Shopping Cart",
-      products: await productsFromCart(req.session.cart),
-    });*/
-  } catch (err) {
-    console.log(err.message);
-    res.redirect("/");
+      products: await productsFromCart(cart_user),
+    });
+  } else if (req.cookies.jwt && !cart_user) {
+    cart_user = new Cart({});
+    cart_user.totalQty = 0;
+    cart_user.totalCost = 0;
+    cart_user.items = [];
+    cart_user.user = decoded._id;
+    await cart_user.save();
+    //console.log(carz)
+    return res.status(200).render("panier2", {
+      userName,
+      url,
+      cartQty,
+      categories: tab,
+      cart: cart_user,
+      pageName: "Shopping Cart",
+      products: await productsFromCart(cart_user),
+    });
   }
 });
 
@@ -134,11 +150,13 @@ async function productsFromCart(cart) {
   let products = [];
   let qty = []; // array of objects
 
-  for (const item of cart.items) {
+  console.log(cart.items);
+  cart.items.forEach(async (item) => {
     let foundProduct = await Product.findById(item.productId);
-    foundProduct.qty = item.qty;
-    products.push(foundProduct);
-  }
+    let copy = JSON.parse(JSON.stringify(foundProduct));
+    copy.qty = item.qty;
+    products.push(copy);
+  });
   return products;
 }
 
@@ -169,12 +187,10 @@ exports.addOneToQuantity = catchAsync(async (req, res) => {
     // add the product to the cart
     const product = await Product.findById(productId);
     if (!product) {
-      return res
-        .status(400)
-        .json({
-          status: "failed",
-          error: "no suck product with the provided id",
-        });
+      return res.status(400).json({
+        status: "failed",
+        error: "no suck product with the provided id",
+      });
     }
     const itemIndex = cart.items.findIndex((p) => p.productId == productId);
 

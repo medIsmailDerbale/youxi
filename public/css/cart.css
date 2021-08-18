@@ -1,0 +1,391 @@
+#content {
+  margin-top: 20px !important;
+  font-family: "Roboto", sans-serif;
+}
+.card {
+  border: none !important;
+}
+
+.solid {
+  border: 1px solid #000000;
+  width: 20px;
+  margin: -10px;
+}
+.solid1 {
+  border-top: 2px solid #000;
+  width: 20px;
+  margin: 0px;
+}
+.form-content {
+  margin: 20px 0px 20px 5px;
+}
+
+.form-label1 {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1em;
+
+  color: #000000;
+}
+input {
+  border-top: black !important;
+  border-left: black !important;
+  border-right: black !important;
+  outline: none !important;
+}
+
+::placeholder {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1em;
+  color: #4d4d4d;
+}
+
+.vl {
+  border: 1px solid #898989;
+  height: 340px;
+  position: absolute;
+  left: -2%;
+}
+
+.buttonC {
+  background-color: #000 !important;
+  width: 178px;
+  font-weight: 500 !important;
+  font-size: 24px !important;
+  border-radius: 0 !important;
+  line-height: 28px !important;
+}
+
+.cdiv1 {
+  height: 400px;
+  background: #f0f7ff;
+}
+
+.cdiv2 {
+  font-family: Montserrat;
+  line-height: 44px;
+  font-size: 36px;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.carousel-item {
+  height: 400px !important;
+  background: #f0f7ff !important;
+}
+
+.card1 {
+  background: #fff496 !important;
+}
+
+.card2 {
+  background: #ffbebe !important;
+}
+
+.card-title1 {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 44px;
+  color: #d9d083;
+}
+
+.card-title2 {
+  color: #c79b9b;
+}
+
+.card-text {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #595959;
+}
+
+.article-txt {
+  font-family: Montserrat;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.input-group-text {
+  background: linear-gradient(
+    126.06deg,
+    rgba(255, 255, 255, 0) 2.04%,
+    rgba(255, 255, 255, 0.1) 68.44%
+  ) !important;
+}
+
+form > span {
+  box-shadow: none;
+}
+
+form > div {
+  width: 191px !important;
+  height: 45px !important;
+}
+
+.zoom:hover {
+  -ms-transform: scale(1.1);
+  /* IE 9  */
+  -webkit-transform: scale(1.1);
+  /* Safari 3-8 */
+  transform: scale(1.1);
+  overflow: hidden;
+  transition: transform 1s, filter 1s;
+  filter: blur(2px);
+}
+
+.ico {
+  width: 35px;
+  height: 35px;
+}
+
+footer {
+  background: #f0f7ff;
+}
+
+.userIcon {
+  margin-right: 10px;
+}
+
+.costumButtonSubmitBlack {
+  background-color: #000 !important;
+  width: 178px;
+  font-weight: 500 !important;
+  font-size: 24px !important;
+  border-radius: 0 !important;
+  line-height: 28px !important;
+}
+
+.vl2 {
+  border: 1px solid #898989;
+  height: 340px;
+  position: absolute;
+  left: -2%;
+}
+
+/* product detail */
+
+.oldprice {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  display: flex;
+  align-items: flex-end;
+  letter-spacing: 0.1em;
+  text-decoration-line: line-through;
+  color: #9b9b9b;
+}
+
+.percentageoff {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  display: flex;
+  align-items: flex-end;
+  letter-spacing: 0.1em;
+  color: #4946da;
+}
+.newprice {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+  letter-spacing: 0.1em;
+  color: #202020;
+}
+
+.product-description {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.1em;
+
+  color: #7c7c7c;
+}
+
+.Product-Name {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 44px;
+  color: #202020;
+}
+
+.buttonA {
+  width: 276px !important;
+  height: 80px !important;
+  background: #242424 !important;
+
+  font-family: Montserrat !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 36px !important;
+  line-height: 44px !important;
+  align-items: center !important;
+  text-align: center !important;
+  letter-spacing: 0.04em !important;
+}
+.unit-left {
+  margin-top: 10px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1em;
+}
+
+.btn-success {
+  background: #23ff61 !important;
+  border-radius: 2px !important;
+  border: none !important;
+}
+
+.btn-danger {
+  background: #ff3838 !important;
+  border-radius: 2px !important;
+  border: none !important;
+}
+
+.disabled {
+  opacity: 1 !important;
+}
+
+/* Home > Category > SubCategory > Product */
+
+.pages a,
+.pages a:hover {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  text-decoration: none;
+
+  letter-spacing: 0.1em;
+  color: #505050;
+}
+
+/* Home > Category > SubCategory > Product */
+
+/* product detail */
+
+/* cart detail */
+
+.title {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 59px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1em;
+  color: #000000;
+}
+
+.cart-detail {
+  margin-top: 20px !important;
+}
+
+.main {
+  margin-top: 20px;
+  padding: 2vh 0;
+  width: 100%;
+}
+
+.item {
+  background: #fafafa;
+  vertical-align: middle;
+}
+
+.product-image {
+  width: 3.5rem;
+}
+
+.back-to-shop {
+  margin-top: 4.5rem;
+}
+
+.product-name {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 44px;
+  color: #202020;
+  text-decoration: none;
+}
+
+.product-price {
+  font-family: Montserrat;
+  font-style: normal;
+
+  font-size: 20px;
+  line-height: 44px;
+  text-decoration: none;
+}
+
+i {
+  color: #404040;
+}
+
+.item-number,
+.product-total-price {
+  font-family: Montserrat;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 44px;
+}
+
+.total-price {
+  font-family: Montserrat;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 44px;
+  text-decoration: none;
+  color: #202020;
+}
+
+.buttonCheckout {
+  background-color: #588bef !important;
+  width: 178px;
+  margin-top: 10px !important;
+  font-weight: 500 !important;
+  font-size: 24px !important;
+  border: none !important;
+  line-height: 28px !important;
+}
+
+.btn:focus,
+.btn:active,
+.btn:hover {
+  box-shadow: none !important;
+  outline: 0;
+}
+
+/* cart detail */

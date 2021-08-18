@@ -1,7 +1,7 @@
 const express = require("express");
 const viewsController = require("../controllers/viewsController");
 const authController = require("../controllers/authController");
-
+const panierControlelr = require("../controllers/panierController");
 const router = express.Router();
 
 router.use(authController.isLoggedIn);
@@ -42,7 +42,7 @@ router.get(
   viewsController.getCategories
 );
 
-router.get("/categories/:id",viewsController.getCategorie)
+router.get("/categories/:id", viewsController.getCategorie);
 
 router.get(
   "/orders",
@@ -50,6 +50,8 @@ router.get(
   authController.restrictTo("admin"),
   viewsController.getOrdersAdmin
 );
+
+router.get("/cart", panierControlelr.getPanier);
 
 router.get("/forgot-password", viewsController.getForgotPassword);
 router.get("/reset-password/:token", viewsController.getResetPassword);

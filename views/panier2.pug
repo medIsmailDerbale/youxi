@@ -19,7 +19,7 @@ head
   link(href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap' rel='stylesheet')
   link(rel='preconnect' href='https://fonts.gstatic.com')
   link(href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap' rel='stylesheet')
-  link(rel='stylesheet' href='firstpage.css')
+  link(rel='stylesheet' href='/css/cart.css')
   link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x' crossorigin='anonymous')
   script(src='https://code.iconify.design/1/1.0.7/iconify.min.js')
   link(rel='preconnect' href='https://fonts.gstatic.com')
@@ -36,132 +36,72 @@ head
   script(type='text/javascript' src='https://api.iconify.design/fa-brands.js?icons=facebook-square ,instagram-square ' async='true')
   script(type='text/javascript' src='https://api.iconify.design/jam.js?icons=github ' async='true')
   script(type='text/javascript' src='https://api.iconify.design/ant-design.js?icons=linkedin-filled ' async='true')
-nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
-  a.navbar-brand(href='/')
-    img(src='/img/youxi logo.svg' alt='logo image')
-  button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
-    span.navbar-toggler-icon
-  #navbarSupportedContent.collapse.navbar-collapse.d-lg-flex.justify-content-around
-    ul.navbar-nav.mb-2.mb-lg-0
-      li.nav-item
-        a.nav-link.active.border-bottom.border-dark(aria-current='page' href='/') Home
-      li.nav-item
-        a.nav-link(aria-current='page' href='/products') Products
-    form
-      .input-group.form-control-sm.border.rounded-pill.bg-light
-        input#searchInput.form-control.border-0.bg-light(type='text' placeholder='search' aria-label="Recipient's username" aria-describedby='basic-addon2')
-        button#searchButton.input-group-text.border-0
-          svg.iconify.text-dark(xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' aria-hidden='true' focusable='false' width='1em' height='1em' preserveaspectratio='xMidYMid meet' viewbox='0 0 24 24' data-icon='bx:bx-search' data-inline='false' style='transform: rotate(360deg)')
-            path(d='M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396l1.414-1.414l-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8s3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6s-6-2.691-6-6s2.691-6 6-6z' fill='currentColor')
-    div
-      a(href='/me')
-        svg.userIcon.iconify.text-dark(xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' aria-hidden='true' focusable='false' width='24px' height='24px' preserveaspectratio='xMidYMid meet' viewbox='0 0 24 24' data-icon='bx:bx-user-circle' data-inline='false' data-width='24px' style='transform: rotate(360deg)')
-          path(d='M12 2A10.13 10.13 0 0 0 2 12a10 10 0 0 0 4 7.92V20h.1a9.7 9.7 0 0 0 11.8 0h.1v-.08A10 10 0 0 0 22 12A10.13 10.13 0 0 0 12 2zM8.07 18.93A3 3 0 0 1 11 16.57h2a3 3 0 0 1 2.93 2.36a7.75 7.75 0 0 1-7.86 0zm9.54-1.29A5 5 0 0 0 13 14.57h-2a5 5 0 0 0-4.61 3.07A8 8 0 0 1 4 12a8.1 8.1 0 0 1 8-8a8.1 8.1 0 0 1 8 8a8 8 0 0 1-2.39 5.64z' fill='currentColor')
-          path(d='M12 6a3.91 3.91 0 0 0-4 4a3.91 3.91 0 0 0 4 4a3.91 3.91 0 0 0 4-4a3.91 3.91 0 0 0-4-4zm0 6a1.91 1.91 0 0 1-2-2a1.91 1.91 0 0 1 2-2a1.91 1.91 0 0 1 2 2a1.91 1.91 0 0 1-2 2z' fill='currentColor')
-      a(href='/api/v1/cart/panier')
-        svg.iconify.text-dark(xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' aria-hidden='true' focusable='false' width='24px' height='24px' preserveaspectratio='xMidYMid meet' viewbox='0 0 32 32' data-icon='la:shopping-basket' data-inline='false' data-width='24px' style='transform: rotate(360deg)')
-          path(d='M16 3.094L7.094 12H2v6h1.25l2.781 9.281l.219.719h19.5l.219-.719L28.75 18H30v-6h-5.094zm0 2.844L22.063 12H9.938zM4 14h24v2h-.75l-.219.719L24.25 26H7.75l-2.781-9.281L4.75 16H4zm7 3v7h2v-7zm4 0v7h2v-7zm4 0v7h2v-7z' fill='currentColor')
-.container
-  .row
-    .col-md-2
-    .col-md-8.cart-detail
-      .title
-        | Your shopping cart
-      svg(height='80' width='60')
-        g(fill='none' stroke='black')
-          path(stroke-width='6' d='M5 10 l215 0')
-      each product in products
-        .row.main
-          .col-md-11
-            .row.item
-              .col-md-2.my-auto
-                img.product-image.img-fluid.rounded-circle(src=product.imageCover)
-              .col-md-4.my-auto
-                a.product-name #{product.name}
-                a.product-price.text-muted  #{product.price} Da / Unit
-              .col-md-1.my-auto.item-number  #{cart.totalQty} 
+include _header
+// qty
+<div class="container">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 cart-detail">
+          <div class="title">Your shopping cart</div>
+          <svg height="80" width="60">
+            <g fill="none" stroke="black">
+              <path stroke-width="6" d="M5 10 l215 0" />
+            </g>
+          </svg>
+          each item in products
+            .row.main
+              .col-md-11
+                .row.item
+                  .col-md-2.my-auto
+                    img.product-image.img-fluid.rounded-circle(src='#{item.imageCover}/')
+                  .col-md-4.my-auto
+                    a.product-name #{item.name}
+                    a.product-price.text-muted #{item.price} / Unit
+                  .col-md-1.my-auto.item-number #{item.qty}
+                  .col-md-1.my-auto
+                    a(href='#')
+                      i.fas.fa-plus-circle
+                    a(href='#')
+                      i.fas.fa-minus-circle
+                  .col-md-4.my-auto.product-total-price #{item.price*item.qty} DA
               .col-md-1.my-auto
-                a(href=`/api/v1/cart/add-to-cart/${product.id}`)
-                  i.fas.fa-plus-circle
-                a(href='#')
-                  i.fas.fa-minus-circle
-              .col-md-4.my-auto.product-total-price  #{cart.totalCost} DA 
-          .col-md-1.my-auto
-            a(href='')
-              i.fas.fa-times
-      
-      .row.main.d-flex.justify-content-center.border-bottom.border-top
-        .col-md-3
-        .col-md-3(style='font-family: Montserrat;\
-        font-style: normal;\
-        font-weight: bold;\
-        font-size: 25px;\
-        line-height: 44px;\
-        color: #202020;\
-        ')
-          | Order Total :
-          svg(height='20' width='40')
-            g(fill='none' stroke='black')
-              path(stroke-width='6' d='M1 0 l215 0')
-        .col-md-3
-          a.total-price  #{cart.totalCost} DA
-          svg(height='30' width='170')
-            text(x='5' y='12' fill='grey') + shipping free
-        .col-md-3
-      .row.justify-content-between
-        .col
-          i.fas.fa-long-arrow-alt-left(href='/')
-          a.text-decoration-none(style='\
-          font-family: Montserrat;\
-          font-style: normal;\
-          font-size: 20px;\
-          line-height: 44px;\
-          color: #000 ;\
-          ') Back to shop
-        .col-2
-          button.btn.btn-dark.buttonCheckout(type='button') Check out 
-    .col-md-2
-footer.footer.mt-5.p-5
-  .container.d-flex.justify-content-around
-    .col-4
-      h5.h5.fw-bold about the company
-      p
-        | Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum
-        | aspernatur incidunt, numquam nemo, nisi repudiandae odit
-        | exercitationem voluptates ipsam quos expedita, mollitia porro enim
-        | alias ea architecto laboriosam ut ad?
-    .col-4
-      h5.h5.fw-bold contact us
-      div
-        span.iconify(data-icon='carbon:phone ' data-inline='false ')
-        small
-          | (239)
-          | 555-0108
-      div
-        span.iconify(data-icon='mdi:email-check-outline ' data-inline='false ')
-        small
-          | alma.lawson@example.com
-      div
-        span.iconify(data-icon='cil:location-pin ' data-inline='false ')
-        small
-          | 73,
-          | Avenue
-          | de Delorme,
-          | 12133 Petitjean
-    .col-1
-      h5.h5.fw-bold legal
-      div
-        a.text-reset.text-decoration-none(href=' ') Privacy
-      div
-        a.text-reset.text-decoration-none(href=' ') FAQ
-      div
-        a.text-reset.text-decoration-none(href=' ') Support
-  .row.text-center
-    .col
-      span.iconify.ico(data-icon='fa-brands:facebook-square ')
-      span.iconify.ico(data-icon='fa-brands:instagram-square ')
-      span.iconify.ico(data-icon='jam:github ')
-      span.iconify.ico(data-icon='ant-design:linkedin-filled ')
+                a(href='')
+                  i.fas.fa-times
+
+
+          // end of detailed products-------------------------------------------------
+          <div class="row main d-flex justify-content-center border-bottom border-top">
+            <div class="col-md-3"></div>
+            <div class="col-md-3" style=" font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 25px;line-height: 44px;color: #202020;">Order Total :
+              <svg height="20" width="40">
+                <g fill="none" stroke="black">
+                  <path stroke-width="6" d="M1 0 l215 0" />
+                </g>
+              </svg>
+            </div>
+            <div class="col-md-3">
+              <a class="total-price"> #{cart.totalCost} Da</a>
+              <svg height="30" width="170">
+                <text x="5" y="12" fill="grey">+ shipping free</text>
+              </svg>
+            </div>
+            <div class="col-md-3"></div>
+          </div>
+
+          <div class="row justify-content-between">
+            <div class="col">
+              <i class="fas fa-long-arrow-alt-left" href="#"></i>
+              <a class="text-decoration-none" style=" font-family: Montserrat; font-style: normal; font-size: 20px; line-height: 44px; color: #000; " >Back to shop</a>
+            </div>
+            <div class="col-2">
+              <button type="button" class="btn btn-dark buttonCheckout">Check out</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+</div>
+include _footer
 script(src='https://code.iconify.design/1/1.0.7/iconify.min.js ')
 script(src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js ' integrity='sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p ' crossorigin='anonymous ')
 script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js ' integrity='sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT ' crossorigin='anonymous ')
