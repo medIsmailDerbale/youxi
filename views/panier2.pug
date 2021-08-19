@@ -53,9 +53,9 @@ include _header
               .col-md-11
                 .row.item
                   .col-md-2.my-auto
-                    img.product-image.img-fluid.rounded-circle(src='#{item.imageCover}/')
+                    img.product-image.img-fluid.rounded-circle(src=item.imageCover)
                   .col-md-4.my-auto
-                    a.product-name #{item.name}
+                    a.product-name #{item.name} 
                     a.product-price.text-muted #{item.price} / Unit
                   .col-md-1.my-auto.item-number #{item.qty}
                   .col-md-1.my-auto

@@ -152,16 +152,28 @@ async function productsFromCart(cart) {
   let products = [];
   let qty = []; // array of objects
 
-  cart.items.forEach(async (item) => {
+  for (const item of cart.items) {
     let foundProduct = await Product.findById(item.productId);
-    let copy = JSON.parse(JSON.stringify(foundProduct));
-    copy.qty = item.qty;
-    products.push(copy);
-    //console.log(products)
-  });
-  console.log(products)
+    foundProduct.qty = item.qty;
+    products.push(foundProduct);
+  }
   return products;
 }
+
+//async function productsFromCart(cart) {
+//  let products = [];
+//  let qty = []; // array of objects
+//
+//  cart.items.forEach(async (item) => {
+//    let foundProduct = await Product.findById(item.productId);
+//    let copy = JSON.parse(JSON.stringify(foundProduct));
+//    copy.qty = item.qty; 
+//    products.push(copy);
+//    //console.log(products)
+//  });
+//  console.log(products);
+//  return products;
+//}
 
 exports.addOneToQuantity = catchAsync(async (req, res) => {
   // post req
