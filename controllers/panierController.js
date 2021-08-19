@@ -121,10 +121,11 @@ exports.getPanier = catchAsync(async (req, res) => {
       userName,
       url,
       cartQty,
-      categories: tab,
+      categories,
       cart: cart_user,
       pageName: "Shopping Cart",
       products: await productsFromCart(cart_user),
+      tab
     });
   } else if (req.cookies.jwt && !cart_user) {
     cart_user = new Cart({});
@@ -133,15 +134,16 @@ exports.getPanier = catchAsync(async (req, res) => {
     cart_user.items = [];
     cart_user.user = decoded._id;
     await cart_user.save();
-    //console.log(carz)
+
     return res.status(200).render("panier2", {
       userName,
       url,
       cartQty,
-      categories: tab,
+      categories,
       cart: cart_user,
       pageName: "Shopping Cart",
       products: await productsFromCart(cart_user),
+      tab
     });
   }
 });
@@ -150,13 +152,14 @@ async function productsFromCart(cart) {
   let products = [];
   let qty = []; // array of objects
 
-  console.log(cart.items);
   cart.items.forEach(async (item) => {
     let foundProduct = await Product.findById(item.productId);
     let copy = JSON.parse(JSON.stringify(foundProduct));
     copy.qty = item.qty;
     products.push(copy);
+    //console.log(products)
   });
+  console.log(products)
   return products;
 }
 
