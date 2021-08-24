@@ -29,7 +29,7 @@ exports.checkout = catchAsync(async (req, res, next) => {
       product.quantity -= el.qty;
       product.save();
     });
-    // cart.remove();
+    cart.remove();
     res.status(200).json({
       status: "success",
       data: { order },

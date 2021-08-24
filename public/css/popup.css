@@ -1,0 +1,99 @@
+/* modal */
+.modal-content {
+  border-radius: 0px !important;
+  border: none !important;
+}
+
+h1.txt {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 64px;
+  line-height: 75px;
+  color: #000000;
+}
+.modal-header,
+.form-group1,
+.form-group2 {
+  position: relative;
+}
+.title-divider {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+}
+
+button.btn1 {
+  background-color: #fff !important;
+  width: 170px;
+  color: #000 !important;
+  font-weight: 500 !important;
+  font-size: 24px !important;
+  border-radius: 0 !important;
+  line-height: 28px !important;
+}
+button.btn2 {
+  background-color: #000 !important;
+  width: 170px;
+  color: #fff !important;
+
+  font-weight: 500 !important;
+  font-size: 24px !important;
+  border-radius: 0 !important;
+  line-height: 28px !important;
+}
+
+.card {
+  border: none !important;
+}
+
+.solid1 {
+  border-top: 2px solid #000;
+  width: 20px;
+  margin: 0px;
+}
+.form-content {
+  margin: 20px 0px 20px 5px;
+}
+
+.form-label1 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1em;
+
+  color: #000000;
+}
+input {
+  border-top: black !important;
+  border-left: black !important;
+  border-right: black !important;
+  width: 70%;
+  outline: none !important;
+}
+
+::placeholder {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1em;
+
+  color: #4d4d4d;
+}
+
+.email-divider,
+.mobile-divider {
+  position: absolute;
+  top: 28px;
+  left: 0;
+}
+
+/* modal */
