@@ -35,6 +35,5 @@ document.getElementById("submit").addEventListener("click", (e) => {
   e.preventDefault();
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
-  console.log(password, confirmPassword);
   resetPassword(password, confirmPassword);
 });

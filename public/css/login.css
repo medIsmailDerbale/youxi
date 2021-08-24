@@ -1,0 +1,147 @@
+/* modal */
+.modal-content {
+  border-radius: 0px !important;
+  border: none !important;
+}
+body {
+  overflow: hidden; /* Hide scrollbars */
+}
+
+img {
+  width: 90%;
+  height: auto;
+}
+h1.txt {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 44px;
+  color: #202020;
+}
+.title,
+.form-group1,
+.form-group2,
+.form-group3,
+.form-group4,
+.form-group5 {
+  position: relative;
+}
+.title {
+  margin: 25px 0px 25px 0px;
+}
+.title-divider {
+  position: absolute;
+  bottom: -5px;
+  left: -20px;
+}
+
+.logincard {
+  border: none !important;
+  height: 65%;
+  width: 80%;
+  background: #ffffff;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 2rem;
+  justify-content: center;
+  top: 15%;
+  bottom: 20%;
+}
+
+.signupcard {
+  border: none !important;
+  height: 86%;
+  width: 80%;
+  background: #ffffff;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 2rem;
+  justify-content: center;
+  top: 2%;
+  bottom: 12%;
+}
+
+.forgotpwdcard {
+  border: none !important;
+  height: 45%;
+  width: 80%;
+  background: #ffffff;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 2rem;
+  justify-content: center;
+  top: 20%;
+  bottom: 25%;
+}
+
+.forgot-password {
+  padding-bottom: 10px;
+  margin-top: -10px;
+}
+button.btn1,
+button.btn2 {
+  background-color: #000 !important;
+  width: 122px;
+  color: #fff !important;
+  font-weight: 500 !important;
+  font-size: 24px !important;
+  border-radius: 2px !important;
+  line-height: 28px !important;
+
+  margin: 0 auto;
+  display: block;
+}
+
+button.btn2 {
+  width: 146px;
+  font-size: 18px !important;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.footer {
+  text-align: center;
+  padding: 20px;
+}
+.form-content {
+  margin: 15px 0px 15px 5px;
+}
+
+.form-label1 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1em;
+  color: #000000;
+}
+input {
+  border-top: black !important;
+  border-left: black !important;
+  border-right: black !important;
+  width: 90%;
+  outline: none !important;
+}
+
+::placeholder {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1em;
+  color: #4d4d4d;
+}
+
+.divider {
+  position: absolute;
+  top: 20px;
+  left: 0;
+}
+
+/* modal */

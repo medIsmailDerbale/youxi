@@ -24,7 +24,7 @@ const sendTokenToEmail = async (email) => {
   }
 };
 
-document.querySelector("form").addEventListener("submit", (e) => {
+document.getElementById("submitBtn").addEventListener("click", (e) => {
   e.preventDefault();
   const email = document.getElementById("email").value;
   sendTokenToEmail(email);
