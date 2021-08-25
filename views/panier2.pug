@@ -77,14 +77,11 @@ include _header
                     a.product-price.text-muted #{item.price} / Unit
                   .col-md-1.my-auto.item-number #{item.qty}
                   .col-md-1.my-auto
-                    a(href='#' _id=`${item._id}`)
-                      i.fas.fa-plus-circle
-                    a(href='#' _id=`${item._id}`)
-                      i.fas.fa-minus-circle
+                    i.fas.fa-plus-circle( _id=`${item._id}` type="button")
+                    i.fas.fa-minus-circle( _id=`${item._id}` type="button")
                   .col-md-4.my-auto.product-total-price #{item.price*item.qty} DA
               .col-md-1.my-auto
-                a(href='' _id=`${item._id}`)
-                  i.fas.fa-times
+                i.fas.fa-times( _id=`${item._id}` type="button")
 
 
           // end of detailed products-------------------------------------------------
