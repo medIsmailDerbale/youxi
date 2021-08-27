@@ -1,7 +1,8 @@
 const express = require("express");
 const viewsController = require("../controllers/viewsController");
 const authController = require("../controllers/authController");
-const panierControlelr = require("../controllers/panierController");
+const panierController = require("../controllers/panierController");
+
 const router = express.Router();
 
 router.use(authController.isLoggedIn);
@@ -51,7 +52,7 @@ router.get(
   viewsController.getOrdersAdmin
 );
 
-router.get("/cart", panierControlelr.getPanier);
+router.get("/cart", panierController.getPanier);
 
 router.get("/forgot-password", viewsController.getForgotPassword);
 router.get("/reset-password/:token", viewsController.getResetPassword);
@@ -63,6 +64,7 @@ router.get(
   authController.restrictTo("admin"),
   viewsController.getStatsDashboard
 );
+router.get("/panier", authController.protect, panierController.getPanier);
 //router.get('/product/:slug', viewsController.getProduct);
 //need to implement  viewsController.getProduct in viewsController
 

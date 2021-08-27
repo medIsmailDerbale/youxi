@@ -19,6 +19,6 @@ router
   .route("/remove-item")
   .post(authController.protect, panierController.removeItemFromCart);
 
-router.get("/panier", authController.protect, panierController.getPanier);
+router.get("/panier", authController.protect, panierController.getPanierJson);
 
 module.exports = router;

@@ -125,7 +125,7 @@ exports.getPanier = catchAsync(async (req, res) => {
       cart: cart_user,
       pageName: "Shopping Cart",
       products: await productsFromCart(cart_user),
-      tab
+      tab,
     });
   } else if (req.cookies.jwt && !cart_user) {
     cart_user = new Cart({});
@@ -143,7 +143,49 @@ exports.getPanier = catchAsync(async (req, res) => {
       cart: cart_user,
       pageName: "Shopping Cart",
       products: await productsFromCart(cart_user),
-      tab
+      tab,
+    });
+  }
+});
+/****************************************************************/
+exports.getPanierJson = catchAsync(async (req, res) => {
+  //geting the user & panier qnty
+  let decoded;
+  if (req.cookies.jwt) {
+    decoded = await promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+  } else {
+    return res.status(404).json({
+      status: "failed",
+      error: "you are not logged in",
+    });
+  }
+  // find the cart, whether in session or in db based on the user state
+  let cart_user;
+  if (req.cookies.jwt) {
+    cart_user = await Cart.findOne({ user: decoded._id });
+  }
+  // if user is signed in and has cart, load user's cart from the db
+  if (req.cookies.jwt && cart_user) {
+    return res.status(200).json({
+      status: "success",
+      cart: cart_user,
+      products: await productsFromCart(cart_user),
+    });
+  } else if (req.cookies.jwt && !cart_user) {
+    cart_user = new Cart({});
+    cart_user.totalQty = 0;
+    cart_user.totalCost = 0;
+    cart_user.items = [];
+    cart_user.user = decoded._id;
+    await cart_user.save();
+
+    return res.status(200).json({
+      status: "success",
+      cart: cart_user,
+      products: await productsFromCart(cart_user),
     });
   }
 });
@@ -167,7 +209,7 @@ async function productsFromCart(cart) {
 //  cart.items.forEach(async (item) => {
 //    let foundProduct = await Product.findById(item.productId);
 //    let copy = JSON.parse(JSON.stringify(foundProduct));
-//    copy.qty = item.qty; 
+//    copy.qty = item.qty;
 //    products.push(copy);
 //    //console.log(products)
 //  });
