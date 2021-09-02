@@ -93,3 +93,39 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
     data: { product },
   });
 });
+
+exports.searchProduct = catchAsync(async (req, res, next) => {
+  const message = ".*" + req.query.s + ".*";
+  let products = await Product.find({
+    name: { $regex: message, $options: "i" },
+  });
+  let categorie = await Category.find({
+    name: { $regex: message, $options: "i" },
+  });
+
+  function getProductsFromCategorie(item) {
+    item.products.forEach(pushFunct);
+  }
+  function pushFunct(item) {
+    let found = false;
+    for (let i = 0, len = products.length; i < len; i++) {
+      if (item._id == products[i]._id) {
+        found = true;
+        return;
+      }
+    }
+    if (!found) products.push(item);
+  }
+  for (let i = 0; i < categorie.length; i++) {
+    if (categorie[i].subCategory === false) {
+      categorie[i].categories.forEach(getProductsFromCategorie);
+    } else if (categorie.length > 0) {
+      categorie[i].products.forEach(pushFunct);
+    }
+  }
+  res.status(200).json({
+    status: "success",
+    len: products.length,
+    products,
+  });
+});

@@ -9,6 +9,8 @@ router
   .get(authController.protect, productController.getAllProducts)
   .post(productController.createProduct);
 
+router.route("/search").get(productController.searchProduct);
+
 router
   .route("/:id")
   .get(authController.protect, productController.getProductById)
