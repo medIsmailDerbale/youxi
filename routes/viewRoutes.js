@@ -68,4 +68,6 @@ router.get("/panier", authController.protect, panierController.getPanier);
 //router.get('/product/:slug', viewsController.getProduct);
 //need to implement  viewsController.getProduct in viewsController
 
+router.get("/my-orders", viewsController.getMyOrders);
+
 module.exports = router;

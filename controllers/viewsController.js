@@ -550,3 +550,14 @@ exports.getStatsDashboard = catchAsync(async (req, resp, next) => {
       console.log(e);
     });
 });
+
+exports.getMyOrders = catchAsync(async (req, res, next) => {
+  const decoded = await promisify(jwt.verify)(
+    req.cookies.jwt,
+    process.env.JWT_SECRET
+  );
+  const orders = await Order.find({ user: decoded._id });
+  res.status(200).render("myOrders", {
+    orders,
+  });
+});

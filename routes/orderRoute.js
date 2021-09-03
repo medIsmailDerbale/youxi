@@ -28,6 +28,10 @@ router
   );
 
 router
+  .route("/get-order-by-user")
+  .get(authController.protect, orderController.getUserOrders);
+
+router
   .route("/checkout")
   .post(authController.protect, orderController.checkout);
 router

@@ -143,3 +143,16 @@ exports.modifyOrder = catchAsync(async (req, res) => {
     });
   }
 });
+
+exports.getUserOrders = catchAsync(async (req, res) => {
+  const decoded = await promisify(jwt.verify)(
+    req.cookies.jwt,
+    process.env.JWT_SECRET
+  );
+  const orders = await Order.find({ user: decoded._id });
+  res.status(200).json({
+    status: "success",
+    len: orders.length,
+    orders,
+  });
+});

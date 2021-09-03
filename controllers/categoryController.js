@@ -98,7 +98,7 @@ exports.getAllCategories = catchAsync(async (req, res, next) => {
   const categories = await features.query;
   //send response
   res.status(200).json({
-    status: " success",
+    status: "success",
     length: categories.length,
     data: { categories },
   });
