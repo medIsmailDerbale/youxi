@@ -149,7 +149,7 @@ exports.getUserOrders = catchAsync(async (req, res) => {
     req.cookies.jwt,
     process.env.JWT_SECRET
   );
-  const orders = await Order.find({ user: decoded._id });
+  const orders = await Order.find({ user: decoded._id }).sort("-createdAt");
   res.status(200).json({
     status: "success",
     len: orders.length,

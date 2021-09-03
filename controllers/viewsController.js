@@ -556,8 +556,53 @@ exports.getMyOrders = catchAsync(async (req, res, next) => {
     req.cookies.jwt,
     process.env.JWT_SECRET
   );
-  const orders = await Order.find({ user: decoded._id });
+
+  const categories = await Category.find({ subCategory: false })
+    .sort("name")
+    .select("-products -addedAt");
+  let tab = [];
+  categories.forEach(myFunction);
+  function myFunction(item) {
+    if (item.subCategory === false) {
+      item.categories.forEach(secFunction);
+      function secFunction(item) {
+        tab.push(item);
+      }
+    }
+  }
+
+  //geting the user & panier qnty
+  let userName;
+  let cartQty;
+  let url;
+  if (req.cookies.jwt) {
+    const decoded = await promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+    const user = await User.findById(decoded._id);
+    userName = "Welcome," + user.FirstName;
+
+    cart_user = await Cart.findOne({ user: decoded._id });
+
+    if (req.cookies.jwt && cart_user) {
+      cartQty = cart_user.totalQty;
+    } else if (req.cookies.jwt && !cart_user) {
+      cartQty = 0;
+    }
+    url = "#";
+  } else {
+    userName = "login/signup";
+    cartQty = 0;
+    url = "/signup";
+  }
+
+  const orders = await Order.find({ user: decoded._id }).sort("-createdAt");
   res.status(200).render("myOrders", {
     orders,
+    userName,
+    cartQty,
+    tab,
+    categories,
   });
 });

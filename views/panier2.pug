@@ -61,57 +61,60 @@ include _header
         <div class="col-md-2"></div>
         <div class="col-md-8 cart-detail">
           <div class="title">Your shopping cart</div>
-          <svg height="80" width="60">
+          <svg height="20" width="60">
             <g fill="none" stroke="black">
               <path stroke-width="6" d="M5 10 l215 0" />
             </g>
           </svg>
-          each item in products
-            .row.main
-              .col-md-11
-                .row.item
-                  .col-md-2.my-auto
-                    img.product-image.img-fluid.rounded-circle(src=item.imageCover)
-                  .col-md-4.my-auto
-                    a.product-name #{item.name} 
-                    a.product-price.text-muted #{item.price} / Unit
-                  .col-md-1.my-auto.item-number #{item.qty}
-                  .col-md-1.my-auto
-                    i.fas.fa-plus-circle( _id=`${item._id}` type="button")
-                    i.fas.fa-minus-circle( _id=`${item._id}` type="button")
-                  .col-md-4.my-auto.product-total-price #{item.price*item.qty} DA
-              .col-md-1.my-auto
-                i.fas.fa-times( _id=`${item._id}` type="button")
+          if(products.length==0)
+            img(src="/img/undraw_empty_cart_co35.svg", alt="empty cart")
+          else
+            each item in products
+              .row.main
+                .col-md-11
+                  .row.item
+                    .col-md-2.my-auto
+                      img.product-image.img-fluid.rounded-circle(src=item.imageCover)
+                    .col-md-4.my-auto
+                      a.product-name #{item.name} 
+                      a.product-price.text-muted #{item.price} / Unit
+                    .col-md-1.my-auto.item-number #{item.qty}
+                    .col-md-1.my-auto
+                      i.fas.fa-plus-circle( _id=`${item._id}` type="button")
+                      i.fas.fa-minus-circle( _id=`${item._id}` type="button")
+                    .col-md-4.my-auto.product-total-price #{item.price*item.qty} DA
+                .col-md-1.my-auto
+                  i.fas.fa-times( _id=`${item._id}` type="button")
 
 
-          // end of detailed products-------------------------------------------------
-          <div class="row main d-flex justify-content-center border-bottom border-top">
-            <div class="col-md-3"></div>
-            <div class="col-md-3" style=" font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 25px;line-height: 44px;color: #202020;">Order Total :
-              <svg height="20" width="40">
-                <g fill="none" stroke="black">
-                  <path stroke-width="6" d="M1 0 l215 0" />
-                </g>
-              </svg>
+            // end of detailed products-------------------------------------------------
+            <div class="row main d-flex justify-content-center border-bottom border-top">
+              <div class="col-md-3"></div>
+              <div class="col-md-3" style=" font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 25px;line-height: 44px;color: #202020;">Order Total :
+                <svg height="20" width="40">
+                  <g fill="none" stroke="black">
+                    <path stroke-width="6" d="M1 0 l215 0" />
+                  </g>
+                </svg>
+              </div>
+              <div class="col-md-3">
+                <a class="total-price"> #{cart.totalCost} Da</a>
+                <svg height="30" width="170">
+                  <text x="5" y="12" fill="grey">+ shipping free</text>
+                </svg>
+              </div>
+              <div class="col-md-3"></div>
             </div>
-            <div class="col-md-3">
-              <a class="total-price"> #{cart.totalCost} Da</a>
-              <svg height="30" width="170">
-                <text x="5" y="12" fill="grey">+ shipping free</text>
-              </svg>
-            </div>
-            <div class="col-md-3"></div>
-          </div>
 
-          <div class="row justify-content-between">
-            <div class="col">
-              <i class="fas fa-long-arrow-alt-left" href="#"></i>
-              <a href="/" class="text-decoration-none" style=" font-family: Montserrat; font-style: normal; font-size: 20px; line-height: 44px; color: #000; " >Back to shop</a>
+            <div class="row justify-content-between">
+              <div class="col">
+                <i class="fas fa-long-arrow-alt-left" href="#"></i>
+                <a href="/" class="text-decoration-none" style=" font-family: Montserrat; font-style: normal; font-size: 20px; line-height: 44px; color: #000; " >Back to shop</a>
+              </div>
+              <div class="col-2">
+                <button type="button" class="btn btn-dark buttonCheckout" data-bs-toggle="modal" data-bs-target="#checkoutModal">Check out</button>
+              </div>
             </div>
-            <div class="col-2">
-              <button type="button" class="btn btn-dark buttonCheckout" data-bs-toggle="modal" data-bs-target="#checkoutModal">Check out</button>
-            </div>
-          </div>
         </div>
         <div class="col-md-2"></div>
       </div>

@@ -37,10 +37,15 @@ nav.navbar.navbar-expand-lg.shadow-sm.p-3.navbar-light.bg-white
             span.UserName #{userName}
           if userName!="login/signup"
             .dropdown-menu(aria-labelledby='userDropdown')
+              a.dropdown-item(href='/my-orders')
+                i.fas.fa-list.fa-sm.fa-fw.mr-2.text-gray-400
+                |                 My Orders
+              .dropdown-divider
               a.dropdown-item(href='/me')
                 i.fas.fa-cogs.fa-sm.fa-fw.mr-2.text-gray-400
                 |                 Settings
               .dropdown-divider
+              .dropdown-menu(aria-labelledby='userDropdown')
               a.dropdown-item(href='/api/v1/users/logout' data-toggle='modal' data-target='#logoutModal')
                 i.fas.fa-sign-out-alt.fa-sm.fa-fw.mr-2.text-gray-400
                 |                 Logout
