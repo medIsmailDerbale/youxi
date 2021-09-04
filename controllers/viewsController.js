@@ -346,6 +346,21 @@ exports.getCategories = catchAsync(async (req, res, next) => {
 });
 
 exports.getCategorie = catchAsync(async (req, res, next) => {
+  //nav Categories 
+  const categories = await Category.find({ subCategory: false })
+    .sort("name")
+    .select("-products -addedAt");
+  let tab = [];
+  categories.forEach(myyFunction);
+  function myyFunction(item) {
+    if (item.subCategory === false) {
+      item.categories.forEach(seccFunction);
+      function seccFunction(item) {
+        tab.push(item);
+      }
+    }
+  }
+
   const categorie = await Category.findById(req.params.id);
   let products = [];
   //2) build template
@@ -410,6 +425,8 @@ exports.getCategorie = catchAsync(async (req, res, next) => {
     userName,
     cartQty,
     url,
+    categories,
+    tab
   });
 });
 
