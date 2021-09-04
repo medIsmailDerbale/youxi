@@ -36,7 +36,10 @@ const sendErrorDev = (err, res) => {
 };
 
 const sendErrorProduction = (err, req, res) => {
-  if (req.originalUrl.startsWith("/api")) {
+  if (
+    req.originalUrl.startsWith("/api") &&
+    !req.originalUrl.startsWith("/api/v1/cart")
+  ) {
     if (err.isOperational) {
       //operational error ,trusted we send message to client
       res.status(err.statusCode).json({

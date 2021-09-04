@@ -236,13 +236,35 @@ exports.getAccount = async (req, res) => {
   });
 };
 
-exports.getLoginForm = (req, res) => {
+exports.getLoginForm = async (req, res) => {
+  // verify if the use is not logged in
+  if (req.cookies.jwt) {
+    const decoded = await promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+    const freshUser = await User.findById(decoded._id);
+    if (!freshUser.changedPasswordAfter(decoded.iat)) {
+      return res.status(200).redirect("/");
+    }
+  }
   res.status(200).render("login", {
     title: "Log into your account",
   });
 };
 
-exports.getSignup = (req, res) => {
+exports.getSignup = async (req, res) => {
+  if (req.cookies.jwt) {
+    const decoded = await promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+    const freshUser = await User.findById(decoded._id);
+    if (!freshUser.changedPasswordAfter(decoded.iat)) {
+      return res.status(200).redirect("/");
+    }
+  }
+
   res.status(200).render("signup", {
     title: "Create a new account",
   });
