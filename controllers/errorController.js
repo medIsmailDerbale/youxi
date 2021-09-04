@@ -35,22 +35,30 @@ const sendErrorDev = (err, res) => {
   });
 };
 
-const sendErrorProduction = (err, res) => {
-  //operational error ,trusted we send message to client
-  if (err.isOperational) {
-    res.status(err.statusCode).json({
-      status: err.status,
+const sendErrorProduction = (err, req, res) => {
+  if (req.originalUrl.startsWith("/api")) {
+    if (err.isOperational) {
+      //operational error ,trusted we send message to client
+      res.status(err.statusCode).json({
+        status: err.status,
+        message: err.message,
+      });
+    }
+    //Programming error we keep it to devs
+    else {
+      // 1) log the error
+      console.error("ERROR 🤷‍♂️", err);
+      // 2= send generic error
+      res.status(500).json({
+        status: "error",
+        message: "something went wrong",
+      });
+    }
+  } else {
+    console.log(err);
+    res.status(err.statusCode).render("ErrorPage", {
+      status: err.statusCode,
       message: err.message,
-    });
-  }
-  //Programming error we keep it to devs
-  else {
-    // 1) log the error
-    console.error("ERROR 🤷‍♂️", err);
-    // 2= send generic error
-    res.status(500).json({
-      status: "error",
-      message: "something went wrong",
     });
   }
 };
@@ -75,6 +83,6 @@ module.exports = (err, req, res, next) => {
     if (error.name === "TokenExpiredError")
       error = handleExpiredTokenError(error);
     // send error
-    sendErrorDev(err, res);
+    sendErrorProduction(err, req, res);
   }
 };

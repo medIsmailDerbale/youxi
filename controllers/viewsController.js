@@ -473,7 +473,7 @@ exports.getProductDetail = catchAsync(async (req, res, next) => {
 
   const product = await Product.findById(req.params.id);
   if (!product) {
-    return next(new AppError("invalid product Id"));
+    return next(new AppError("Product not found", 404));
   }
 
   //geting the user & panier qnty
