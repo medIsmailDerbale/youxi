@@ -558,19 +558,19 @@ exports.getStatsDashboard = catchAsync(async (req, resp, next) => {
   axios
     .all([
       /* 1st req */
-      axios.get("http://localhost:8000/api/v1/order/order-stats-today", {
+      axios.get(`${process.env.HOST_LINK}/api/v1/order/order-stats-today`, {
         headers: {
           Cookie: `jwt=${req.cookies.jwt}`,
         },
       }),
       /* 2nd req */
-      axios.get("http://localhost:8000/api/v1/order/order-stats-all", {
+      axios.get(`${process.env.HOST_LINK}/api/v1/order/order-stats-all`, {
         headers: {
           Cookie: `jwt=${req.cookies.jwt}`,
         },
       }),
       /* 3rd req */
-      axios.get("http://localhost:8000/api/v1/order/stats-7-days", {
+      axios.get(`${process.env.HOST_LINK}/api/v1/order/stats-7-days`, {
         headers: {
           Cookie: `jwt=${req.cookies.jwt}`,
         },
