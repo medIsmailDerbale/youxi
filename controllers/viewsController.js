@@ -368,7 +368,7 @@ exports.getCategories = catchAsync(async (req, res, next) => {
 });
 
 exports.getCategorie = catchAsync(async (req, res, next) => {
-  //nav Categories 
+  //nav Categories
   const categories = await Category.find({ subCategory: false })
     .sort("name")
     .select("-products -addedAt");
@@ -448,7 +448,7 @@ exports.getCategorie = catchAsync(async (req, res, next) => {
     cartQty,
     url,
     categories,
-    tab
+    tab,
   });
 });
 

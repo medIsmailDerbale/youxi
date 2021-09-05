@@ -3,7 +3,7 @@ let globaleId;
 const importData = async (id) => {
   try {
     globaleId = id;
-    const res = await fetch(`http://localhost:8000/api/v1/products/${id}`, {
+    const res = await fetch(`/api/v1/products/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,7 @@ const importData = async (id) => {
 
 const addProduct = async (name, price, quantity, description, category) => {
   try {
-    const res = await fetch("http://localhost:8000/api/v1/products", {
+    const res = await fetch("/api/v1/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +59,7 @@ const addProduct = async (name, price, quantity, description, category) => {
 
 const deleteProduct = async (id) => {
   try {
-    const res = await fetch(`http://localhost:8000/api/v1/products/${id}`, {
+    const res = await fetch(`/api/v1/products/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const deleteProduct = async (id) => {
 
 const patchProduct = async (id, name, price, quantity, description) => {
   try {
-    const res = await fetch(`http://localhost:8000/api/v1/products/${id}`, {
+    const res = await fetch(`/api/v1/products/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

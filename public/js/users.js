@@ -4,12 +4,9 @@ let checkbox = document.getElementsByClassName("toggleUser");
 
 const sendActivateUser = async (id) => {
   try {
-    let res = await fetch(
-      `http://localhost:8000/api/v1/users/activateUser/${id}`,
-      {
-        method: "PATCH",
-      }
-    );
+    let res = await fetch(`/api/v1/users/activateUser/${id}`, {
+      method: "PATCH",
+    });
     res = await res.json();
     //console.log(res);
     if ((await res.status) === "success") {
@@ -26,12 +23,9 @@ const sendActivateUser = async (id) => {
 
 const sendBlockUser = async (id) => {
   try {
-    let res = await fetch(
-      `http://localhost:8000/api/v1/users/blockUser/${id}`,
-      {
-        method: "PATCH",
-      }
-    );
+    let res = await fetch(`/api/v1/users/blockUser/${id}`, {
+      method: "PATCH",
+    });
     res = await res.json();
     //console.log(res);
     if ((await res.status) === "success") {

@@ -11,7 +11,7 @@ for (let i = 0; i < elements.length; i++) {
 
 const patchOrder = async (id, status) => {
   try {
-    const res = await fetch(`http://localhost:8000/api/v1/order/${id}`, {
+    const res = await fetch(`/api/v1/order/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const patchOrder = async (id, status) => {
 const importData = async (id) => {
   try {
     globaleId = id;
-    const res = await fetch(`http://localhost:8000/api/v1/order/${id}`, {
+    const res = await fetch(`/api/v1/order/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const importData = async (id) => {
 const importDataToShowOrderItems = async (id) => {
   try {
     globaleId = id;
-    let res = await fetch(`http://localhost:8000/api/v1/order/${id}`, {
+    let res = await fetch(`/api/v1/order/${id}`, {
       method: "GET",
     });
     res = await res.json();

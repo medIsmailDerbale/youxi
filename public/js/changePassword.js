@@ -2,20 +2,17 @@ import { showAlert } from "./alert.js";
 
 const changePassword = async (passwordCurrent, password, passwordConfirm) => {
   try {
-    let res = await fetch(
-      `http://localhost:8000/api/v1/users/updateMyPassword`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          passwordCurrent,
-          password,
-          passwordConfirm,
-        }),
-      }
-    );
+    let res = await fetch(`/api/v1/users/updateMyPassword`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        passwordCurrent,
+        password,
+        passwordConfirm,
+      }),
+    });
 
     if ((await res).status === 200) {
       showAlert("success", "Password updated successfully");

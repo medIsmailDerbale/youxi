@@ -2,7 +2,7 @@ import { showAlert } from "./alert.js";
 
 const checkout = async (address) => {
   try {
-    const res = await fetch("http://localhost:8000/api/v1/order/checkout", {
+    const res = await fetch("/api/v1/order/checkout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ const checkout = async (address) => {
 
 const addOne = async (productId) => {
   try {
-    const res = await fetch("http://localhost:8000/api/v1/cart/add-quantity", {
+    const res = await fetch("/api/v1/cart/add-quantity", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,18 +52,15 @@ const addOne = async (productId) => {
 
 const minceOne = async (productId) => {
   try {
-    const res = await fetch(
-      "http://localhost:8000/api/v1/cart/mince-quantity",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          productId,
-        }),
-      }
-    );
+    const res = await fetch("/api/v1/cart/mince-quantity", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productId,
+      }),
+    });
     //console.log(await res.json());
     if (res.status === 201 || res.status === 200) {
       showAlert("success", "Product removed successfully");
@@ -80,7 +77,7 @@ const minceOne = async (productId) => {
 
 const removeAll = async (productId) => {
   try {
-    const res = await fetch("http://localhost:8000/api/v1/cart/remove-item", {
+    const res = await fetch("/api/v1/cart/remove-item", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

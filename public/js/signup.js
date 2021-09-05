@@ -9,7 +9,7 @@ const singupUser = async (
   passwordConfirm
 ) => {
   try {
-    let res = fetch(`http://localhost:8000/api/v1/users/signup`, {
+    let res = fetch(`/api/v1/users/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

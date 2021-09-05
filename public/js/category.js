@@ -3,12 +3,9 @@ let globaleId;
 
 const DeleteItemFromCategory = async (id1, id2) => {
   try {
-    let res = await fetch(
-      `http://localhost:8000/api/v1/categories/${id1}/${id2}`,
-      {
-        method: "DELETE",
-      }
-    );
+    let res = await fetch(`/api/v1/categories/${id1}/${id2}`, {
+      method: "DELETE",
+    });
     res = await res.json();
     if ((await res.status) === "success") {
       showAlert("success", "Child deleted successfully");
@@ -25,7 +22,7 @@ const DeleteItemFromCategory = async (id1, id2) => {
 
 const patchCategory = async (id, name) => {
   try {
-    const res = await fetch(`http://localhost:8000/api/v1/categories/${id}`, {
+    const res = await fetch(`/api/v1/categories/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +48,7 @@ const patchCategory = async (id, name) => {
 const importData = async (id) => {
   try {
     globaleId = id;
-    const res = await fetch(`http://localhost:8000/api/v1/categories/${id}`, {
+    const res = await fetch(`/api/v1/categories/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +73,7 @@ const importData = async (id) => {
 
 const deleteCategory = async (id) => {
   try {
-    const res = await fetch(`http://localhost:8000/api/v1/categories/${id}`, {
+    const res = await fetch(`/api/v1/categories/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -97,7 +94,7 @@ const deleteCategory = async (id) => {
 
 const createNewCategory = async (name, subCategory, parentCategory) => {
   try {
-    const res = await fetch("http://localhost:8000/api/v1/categories", {
+    const res = await fetch("/api/v1/categories", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -125,7 +122,7 @@ const createNewCategory = async (name, subCategory, parentCategory) => {
 const importDataToShowDeleteChilds = async (id) => {
   try {
     globaleId = id;
-    let res = await fetch(`http://localhost:8000/api/v1/categories/${id}`, {
+    let res = await fetch(`/api/v1/categories/${id}`, {
       method: "GET",
     });
     res = await res.json();
