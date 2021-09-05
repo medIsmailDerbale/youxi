@@ -540,12 +540,12 @@ exports.getOrdersAdmin = catchAsync(async (req, res, next) => {
   const skip = (current - 1) * limit;
   const numProducts = await Order.countDocuments();
   const pages = Math.ceil(numProducts / limit);
-
+  
   const orders = await Order.find()
     .skip(skip)
     .limit(limit)
     .populate("user")
-    .sort("-status");
+    .sort("-createdAt");
 
   res.status(200).render("orders", {
     orders,
