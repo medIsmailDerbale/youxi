@@ -17,7 +17,7 @@ const resetPassword = async (password, passwordConfirm) => {
       }
     );
     res = await res.json();
-    console.log(await res);
+    //console.log(await res);
     if ((await res.status) === "success") {
       showAlert("success", "Password reset successfully");
       window.setTimeout(() => {

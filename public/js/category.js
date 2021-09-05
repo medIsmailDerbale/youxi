@@ -34,7 +34,7 @@ const patchCategory = async (id, name) => {
         name,
       }),
     });
-    console.log(await res.json());
+    //console.log(await res.json());
     if (await res.ok) {
       showAlert("success", "category updated successfully");
       window.setTimeout(() => {
@@ -60,17 +60,17 @@ const importData = async (id) => {
     if (await res.ok) {
       showAlert("success", "Category loaded successfully");
       const dataR = await res.json();
-      console.log(dataR);
+      //console.log(dataR);
       const { data } = dataR;
       const { category } = data;
-      console.log(category);
+      //console.log(category);
       document.getElementById("mName").value = category.name;
     } else {
       showAlert("error", "Something went Wrong");
     }
   } catch (err) {
     showAlert("error", err);
-    console.log(err);
+    //console.log(err);
   }
 };
 
@@ -108,7 +108,7 @@ const createNewCategory = async (name, subCategory, parentCategory) => {
         parentCategory,
       }),
     });
-    console.log(await res.json());
+    //console.log(await res.json());
     if ((await res.status) === 201) {
       showAlert("success", "Category added successfully");
       window.setTimeout(() => {

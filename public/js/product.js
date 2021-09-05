@@ -12,10 +12,10 @@ const importData = async (id) => {
     if (await res.ok) {
       showAlert("success", "Product loaded successfully");
       const dataR = await res.json();
-      console.log(dataR);
+      //console.log(dataR);
       const { data } = dataR;
       const { product } = data;
-      console.log(product);
+      //console.log(product);
       document.getElementById("pName").value = product.name;
       document.getElementById("pPrice").value = product.price;
       document.getElementById("pDescription").value = product.description;
@@ -25,7 +25,7 @@ const importData = async (id) => {
     }
   } catch (err) {
     showAlert("error", err);
-    console.log(err);
+    //console.log(err);
   }
 };
 

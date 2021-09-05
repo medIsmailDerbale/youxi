@@ -20,7 +20,7 @@ const patchOrder = async (id, status) => {
         status,
       }),
     });
-    console.log(await res.json());
+    //console.log(await res.json());
     if (await res.ok) {
       showAlert("success", "order updated successfully");
       window.setTimeout(() => {
@@ -46,18 +46,18 @@ const importData = async (id) => {
     if (await res.ok) {
       showAlert("success", "Order Status successfully loaded");
       const dataR = await res.json();
-      console.log(dataR);
+      //console.log(dataR);
       const { order } = dataR;
       const { status } = order;
-      console.log(status);
-      console.log(order.name);
+      //console.log(status);
+      //console.log(order.name);
       document.getElementById("mName").value = status;
     } else {
       showAlert("error", "Something went Wrong");
     }
   } catch (err) {
     showAlert("error", err);
-    console.log(err);
+    //console.log(err);
   }
 };
 
@@ -68,7 +68,7 @@ const importDataToShowOrderItems = async (id) => {
       method: "GET",
     });
     res = await res.json();
-    console.log(res);
+    //console.log(res);
     if (res.status === "success") {
       showAlert("success", "Loading childs");
       const items = res.order.items;

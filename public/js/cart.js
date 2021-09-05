@@ -11,7 +11,7 @@ const checkout = async (address) => {
         address,
       }),
     });
-    console.log(await res.json());
+    //console.log(await res.json());
     if (res.status === 201 || res.status === 200) {
       showAlert("success", "Order added successfully");
       window.setTimeout(() => {
@@ -36,7 +36,7 @@ const addOne = async (productId) => {
         productId,
       }),
     });
-    console.log(await res.json());
+    //console.log(await res.json());
     if (res.status === 201 || res.status === 200) {
       showAlert("success", "Product added successfully");
       window.setTimeout(() => {
@@ -64,7 +64,7 @@ const minceOne = async (productId) => {
         }),
       }
     );
-    console.log(await res.json());
+    //console.log(await res.json());
     if (res.status === 201 || res.status === 200) {
       showAlert("success", "Product removed successfully");
       window.setTimeout(() => {
@@ -89,7 +89,7 @@ const removeAll = async (productId) => {
         productId,
       }),
     });
-    console.log(await res.json());
+    //console.log(await res.json());
     if (res.status === 201 || res.status === 200) {
       showAlert("success", "Product removed successfully");
       window.setTimeout(() => {
@@ -106,7 +106,7 @@ const removeAll = async (productId) => {
 document.getElementById("confirmCheckout").addEventListener("click", (e) => {
   e.preventDefault();
   const address = document.getElementById("address").value;
-  console.log(address);
+  //console.log(address);
   checkout(address);
 });
 

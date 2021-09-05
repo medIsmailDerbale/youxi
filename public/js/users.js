@@ -11,7 +11,7 @@ const sendActivateUser = async (id) => {
       }
     );
     res = await res.json();
-    console.log(res);
+    //console.log(res);
     if ((await res.status) === "success") {
       const { data } = res;
       const { user } = data;
@@ -33,7 +33,7 @@ const sendBlockUser = async (id) => {
       }
     );
     res = await res.json();
-    console.log(res);
+    //console.log(res);
     if ((await res.status) === "success") {
       const { data } = res;
       const { user } = data;

@@ -5,11 +5,11 @@ var MystatsData =
     return {
       init: function (Arg) {
         var args = JSON.parse(Arg.replace(/&quot;/g, '"'));
-        console.log(args);
+        //console.log(args);
       },
       helloWorld: function () {
         var temp = args.toString();
-        console.log(temp);
+        //console.log(temp);
       },
     };
   })();

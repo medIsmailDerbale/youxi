@@ -245,14 +245,14 @@ script.
   for(var i =0 ; i<7;i++){
     datesTable.unshift(new Date(date.setDate(date.getDate() - 1)).toISOString().split("T")[0]);
   }
-  console.log(datesTable);
-  console.log(sevenDaysRaw);
+  //console.log(datesTable);
+  //console.log(sevenDaysRaw);
   
   stats = sevenDaysRaw.stats;
-  console.log(stats);
+  //console.log(stats);
   let sevenDaysStats = [[],[],[],[]];
   sevenDaysStats[0] = datesTable;
-  console.log(sevenDaysStats[0]);
+  //console.log(sevenDaysStats[0]);
 
   function findWithAttr(array, date, status) {
     for(var i = 0; i < array.length; i += 1) {
@@ -291,7 +291,7 @@ script.
     }
   });
 
-  console.log(sevenDaysStats);
+  //console.log(sevenDaysStats);
 
   var ctx3 = document.getElementById("myChart3").getContext("2d");
   var myChart3 = new Chart(ctx3, {

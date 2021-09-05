@@ -35,7 +35,7 @@ exports.checkout = catchAsync(async (req, res, next) => {
       data: { order },
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(400).json({
       status: "failed",
       data: null,

@@ -155,7 +155,7 @@ exports.deleteItem = catchAsync(async (req, res, next) => {
         index = i;
       }
     });
-    console.log(index);
+    // console.log(index);
     if (index < 0)
       return next(
         new AppError("there is no category with this id in the category", 404)

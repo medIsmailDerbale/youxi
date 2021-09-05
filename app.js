@@ -8,6 +8,7 @@ const helmet = require("helmet");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 const cors = require("cors");
+const compression = require("compression");
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
@@ -45,6 +46,8 @@ app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Credentials", "true");
 //   next();
 // });
+
+app.use(compression());
 
 app.use(cors());
 
