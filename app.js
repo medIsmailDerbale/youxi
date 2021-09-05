@@ -52,7 +52,7 @@ app.use(compression());
 app.use(cors());
 
 // // security modules
-// app.use(helmet());
+app.use(helmet());
 
 // // limit request from same API
 // const limiter = rateLimit({
