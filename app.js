@@ -21,6 +21,8 @@ const orderRoute = require("./routes/orderRoute");
 
 const app = express();
 
+app.enable("trust proxy");
+
 app.use(express.json({ limit: "10kb" }));
 
 app.set("view engine", "pug");
