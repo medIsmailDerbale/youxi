@@ -34,22 +34,29 @@ exports.getProduct = catchAsync(async (req, res) => {
 
     const itemIndex = cart.items.findIndex((p) => p.productId == productId);
 
-    if (itemIndex > -1) {
-      // if product exists in the cart, update the quantity
-      cart.items[itemIndex].qty++;
-      cart.items[itemIndex].price = cart.items[itemIndex].qty * product.price;
-      cart.totalQty++;
-      cart.totalCost += product.price;
+    if (product.quantity > 0) {
+      if (itemIndex > -1) {
+        // if product exists in the cart, update the quantity
+        cart.items[itemIndex].qty++;
+        cart.items[itemIndex].price = cart.items[itemIndex].qty * product.price;
+        cart.totalQty++;
+        cart.totalCost += product.price;
+      } else {
+        // if product does not exists in cart, find it in the db to retrieve its price and add new item
+        cart.items.push({
+          productId: productId,
+          qty: 1,
+          price: product.price,
+          title: product.name,
+        });
+        cart.totalQty++;
+        cart.totalCost += product.price;
+      }
     } else {
-      // if product does not exists in cart, find it in the db to retrieve its price and add new item
-      cart.items.push({
-        productId: productId,
-        qty: 1,
-        price: product.price,
-        title: product.name,
+      return res.status(400).json({
+        status: "failed",
+        message: "there are no more products",
       });
-      cart.totalQty++;
-      cart.totalCost += product.price;
     }
     //if the user is logged in, store the user's id and save cart to the db
     if (req.cookies.jwt) {
@@ -250,23 +257,29 @@ exports.addOneToQuantity = catchAsync(async (req, res) => {
       });
     }
     const itemIndex = cart.items.findIndex((p) => p.productId == productId);
-
-    if (itemIndex > -1) {
-      // if product exists in the cart, update the quantity
-      cart.items[itemIndex].qty++;
-      cart.items[itemIndex].price = cart.items[itemIndex].qty * product.price;
-      cart.totalQty++;
-      cart.totalCost += product.price;
+    if (product.quantity > 0) {
+      if (itemIndex > -1) {
+        // if product exists in the cart, update the quantity
+        cart.items[itemIndex].qty++;
+        cart.items[itemIndex].price = cart.items[itemIndex].qty * product.price;
+        cart.totalQty++;
+        cart.totalCost += product.price;
+      } else {
+        // if product does not exists in cart, find it in the db to retrieve its price and add new item
+        cart.items.push({
+          productId: productId,
+          qty: 1,
+          price: product.price,
+          title: product.name,
+        });
+        cart.totalQty++;
+        cart.totalCost += product.price;
+      }
     } else {
-      // if product does not exists in cart, find it in the db to retrieve its price and add new item
-      cart.items.push({
-        productId: productId,
-        qty: 1,
-        price: product.price,
-        title: product.name,
+      return res.status(400).json({
+        status: "failed",
+        message: "there are no more products in stock",
       });
-      cart.totalQty++;
-      cart.totalCost += product.price;
     }
     //if the user is logged in, store the user's id and save cart to the db
     if (req.cookies.jwt) {
