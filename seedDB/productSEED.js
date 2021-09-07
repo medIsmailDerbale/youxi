@@ -310,6 +310,16 @@ const addRandomQuanity = async function () {
   });
 };
 
+const getThePriceRight = async () => {
+  let productList = await Product.find();
+  productList.forEach((el) => {
+    if (el.price < 100) {
+      el.price = el.price * 100;
+      el.save();
+    }
+  });
+};
+
 // seedProducts(padsTitles, padsImages, "Pads");
 // seedProducts(audioTitles, audioImages, "Audio");
 // seedProducts(miceTitles, miceImages, "Mice");
@@ -318,4 +328,6 @@ const addRandomQuanity = async function () {
 // setting the quantity of the products to a random value each
 // addRandomQuanity();
 
-console.log("finished");
+// getThePriceRight().then(() => {
+//   console.log("finished");
+// });

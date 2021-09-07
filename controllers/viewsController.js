@@ -173,6 +173,7 @@ exports.search = catchAsync(async (req, res, next) => {
   // send response
   res.status(200).render("search", {
     title: "Result",
+    numProducts,
     pages,
     current,
     products,

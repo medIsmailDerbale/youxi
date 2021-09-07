@@ -15,61 +15,69 @@ head
 include _header
 
 .container
-
-  - var length = products.length;
-
-  - var i = (length-(length%4))/4;
-
-  - for (var x = 0; x < i; x++)
-    .row
-      - for (var y = 0; y < 4; y++)
-        -z=x*4+y
-        .col-6.col-md-3.mb-3
-            .zoom.card.mb-4.py-3
-              h4
-                span.badge.bg-danger.mt-3.ms-3.d-none SALE
-              .card-body
-                div
-                  img(src=`${products[z].imageCover}` alt='')
-            a.text-decoration-none.text-dark(href='/p/'+products[z].id)
-              .article-txt
-                | #{ products[z].name}
-                .d-flex.justify-content-between
-                  h4.fw-bold.mt-2  #{ products[z].price + "DA"}
-                  h4.fw-bold.mt-2.text-decoration-line-through.text-muted
-  -i=i*4;
-    .row
-      - for (var x = i; x < length; x++)
-        .col-6.col-md-3.mb-3
-            .zoom.card.mb-4.py-3
-              h4
-                span.badge.bg-danger.mt-3.ms-3.d-none SALE
-              .card-body
-                div
-                  img(src=products[x].imageCover, alt=' ')
-            a.text-decoration-none.text-dark(href='/p/'+products[x].id)
-              .article-txt
-                | #{ products[x].name}
-                .d-flex.justify-content-between
-                  h4.fw-bold.mt-2  #{ products[x].price + "DA"}
-                  h4.fw-bold.mt-2.text-decoration-line-through.text-muted
- 
-  nav(aria-label='Page navigation')
-    ul.pagination.justify-content-center
-      ul.pagination
-        if current > 1
-          li.page-item
-            a.page-link(href=`?page=${parseInt(current) - 1}`) Previous
-
-        - for (var i = 1; i <= pages; i++) {
-          if current==i
-            li.page-item.active
-              a.page-link(href=`?page=${i}`)=  i
-          else
+  <div class="title">#{categorie.name}</div>
+      <svg height="20" width="60">
+        <g fill="none" stroke="black">
+          <path stroke-width="6" d="M5 10 l215 0" />
+        </g>
+      </svg>
+  br
+  if(products.length>0)
+    - var length = products.length;
+    
+    - var i = (length-(length%4))/4;
+    
+    - for (var x = 0; x < i; x++)
+      .row
+        - for (var y = 0; y < 4; y++)
+          -z=x*4+y
+          .col-6.col-md-3.mb-3
+              .zoom.card.mb-4.py-3
+                h4
+                  span.badge.bg-danger.mt-3.ms-3.d-none SALE
+                .card-body
+                  div
+                    img(src=`${products[z].imageCover}` alt='')
+              a.text-decoration-none.text-dark(href='/p/'+products[z].id)
+                .article-txt
+                  | #{ products[z].name}
+                  .d-flex.justify-content-between
+                    h4.fw-bold.mt-2  #{ products[z].price + "DA"}
+                    h4.fw-bold.mt-2.text-decoration-line-through.text-muted
+    -i=i*4;
+      .row
+        - for (var x = i; x < length; x++)
+          .col-6.col-md-3.mb-3
+              .zoom.card.mb-4.py-3
+                h4
+                  span.badge.bg-danger.mt-3.ms-3.d-none SALE
+                .card-body
+                  div
+                    img(src=products[x].imageCover, alt=' ')
+              a.text-decoration-none.text-dark(href='/p/'+products[x].id)
+                .article-txt
+                  | #{ products[x].name}
+                  .d-flex.justify-content-between
+                    h4.fw-bold.mt-2  #{ products[x].price + "DA"}
+                    h4.fw-bold.mt-2.text-decoration-line-through.text-muted
+    
+    nav(aria-label='Page navigation')
+      ul.pagination.justify-content-center
+        ul.pagination
+          if current > 1
             li.page-item
-              a.page-link(href=`?page=${i}`)=  i
-        - }
-
+              a.page-link(href=`?page=${parseInt(current) - 1}`) Previous
+    
+          - for (var i = 1; i <= pages; i++) {
+            if current==i
+              li.page-item.active
+                a.page-link(href=`?page=${i}`)=  i
+            else
+              li.page-item
+                a.page-link(href=`?page=${i}`)=  i
+          - }
+  else 
+    h1.display-4 No Products Found  
 
         if current < pages
           li.page-item
