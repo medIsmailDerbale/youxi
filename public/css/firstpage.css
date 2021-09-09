@@ -389,3 +389,65 @@ footer {
   letter-spacing: 0.1em;
   color: #000000;
 }
+
+/*404*/
+
+.sous-title {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 34px;
+  line-height: 44px;
+  letter-spacing: 0.1em;
+  color: #202020;
+  margin-top: -50px;
+}
+
+.description {
+  font-family: Montserrat;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 29px;
+  letter-spacing: 0.1em;
+  text-align: left;
+}
+
+.imageSize {
+  width: 100%;
+  height: auto;
+}
+
+.contactcard {
+  height: 100%;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 2rem;
+  justify-content: center;
+  top: 15%;
+  bottom: 20%;
+  filter: drop-shadow(0px 0px 47px rgba(0, 0, 0, 0.25));
+}
+
+.contacttitle {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 29.587px;
+  line-height: 36px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  padding-left: -200px;
+}
+
+.phonecard {
+  margin-right: -200px !important;
+}
+
+.iconSize > i {
+  color: #4a4aff;
+}
+
+/*404*/

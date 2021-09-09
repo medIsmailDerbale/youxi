@@ -541,7 +541,7 @@ exports.getOrdersAdmin = catchAsync(async (req, res, next) => {
   const skip = (current - 1) * limit;
   const numProducts = await Order.countDocuments();
   const pages = Math.ceil(numProducts / limit);
-  
+
   const orders = await Order.find()
     .skip(skip)
     .limit(limit)
@@ -646,3 +646,159 @@ exports.getMyOrders = catchAsync(async (req, res, next) => {
     categories,
   });
 });
+
+exports.getContactUs = catchAsync(async (req, res) => {
+  const decoded = await promisify(jwt.verify)(
+    req.cookies.jwt,
+    process.env.JWT_SECRET
+  );
+  const categories = await Category.find({ subCategory: false })
+    .sort("name")
+    .select("-products -addedAt");
+  let tab = [];
+  categories.forEach(myFunction);
+  function myFunction(item) {
+    if (item.subCategory === false) {
+      item.categories.forEach(secFunction);
+      function secFunction(item) {
+        tab.push(item);
+      }
+    }
+  }
+
+  //geting the user & panier qnty
+  let userName;
+  let cartQty;
+  let url;
+  if (req.cookies.jwt) {
+    const decoded = await promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+    const user = await User.findById(decoded._id);
+    userName = "Welcome," + user.FirstName;
+
+    cart_user = await Cart.findOne({ user: decoded._id });
+
+    if (req.cookies.jwt && cart_user) {
+      cartQty = cart_user.totalQty;
+    } else if (req.cookies.jwt && !cart_user) {
+      cartQty = 0;
+    }
+    url = "#";
+  } else {
+    userName = "login/signup";
+    cartQty = 0;
+    url = "/signup";
+  }
+
+  res.status(200).render("contactUs", {
+    userName,
+    cartQty,
+    tab,
+    categories,
+  });
+});
+
+exports.getPrivacyAndPolicy = catchAsync(async (req, res) => {
+  const decoded = await promisify(jwt.verify)(
+    req.cookies.jwt,
+    process.env.JWT_SECRET
+  );
+  const categories = await Category.find({ subCategory: false })
+    .sort("name")
+    .select("-products -addedAt");
+  let tab = [];
+  categories.forEach(myFunction);
+  function myFunction(item) {
+    if (item.subCategory === false) {
+      item.categories.forEach(secFunction);
+      function secFunction(item) {
+        tab.push(item);
+      }
+    }
+  }
+
+  //geting the user & panier qnty
+  let userName;
+  let cartQty;
+  let url;
+  if (req.cookies.jwt) {
+    const decoded = await promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+    const user = await User.findById(decoded._id);
+    userName = "Welcome," + user.FirstName;
+
+    cart_user = await Cart.findOne({ user: decoded._id });
+
+    if (req.cookies.jwt && cart_user) {
+      cartQty = cart_user.totalQty;
+    } else if (req.cookies.jwt && !cart_user) {
+      cartQty = 0;
+    }
+    url = "#";
+  } else {
+    userName = "login/signup";
+    cartQty = 0;
+    url = "/signup";
+  }
+
+  res.status(200).render("privacy&policy", {
+    userName,
+    cartQty,
+    tab,
+    categories,
+  });
+});
+
+// nav bar things to add
+// userName,
+// cartQty,
+// tab,
+// categories,
+// const decoded = await promisify(jwt.verify)(
+//   req.cookies.jwt,
+//   process.env.JWT_SECRET
+// );
+
+// const categories = await Category.find({ subCategory: false })
+//   .sort("name")
+//   .select("-products -addedAt");
+// let tab = [];
+// categories.forEach(myFunction);
+// function myFunction(item) {
+//   if (item.subCategory === false) {
+//     item.categories.forEach(secFunction);
+//     function secFunction(item) {
+//       tab.push(item);
+//     }
+//   }
+// }
+
+// //geting the user & panier qnty
+// let userName;
+// let cartQty;
+// let url;
+// if (req.cookies.jwt) {
+//   const decoded = await promisify(jwt.verify)(
+//     req.cookies.jwt,
+//     process.env.JWT_SECRET
+//   );
+//   const user = await User.findById(decoded._id);
+//   userName = "Welcome," + user.FirstName;
+
+//   cart_user = await Cart.findOne({ user: decoded._id });
+
+//   if (req.cookies.jwt && cart_user) {
+//     cartQty = cart_user.totalQty;
+//   } else if (req.cookies.jwt && !cart_user) {
+//     cartQty = 0;
+//   }
+//   url = "#";
+// } else {
+//   userName = "login/signup";
+//   cartQty = 0;
+//   url = "/signup";
+// }

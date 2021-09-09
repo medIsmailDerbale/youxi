@@ -70,4 +70,6 @@ router.get("/panier", authController.protect, panierController.getPanier);
 
 router.get("/my-orders", viewsController.getMyOrders);
 
+router.get("/contact-us", viewsController.getContactUs);
+router.get("/privacy", viewsController.getPrivacyAndPolicy);
 module.exports = router;
