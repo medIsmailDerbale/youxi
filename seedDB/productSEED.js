@@ -282,6 +282,29 @@ let monitorsImages = [
 ];
 
 let monitorsTitles = ["GM34-CW", "GM27-CF"];
+
+let chairsImages = [
+  "https://cdn.coolermaster.com/media/1994/caliber-r2c-380x380-2-upd-hover.png",
+  "https://cdn.coolermaster.com/media/1977/caliber-x1c-380x380-2-upd-hover.png",
+  "https://cdn.coolermaster.com/media/assets/1030/caliber-r1s-darklight-camo-380x380-1-hover.png",
+  "https://cdn.coolermaster.com/media/assets/1003/caliber-r1s-rose-380x380-2-hover.png",
+  "https://cdn.coolermaster.com/media/1387/caliber-r2s-kana-380x380-1-hover.png",
+  "https://cdn.coolermaster.com/media/1389/caliber-x1-380x380-2-2-hover.png",
+  "https://cdn.coolermaster.com/media/assets/1034/ergo-380x380-2-1-hover.png",
+  "https://cdn.coolermaster.com/media/1393/caliber-r1-380x380-2-1-hover.png",
+];
+
+let chairsTitles = [
+  "Caliber R2C",
+  "Caliber X1C",
+  "Caliber R1S CAMO",
+  "Caliber R1S Rose",
+  "Caliber R2",
+  "Caliber X1",
+  "Ergo L",
+  "Caliber R1",
+];
+
 const seedProducts = async function (titlesArr, imgsArr, categStr) {
   try {
     const categ = await Category.findOne({ name: categStr });
@@ -290,7 +313,7 @@ const seedProducts = async function (titlesArr, imgsArr, categStr) {
         name: titlesArr[i],
         imageCover: imgsArr[i],
         description: faker.lorem.paragraph(),
-        price: faker.datatype.number({ min: 10, max: 50 }),
+        price: faker.datatype.number({ min: 1000, max: 5000 }),
       });
       categ.products.push(prod._id);
       await prod.save();
@@ -320,6 +343,8 @@ const getThePriceRight = async () => {
   });
 };
 
+seedProducts(chairsTitles, chairsImages, "Chairs");
+// seedProducts(monitorsTitles, monitorsImages, "Monitors");
 // seedProducts(padsTitles, padsImages, "Pads");
 // seedProducts(audioTitles, audioImages, "Audio");
 // seedProducts(miceTitles, miceImages, "Mice");

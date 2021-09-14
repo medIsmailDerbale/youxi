@@ -65,12 +65,12 @@ include _header
                     <div><img src="#{products[x].imageCover}" alt=""></div>
                 </div>
                 <div class="content card-footer bg-transparent border-0 text-center">
-                    <a href=`${ '/p/' + products[x].id}`>
+                    <a href="#{ '/api/v1/cart/add-to-cart/' + products[x].id}">
                         <button type="button" class="btn AddToCart-button rounded-0 ">Add To Cart</button>
                     </a>
                 </div>
             </div>
-            <a class="text-decoration-none text-dark " href=" ">
+            <a class="text-decoration-none text-dark " href="#{ '/p/' + products[x].id}">
               <div class="article-txt">
                   h #{products[x].name}
                   <div class="d-flex justify-content-between ">
