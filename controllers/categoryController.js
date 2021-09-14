@@ -41,6 +41,7 @@ const Product = require("../models/productModel");
 
 exports.createCategory = catchAsync(async (req, res, next) => {
   let parentCategoryId;
+  console.log(req.body);
   if (req.body.subCategory) {
     parentCategoryId = req.body.parentCategory;
     delete req.body.parentCategory;

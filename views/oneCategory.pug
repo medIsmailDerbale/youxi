@@ -65,9 +65,12 @@ include _header
                     <div><img src="#{products[x].imageCover}" alt=""></div>
                 </div>
                 <div class="content card-footer bg-transparent border-0 text-center">
+                  if(products[x].quantity>0)
                     <a href="#{ '/api/v1/cart/add-to-cart/' + products[x].id}">
-                        <button type="button" class="btn AddToCart-button rounded-0 ">Add To Cart</button>
+                        <button type="button" class="btn AddToCart-button rounded-0">Add To Cart</button>
                     </a>
+                  else
+                    <button type="button" class="btn AddToCart-button rounded-0" style="border:2px solid #FF3838 !important;border-top: none !important;border-right: none !important;border-left: none !important;" disabled>Out of Stock</button>
                 </div>
             </div>
             <a class="text-decoration-none text-dark " href="#{ '/p/' + products[x].id}">
