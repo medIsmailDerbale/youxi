@@ -98,12 +98,13 @@ include _header
               li.page-item
                 a.page-link(href=`?page=${i}`)=  i
           - }
+          if current < pages
+            li.page-item
+              a.page-link(href=`?page=${parseInt(current) + 1}`) Next
   else 
     h1.display-4 No Products Found  
 
-        if current < pages
-          li.page-item
-            a.page-link(href=`?page=${parseInt(current) + 1}`) Next
+        
 
 //FOOTER    
 include _footer
