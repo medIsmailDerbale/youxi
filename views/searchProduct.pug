@@ -19,32 +19,7 @@ head
 #wrapper
   .overlay
   // sidebar
-  mixin sideBarAdmin(selected)
-    nav#sidebar-wrapper.fixed-top.align-top(role='navigation')
-      .simplebar-content(style='padding: 0px;')
-        a.sidebar-brand(href='#')
-          img(src='/img/youxi logo.svg')
-          img(src='/img/adminpanel.svg')
-        ul.navbar-nav.align-self-stretch
-          li.has-sub
-            if(selected == 0)
-              a.nav-link.text-left.active(href='/dashboard' role='button')
-                i.fas.fa-tachometer-alt
-                |  Dashboard
-            else
-              a.nav-link.text-left(href='/dashboard' role='button')
-                i.fas.fa-tachometer-alt
-                |  Dashboard
-  
-          li.has-sub
-            if(selected == 1)
-              a.nav-link.text-left.active(href='/users' role='button')
-                i.far.fa-user-circle
-                |  Users
-            else
-              a.nav-link.text-left(href='/users' role='button')
-                i.far.fa-user-circle
-                |  Users
+  include _sidebarAdmin
   +sideBarAdmin(2)
   // sidebar-end
   // Page Content
@@ -59,15 +34,10 @@ head
             span
             span
           ul.navbar-nav.ml-auto
-            // Topbar Search
-            .search-box
-              form
-                input(type='text' placeholder='Search ...')
-                i.fas.fa-search
             // User Information
             li.nav-item.dropdown
               a#userDropdown.nav-link(href='#' role='button' data-toggle='dropdown')
-                span.UserName Name
+                span.UserName Admin
                 img.img-profile(src='/img/youxi logo.svg')
                 i.fas.fa-chevron-down.btn.fas-topbar
               // Dropdown - User Information
@@ -132,12 +102,8 @@ head
                   // Modal Add New END
                   .col-7.my-auto.justify-content-start
                     form
-                      input(type='text' placeholder='Search ...')
-                      i.fas.fa-search.btn
-                  .col-1.my-auto.justify-content-around
-                    i.fas.fa-chevron-up.btn
-                  .col-1.my-auto.justify-content-around
-                    i.fas.fa-chevron-down.btn
+                      input#searchInput(type='text' placeholder='Search ...')
+                      i#searchButton.fas.fa-search.btn
                 // title
               .table-responsive
                 table.table.v-middle.table-striped.table-borderless.table-hover
@@ -246,7 +212,8 @@ script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.
 script(src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous')
 script(src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js' integrity='sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p' crossorigin='anonymous')
 script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js' integrity='sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT' crossorigin='anonymous')
-script(type='module' src='/js/product.js') 
+script(type='module' src='/js/product.js')
+script(type='module' src='/js/searchAdmin.js')
 script.
   $('#bar').click(function () {
   $(this).toggleClass('open');

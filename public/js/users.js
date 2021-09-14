@@ -51,3 +51,9 @@ for (let i = 0; i < checkbox.length; i++) {
     }
   });
 }
+
+document.getElementById("searchButton").addEventListener("click", (e) => {
+  e.preventDefault();
+  let query = document.getElementById("searchInput").value;
+  window.location.replace(`/users?s=${query}`);
+});

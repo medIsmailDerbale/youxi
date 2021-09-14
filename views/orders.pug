@@ -33,15 +33,10 @@ head
             span
             span
           ul.navbar-nav.ml-auto
-            // Topbar Search
-            .search-box
-              form
-                input(type='text' placeholder='Search ...')
-                i.fas.fa-search
             // User Information
             li.nav-item.dropdown
               a#userDropdown.nav-link(href='#' role='button' data-toggle='dropdown')
-                span.UserName Name
+                span.UserName Admin
                 img.img-profile(src='/img/youxi logo.svg')
                 i.fas.fa-chevron-down.btn.fas-topbar
               // Dropdown - User Information
@@ -69,14 +64,6 @@ head
                 .row.header-table
                   .col-2.my-auto.product-st.justify-content-around
                     | Orders
-                  .col-7.my-auto.justify-content-start
-                    form
-                      input(type='text' placeholder='Search ...')
-                      i.fas.fa-search.btn
-                  .col-1.my-auto.justify-content-around
-                    i.fas.fa-chevron-up.btn
-                  .col-1.my-auto.justify-content-around
-                    i.fas.fa-chevron-down.btn
                 // title
               .table-responsive
                 table.table.v-middle.table-striped.table-borderless.table-hover
