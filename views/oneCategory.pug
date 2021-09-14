@@ -32,34 +32,53 @@ include _header
         - for (var y = 0; y < 4; y++)
           -z=x*4+y
           .col-6.col-md-3.mb-3
-              .zoom.card.mb-4.py-3
-                h4
-                  span.badge.bg-danger.mt-3.ms-3.d-none SALE
-                .card-body
-                  div
-                    img(src=`${products[z].imageCover}` alt='')
-              a.text-decoration-none.text-dark(href='/p/'+products[z].id)
-                .article-txt
-                  | #{ products[z].name}
-                  .d-flex.justify-content-between
-                    h4.fw-bold.mt-2  #{ products[z].price + "DA"}
-                    h4.fw-bold.mt-2.text-decoration-line-through.text-muted
+            <div class="zoom card card-product mb-4 py-3 border-0 rounded-0">
+                <h4> <span class="content badge bg-danger mt-3 ms-3 d-none">SALE</span></h4>
+                <div class=" content card-body my-auto ">
+                    <div><img src="#{products[z].imageCover}" alt=""></div>
+                </div>
+                <div class="content card-footer bg-transparent border-0 text-center">
+                    if(products[z].quantity>0)
+                      <a href="#{ '/api/v1/cart/add-to-cart/' + products[z].id}">
+                          <button type="button" class="btn AddToCart-button rounded-0">Add To Cart</button>
+                      </a>
+                    else
+                      <button type="button" class="btn AddToCart-button rounded-0" style="border:2px solid #FF3838 !important;border-top: none !important;border-right: none !important;border-left: none !important;" disabled>Out of Stock</button>
+                </div>
+            </div>
+            <a class="text-decoration-none text-dark " href="#{ '/p/' + products[z].id}">
+              <div class="article-txt">
+                  h #{products[z].name}
+                  <div class="d-flex justify-content-between ">
+                      <h4 class="fw-bold mt-2 ">#{ products[z].price + "DA"} </h4>
+                      <h4 class="fw-bold mt-2 text-decoration-line-through text-muted "></h4>
+                  </div>
+              </div>
+            </a>
     -i=i*4;
       .row
         - for (var x = i; x < length; x++)
           .col-6.col-md-3.mb-3
-              .zoom.card.mb-4.py-3
-                h4
-                  span.badge.bg-danger.mt-3.ms-3.d-none SALE
-                .card-body
-                  div
-                    img(src=products[x].imageCover, alt=' ')
-              a.text-decoration-none.text-dark(href='/p/'+products[x].id)
-                .article-txt
-                  | #{ products[x].name}
-                  .d-flex.justify-content-between
-                    h4.fw-bold.mt-2  #{ products[x].price + "DA"}
-                    h4.fw-bold.mt-2.text-decoration-line-through.text-muted
+            <div class="zoom card card-product mb-4 py-3 border-0 rounded-0">
+                <h4> <span class="content badge bg-danger mt-3 ms-3 d-none">SALE</span></h4>
+                <div class=" content card-body my-auto ">
+                    <div><img src="#{products[x].imageCover}" alt=""></div>
+                </div>
+                <div class="content card-footer bg-transparent border-0 text-center">
+                    <a href=`${ '/p/' + products[x].id}`>
+                        <button type="button" class="btn AddToCart-button rounded-0 ">Add To Cart</button>
+                    </a>
+                </div>
+            </div>
+            <a class="text-decoration-none text-dark " href=" ">
+              <div class="article-txt">
+                  h #{products[x].name}
+                  <div class="d-flex justify-content-between ">
+                      <h4 class="fw-bold mt-2 ">#{ products[x].price + "DA"} </h4>
+                      <h4 class="fw-bold mt-2 text-decoration-line-through text-muted "></h4>
+                  </div>
+              </div>
+            </a>
     
     nav(aria-label='Page navigation')
       ul.pagination.justify-content-center

@@ -7,7 +7,13 @@ const router = express.Router();
 router
   .route("/")
   .get(authController.protect, productController.getAllProducts)
-  .post(productController.createProduct);
+  .post(
+    authController.protect,
+    authController.restrictTo("admin"),
+    productController.uploadProductImage,
+    productController.resizeImage,
+    productController.createProduct
+  );
 
 router.route("/search").get(productController.searchProduct);
 

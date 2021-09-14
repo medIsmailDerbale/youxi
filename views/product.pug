@@ -117,7 +117,11 @@ head
                                   <option selected disabled hidden>Choose Category...</option>
                                   for category in categories 
                                     <option value="#{category._id}">#{category.name}</option>
-                                </select>    
+                                </select> 
+                            .mb-3.row
+                              label.txt.col-sm-2.col-form-label(for='Quantity') Image
+                              .col-sm-10
+                                input#Image.inp(type='file' accept='image/*' name='photo')
                             .mb-3.row
                               label.txt.col-sm-2.col-form-label.px-2(for='Description')
                                 | Description*

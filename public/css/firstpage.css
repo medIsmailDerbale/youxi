@@ -139,17 +139,6 @@ form > div {
   height: 45px !important;
 }
 
-.zoom:hover {
-  -ms-transform: scale(1.1);
-  /* IE 9  */
-  -webkit-transform: scale(1.1);
-  /* Safari 3-8 */
-  transform: scale(1.1);
-  overflow: hidden;
-  transition: transform 1s, filter 1s;
-  filter: blur(2px);
-}
-
 .ico {
   width: 35px;
   height: 35px;
@@ -451,3 +440,42 @@ footer {
 }
 
 /*404*/
+
+/* new card */
+.content:not(.card-footer):hover {
+  overflow: hidden;
+  transition: 1s;
+  filter: blur(2px);
+}
+
+.card-product {
+  background-color: #efefef !important;
+  min-height: 380px !important;
+}
+.card-footer {
+  display: none;
+}
+
+.card:hover .card-footer {
+  display: block;
+}
+
+.AddToCart-button {
+  background: #ffffff !important;
+  width: auto;
+  margin-top: 5px !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  border: 2px solid #00ffb2 !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-left: none !important;
+  line-height: 28px !important;
+  display: none;
+}
+
+.zoom:hover section {
+  display: block;
+  transition: all 1s ease-in;
+}
+/* new card */

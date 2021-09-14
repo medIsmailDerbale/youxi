@@ -2,14 +2,56 @@ const Category = require("../models/categoryModel");
 const Product = require("../models/productModel");
 const APIFeatures = require("../utils/apiFeatures");
 const AppError = require("../utils/appError");
-
+const multer = require("multer");
 const catchAsync = require("../utils/catchAsync");
+const sharp = require("sharp");
+
+// const multerStorage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "public/img");
+//   },
+//   filename: (req, file, cb) => {
+//     const ext = file.mimetype.split("/")[1];
+//     cb(null, );
+//   },
+// });
+
+const multerStorage = multer.memoryStorage();
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+  } else cb(new AppError("not an image please an image file", 400), false);
+};
+
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+exports.uploadProductImage = upload.single("photo");
+
+exports.resizeImage = (req, res, next) => {
+  if (!req.file) return next();
+
+  req.file.filename = `${req.body.name}.jpeg`;
+  sharp(req.file.buffer)
+    .resize(380, 380)
+    .toFormat("jpeg")
+    .jpeg({ quality: 90 })
+    .toFile(`public/img/${req.file.filename}`);
+
+  next();
+};
 
 exports.createProduct = catchAsync(async (req, res, next) => {
+  console.log(req.file);
+  console.log(req.body);
   const categoryId = req.body.category;
   const cat = await Category.findById(categoryId);
 
   delete req.body.category;
+  if (req.file) req.body.imageCover = `/img/${req.file.filename}`;
   const newProduct = await Product.create(req.body);
   cat.products.push(newProduct);
   await cat.save();

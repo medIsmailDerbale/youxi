@@ -29,20 +29,11 @@ const importData = async (id) => {
   }
 };
 
-const addProduct = async (name, price, quantity, description, category) => {
+const addProduct = async (form) => {
   try {
     const res = await fetch("/api/v1/products", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        price,
-        quantity,
-        description,
-        category,
-      }),
+      body: form,
     });
     if ((await res.status) === 201) {
       showAlert("success", "Product added successfully");
@@ -116,15 +107,25 @@ document.getElementById("patchBtn").addEventListener("click", (e) => {
 
 document.getElementById("addBtn").addEventListener("click", (e) => {
   e.preventDefault();
-  const name = document.getElementById("name").value;
-  const price = document.getElementById("Price").value;
-  const quantity = document.getElementById("Quantity").value;
-  const description = document.getElementById("Description").value;
-  const category = document.getElementById("Category").value;
-  if (category === "Choose Category...") {
+  const form = new FormData();
+  form.append("name", document.getElementById("name").value);
+  form.append("price", document.getElementById("Price").value);
+  form.append("quantity", document.getElementById("Quantity").value);
+  form.append("description", document.getElementById("Description").value);
+
+  if (document.getElementById("Category").value === "Choose Category...") {
     showAlert("error", "Please choose a category");
   } else {
-    addProduct(name, price, quantity, description, category);
+    form.append("category", document.getElementById("Category").value);
+    if (document.getElementById("Image").value === "")
+      showAlert("error", "Please choose an Image");
+    else {
+      form.append("photo", document.getElementById("Image").files[0]);
+      for (var pair of form.entries()) {
+        console.log(pair[0], pair[1]);
+      }
+      addProduct(form);
+    }
   }
 });
 
