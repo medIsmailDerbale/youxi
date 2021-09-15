@@ -90,7 +90,6 @@ app.use("/api/v1/products", productsRouter);
 app.use("/api/v1/categories", categoriesRouter);
 app.use("/api/v1/cart", panierRouter);
 app.use("/api/v1/order", orderRoute);
-app.use("/api/v1/reviews", reviewRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
