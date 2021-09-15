@@ -22,17 +22,6 @@ const productSchema = mongoose.Schema(
       required: [true, "product must have a description"],
       trim: true,
     },
-    ratingsQuantity: {
-      type: Number,
-      default: 0,
-    },
-    ratingsAverage: {
-      type: Number,
-      default: 4.5,
-      min: [1, "Rating must be above 1.0"],
-      max: [5, "Rating must be below 5.0"],
-      set: (val) => Math.round(val * 10) / 10, // 4.666666, 46.6666, 47, 4.7
-    },
     addedAt: {
       type: Date,
       default: Date.now(),
