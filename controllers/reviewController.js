@@ -1,13 +1,16 @@
-const Review = require('./../models/reviewModel');
-const factory = require('./handlerFactory');
-// const catchAsync = require('./../utils/catchAsync');
+const Review = require("./../models/reviewModel");
+const factory = require("./handlerFactory");
+const catchAsync = require("./../utils/catchAsync");
+const { promisify } = require("util");
+const jwt = require("jsonwebtoken");
 
-exports.setTourUserIds = (req, res, next) => {
+exports.setProductUserIds = catchAsync(async (req, res, next) => {
   // Allow nested routes
-  if (!req.body.tour) req.body.tour = req.params.tourId;
-  if (!req.body.user) req.body.user = req.user.id;
+  let token = req.cookies.jwt;
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  if (!req.body.user) req.body.user = decoded._id;
   next();
-};
+});
 
 exports.getAllReviews = factory.getAll(Review);
 exports.getReview = factory.getOne(Review);
