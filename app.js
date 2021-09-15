@@ -18,7 +18,6 @@ const categoriesRouter = require("./routes/categoryRoutes");
 const viewRouter = require("./routes/viewRoutes");
 const panierRouter = require("./routes/panierRouter");
 const orderRoute = require("./routes/orderRoute");
-const reviewRouter = require("./routes/reviewRoutes");
 
 const app = express();
 
